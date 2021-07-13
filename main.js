@@ -14,7 +14,7 @@ function createWindow() {
   win.loadFile(path.join(__dirname, "/dist/composite/index.html"));
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  win.webContents.openDevTools();
 }
 
 app.whenReady().then(() => {
