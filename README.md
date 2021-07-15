@@ -19,6 +19,16 @@ Run `npm start` to build the Angular code and run the Electron app.
 
 ## Tools
 
+### Reloading
+
+When running through NPM, Composite will run with hot reloading by default. When modifying Composite, hot reloading will only reload parts of the application that were modified. This mode can also be started with the npm script `start:hot-reload`.
+
+Another option is to run Composite with live reloading. When modifying Composite, live reloading will reload the whole page when a file is modified. This mode can be started with the npm script `start:live-reload`.
+
+To run Composite without reloading, use the npm script `start:file`. This will load the web page from a file, and more closely resembles how it runs when packaged as an individual executable.
+
+Note that when using reloading, it serves the Angular pages on port 4200.
+
 ### Linting
 
 Linting is done using eslint and Prettier for .js, .ts, and .html files, and .scss files are linted with stylelint.
