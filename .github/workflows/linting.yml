@@ -3,7 +3,7 @@ name: Linting
 on: [push, pull_request]
 
 jobs:
-  linting:
+  eslint:
     name: eslint (.js/.ts/.html)
     runs-on: ubuntu-18.04
     steps:
@@ -24,7 +24,7 @@ jobs:
       - run: npm install
       - name: eslint (.js/.ts/.html)
         run: npm run lint:eslint -- --max-warnings=0
-  linting:
+  stylelint:
     name: stylelint (.scss)
     runs-on: ubuntu-18.04
     steps:
