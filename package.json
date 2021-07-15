@@ -4,7 +4,9 @@
   "main": "main.js",
   "scripts": {
     "start": "ng build --base-href ./ && electron .",
-    "lint": "ng lint"
+    "lint": "npm run lint:eslint && npm run lint:stylelint",
+    "lint:eslint": "ng lint",
+    "lint:stylelint": "stylelint \"src/**/*.scss\""
   },
   "private": true,
   "dependencies": {
@@ -45,6 +47,8 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "prettier": "^2.3.2",
     "prettier-eslint": "^12.0.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
     "typescript": "~4.2.3"
   }
 }

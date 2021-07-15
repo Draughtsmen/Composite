@@ -3,7 +3,8 @@ name: Linting
 on: [push, pull_request]
 
 jobs:
-  eslint:
+  linting:
+    name: Linting (.js/.ts/.html/.scss)
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -12,4 +13,7 @@ jobs:
           cache: "npm"
       - run: npm install --save-dev @angular/cli
       - run: npm install
-      - run: npm run lint -- --max-warnings=0
+      - name: eslint (.js/.ts/.html)
+        run: npm run lint:eslint -- --max-warnings=0
+      - name: stylelint (.scss)
+        run: npm run lint:stylelint

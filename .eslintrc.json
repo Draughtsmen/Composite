@@ -49,12 +49,22 @@
     },
     {
       "files": [
-        "*.html"
+        "*.html",
+        "*.component.html"
       ],
       "extends": [
-        "plugin:@angular-eslint/template/recommended"
+        "plugin:@angular-eslint/template/recommended",
+        "prettier"
       ],
-      "rules": {}
+      "plugins": ["prettier"],
+      "rules": {
+        "prettier/prettier": [
+          "warn",
+          {
+            "endOfLine": "auto"
+          }
+        ]
+      }
     }
   ]
 }
