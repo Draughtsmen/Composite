@@ -28,3 +28,15 @@ Another option is to run Composite with live reloading. When modifying Composite
 To run Composite without reloading, use the npm script `start:file`. This will load the web page from a file, and more closely resembles how it runs when packaged as an individual executable.
 
 Note that when using reloading, it serves the Angular pages on port 4200.
+
+### Linting
+
+Linting is done using eslint and Prettier for .js, .ts, and .html files, and .scss files are linted with stylelint.
+
+Checking for syntax issues in .js/.ts/.html files can be done with the npm script `lint:eslint` and automatic fixes can be attempted with `lint:eslint-fix`.
+
+Checking for syntax issues in .scss files can be done with the npm script `lint:stylelint` and automatic fixes can be attempted with `lint:stylelint-fix`.
+
+Checking for both can be done with the npm script `lint` and automatic fixes can be attempted with `lint:fix`.
+
+(Syntax for running scripts is `npm run <script>`)
