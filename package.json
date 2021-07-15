@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "main": "main.js",
   "scripts": {
-    "start": "ng build --base-href ./ && electron ."
+    "start": "npm run start:hot-reload",
+    "start:hot-reload": "cross-env ANGULAR_LOAD=server concurrently -k \"ng serve --hmr\" \"wait-on http://localhost:4200 && electron .\"",
+    "start:live-reload": "cross-env ANGULAR_LOAD=server concurrently -k \"ng serve\" \"wait-on http://localhost:4200 && electron .\"",
+    "start:file": "ng build --base-href ./ && electron ."
   },
   "private": true,
   "dependencies": {
@@ -25,6 +28,8 @@
     "@angular/compiler-cli": "~12.0.5",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
+    "concurrently": "^6.2.0",
+    "cross-env": "^7.0.3",
     "electron": "^13.1.4",
     "jasmine-core": "~3.7.0",
     "karma": "~6.3.0",
@@ -32,6 +37,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "typescript": "~4.2.3"
+    "typescript": "~4.2.3",
+    "wait-on": "^6.0.0"
   }
 }

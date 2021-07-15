@@ -11,7 +11,11 @@ function createWindow() {
     // },
   });
 
-  win.loadFile(path.join(__dirname, "/dist/composite/index.html"));
+  if (process.env.ANGULAR_LOAD === "server") {
+    win.loadURL("http://localhost:4200");
+  } else {
+    win.loadFile(path.join(__dirname, "/dist/composite/index.html"));
+  }
 
   // Open the DevTools.
   win.webContents.openDevTools();
