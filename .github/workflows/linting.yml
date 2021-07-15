@@ -4,16 +4,44 @@ on: [push, pull_request]
 
 jobs:
   linting:
-    name: Linting (.js/.ts/.html/.scss)
+    name: eslint (.js/.ts/.html)
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
+      - uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
         with:
-          cache: "npm"
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
       - run: npm install --save-dev @angular/cli
       - run: npm install
       - name: eslint (.js/.ts/.html)
         run: npm run lint:eslint -- --max-warnings=0
+  linting:
+    name: stylelint (.scss)
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - run: npm install --save-dev @angular/cli
+      - run: npm install
       - name: stylelint (.scss)
         run: npm run lint:stylelint
