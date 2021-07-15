@@ -1,5 +1,4 @@
-
 export interface Exportable {
-    //heading: string;
-    exportStub: (lang: JSON,  doc: JSON) => string;
+  //heading: string;
+  exportStub: (lang: JSON, doc: JSON) => string;
 }
