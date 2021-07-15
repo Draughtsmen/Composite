@@ -23,9 +23,9 @@ Run `npm start` to build the Angular code and run the Electron app.
 
 Linting is done using eslint and Prettier for .js, .ts, and .html files, and .scss files are linted with stylelint.
 
-Checking for syntax issues in .js/.ts/.html files can be done with the npm script `lint:eslint` and automatic fixes can be attempted with `lint:eslintfix`.
+Checking for syntax issues in .js/.ts/.html files can be done with the npm script `lint:eslint` and automatic fixes can be attempted with `lint:eslint-fix`.
 
-Checking for syntax issues in .scss files can be done with the npm script `lint:stylelint` and automatic fixes can be attempted with `lint:stylelintfix`.
+Checking for syntax issues in .scss files can be done with the npm script `lint:stylelint` and automatic fixes can be attempted with `lint:stylelint-fix`.
 
 Checking for both can be done with the npm script `lint` and automatic fixes can be attempted with `lint:fix`.
 

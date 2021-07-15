@@ -9,7 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - uses: actions/cache@v2
+      - name: Cache Node Modules
+        uses: actions/cache@v2
         env:
           cache-name: cache-node-modules
         with:
@@ -20,9 +21,11 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - run: npm install --save-dev @angular/cli
-      - run: npm install
-      - name: eslint (.js/.ts/.html)
+      - name: Install Angular CLI
+        run: npm install --save-dev @angular/cli
+      - name: Install dependencies
+        run: npm install
+      - name: Run eslint (.js/.ts/.html)
         run: npm run lint:eslint -- --max-warnings=0
   stylelint:
     name: stylelint (.scss)
@@ -30,7 +33,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - uses: actions/cache@v2
+      - name: Cache Node Modules
+        uses: actions/cache@v2
         env:
           cache-name: cache-node-modules
         with:
@@ -41,7 +45,9 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - run: npm install --save-dev @angular/cli
-      - run: npm install
-      - name: stylelint (.scss)
+      - name: Install Angular CLI
+        run: npm install --save-dev @angular/cli
+      - name: Install dependencies
+        run: npm install
+      - name: Run stylelint (.scss)
         run: npm run lint:stylelint
