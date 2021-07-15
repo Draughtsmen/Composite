@@ -5,8 +5,11 @@
   "scripts": {
     "start": "ng build --base-href ./ && electron .",
     "lint": "npm run lint:eslint && npm run lint:stylelint",
+    "lint:fix": "npm run lint:eslintfix && npm run lint:stylelintfix",
     "lint:eslint": "ng lint",
-    "lint:stylelint": "stylelint \"src/**/*.scss\""
+    "lint:eslintfix": "npm run lint:eslint -- --fix",
+    "lint:stylelint": "stylelint \"src/**/*.scss\"",
+    "lint:stylelintfix": "npm run lint:stylelint -- --fix"
   },
   "private": true,
   "dependencies": {
