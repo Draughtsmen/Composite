@@ -4,12 +4,12 @@ export interface LanguageSupportFormat {
     singleCommentRule: string;
 }
 
-interface type{
+interface type {
     type: string;
     format: string;
 }
 
-interface template{
+interface template {
     name: string;
     format: string;
 }
