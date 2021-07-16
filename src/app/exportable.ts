@@ -1,4 +1,6 @@
+import { LanguageSupportFormat } from "./language-support-format";
+
 export interface Exportable {
   //heading: string;
-  exportStub: (lang: JSON, doc: JSON) => string;
+  exportStub: (lang: LanguageSupportFormat, doc: JSON) => string;
 }

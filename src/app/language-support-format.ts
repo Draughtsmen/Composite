@@ -1,6 +1,6 @@
 export interface LanguageSupportFormat {
-  types: type[];
-  templates: template[];
+  types: Array<type>;
+  templates: Array<template>;
   singleCommentRule: string;
 }
 
