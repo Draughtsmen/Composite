@@ -16,4 +16,3 @@ interface template {
   name: string;
   format: string;
 }
-
