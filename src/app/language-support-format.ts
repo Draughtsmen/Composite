@@ -2,7 +2,9 @@
 export interface LanguageSupportFormat {
   types: Array<type>;
   templates: Array<template>;
+  modifiers: Array<string>;
   singleCommentRule: string;
+  multiCommentRule: string;
 }
 // A helper interface to store types ('int', 'string', etc.)
 interface type {
@@ -14,3 +16,4 @@ interface template {
   name: string;
   format: string;
 }
+
