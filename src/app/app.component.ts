@@ -10,7 +10,5 @@ import { LanguageSupportFormat } from './language-support-format';
 export class AppComponent {
   title = 'composite';
 
-  constructor() {
-    
-  }
+  constructor() {}
 }
