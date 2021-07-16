@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CompositeClass } from './composite-class';
+import { LanguageSupportFormat } from './language-support-format';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,5 @@ import { CompositeClass } from './composite-class';
 export class AppComponent {
   title = 'composite';
 
-  constructor() {
-    let test = new CompositeClass('testname');
-  }
+  constructor() {}
 }
