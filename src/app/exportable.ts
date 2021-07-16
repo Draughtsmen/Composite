@@ -1,4 +1,4 @@
-import { LanguageSupportFormat } from "./language-support-format";
+import { LanguageSupportFormat } from './language-support-format';
 
 export interface Exportable {
   //heading: string;

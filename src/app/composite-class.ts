@@ -3,13 +3,13 @@ import { Exportable } from './exportable';
 import { LanguageSupportFormat } from './language-support-format';
 
 export class CompositeClass implements Exportable {
-  private readonly term: string = "class";
+  private readonly term: string = 'class';
   private name: string;
   private prefix: string;
   private postfix: string;
   private memberVariables: string[];
 
-  constructor(n: string, before:string, after:string) {
+  constructor(n: string, before: string, after: string) {
     this.name = n;
     this.prefix = before;
     this.postfix = after;
@@ -17,10 +17,11 @@ export class CompositeClass implements Exportable {
   }
 
   exportStub(lang: LanguageSupportFormat, doc: JSON) {
-    let stub: string | undefined = lang.templates.find(i => i.name == this.term)?.format;
+    let stub: string | undefined = lang.templates.find(
+      (i) => i.name == this.term
+    )?.format;
     if (stub != undefined)
-      return stub.replace("$1", this.prefix + this.name + this.postfix);
-    else
-      return "Critical failure: could not find type " + this.term + ".";
+      return stub.replace('$1', this.prefix + this.name + this.postfix);
+    else return 'Critical failure: could not find type ' + this.term + '.';
   }
 }
