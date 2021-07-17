@@ -8,6 +8,10 @@
 			"type:": "real",
 			"format": "1# = 2#;"
 		},
+		{
+			"type": "array",
+			"format": "1 = array_create(2);"
+		}
         {
             "type": "boolean",
             "format": "1# = 2#;"
