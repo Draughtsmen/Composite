@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Exportable } from '../../classes/exportable';
+import { Composite } from '../../classes/composite';
 import { LanguageSupportFormat } from '../../classes/language-support-format';
 
 @Injectable({
@@ -7,20 +7,20 @@ import { LanguageSupportFormat } from '../../classes/language-support-format';
 })
 export class CompositeExportService {
 
-  language: LanguageSupportFormat;
-  documentation: JSON;
+  public language: LanguageSupportFormat;
+  public documentation: JSON;
 
   constructor(l: LanguageSupportFormat, d: JSON) {
     this.language = l;
     this.documentation = d;
   }
 
-  /// @func export(e)
-  /// @desc Runs exportStub on any provided Exportable object.
-  /// @arg {Exportable} e
+  /// @func export(compositeObj)
+  /// @desc Runs exportStub on any provided Composite object.
+  /// @arg {Composite} compositeObj
 
-  export(e: Exportable): string {
-    return e.exportStub(this.language, this.documentation);
+  export(compositeObj: Composite): string {
+    return compositeObj.exportStub(this.language, this.documentation);
   }
   
 }

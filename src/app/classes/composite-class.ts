@@ -1,16 +1,18 @@
 import { TokenType } from '@angular/compiler/src/ml_parser/lexer';
-import { Exportable } from './exportable';
+import { Composite } from './composite';
 import { LanguageSupportFormat } from './language-support-format';
 
-export class CompositeClass implements Exportable {
+export class CompositeClass extends Composite {
 
-  private readonly term: string = 'class';
+  private readonly type: string = 'class';
   private name: string;
   private prefix: string;
   private postfix: string;
   private memberVariables: string[];
 
   constructor(n: string, before: string, after: string) {
+    super();
+
     this.name = n;
     this.prefix = before;
     this.postfix = after;
@@ -22,17 +24,14 @@ export class CompositeClass implements Exportable {
   /// @arg {LanguageSupportFormat} lang
   /// @arg {JSON} doc
 
-  exportStub(lang: LanguageSupportFormat, doc: JSON) {
-    // Get the language formatting for classes in this language.
-    let stub: string | undefined = lang.templates.find(
-      (i) => i.name == this.term
-    )?.format;
+  exportStub(lang: LanguageSupportFormat, doc: JSON): string {
+    let stub = this.getFormat(lang, this.type);
 
-    // Ensure the language stub format exists, fail otherwise.
-    if (stub != undefined)
+    // Fills in the class stub is there is one to work off of.
+    if(stub != undefined) {
       return stub.replace('$1', this.prefix + this.name + this.postfix);
-    else
-      return 'Critical failure: could not find type ' + this.term + '.';
+    }
+    else return 'Critical failure: could not find type ' + this.type + '.';
   }
 
 }

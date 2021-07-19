@@ -1,9 +1,13 @@
 import { LanguageSupportFormat } from './language-support-format';
 
-// An interface to enforce proper output for code templates
+// An interface to enforce proper output for various code templates.
 export interface Exportable {
 
-  // Takes in language information and documentation and returns a string representing the code template
+  /// @func exportStub(lang, doc)
+  /// @desc Intended to generate code stubs and documentation.
+  /// @arg {LanguageSupportFormat} lang
+  /// @arg {JSON} doc
+
   exportStub: (lang: LanguageSupportFormat, doc: JSON) => string;
   
 }
