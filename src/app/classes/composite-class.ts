@@ -3,7 +3,6 @@ import { Composite } from './composite';
 import { LanguageSupportFormat } from './language-support-format';
 
 export class CompositeClass extends Composite {
-
   private readonly type: string = 'class';
   private name: string;
   private prefix: string;
@@ -28,10 +27,8 @@ export class CompositeClass extends Composite {
     let stub = this.getFormat(lang, this.type);
 
     // Fills in the class stub is there is one to work off of.
-    if(stub != undefined) {
+    if (stub != undefined) {
       return stub.replace('$1', this.prefix + this.name + this.postfix);
-    }
-    else return 'Critical failure: could not find type ' + this.type + '.';
+    } else return 'Critical failure: could not find type ' + this.type + '.';
   }
-
 }

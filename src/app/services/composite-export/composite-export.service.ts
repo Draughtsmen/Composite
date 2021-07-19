@@ -6,7 +6,6 @@ import { LanguageSupportFormat } from '../../classes/language-support-format';
   providedIn: 'root',
 })
 export class CompositeExportService {
-
   public language: LanguageSupportFormat;
   public documentation: JSON;
 
@@ -22,5 +21,4 @@ export class CompositeExportService {
   export(compositeObj: Composite): string {
     return compositeObj.exportStub(this.language, this.documentation);
   }
-  
 }

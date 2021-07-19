@@ -2,7 +2,6 @@ import { Composite } from './composite';
 import { LanguageSupportFormat } from './language-support-format';
 
 export class CompositeGroup extends Composite {
-
   private composite: Composite[];
 
   constructor() {
@@ -16,9 +15,9 @@ export class CompositeGroup extends Composite {
   /// @arg {JSON} doc
 
   exportStub(lang: LanguageSupportFormat, doc: JSON): string {
-    let output: string = "";
-    for(var i = 0; i < this.composite.length; ++i) {
-      output += this.composite[i].exportStub(lang, doc) + "\n\n"; 
+    let output: string = '';
+    for (var i = 0; i < this.composite.length; ++i) {
+      output += this.composite[i].exportStub(lang, doc) + '\n\n';
     }
     return output;
   }
@@ -30,5 +29,4 @@ export class CompositeGroup extends Composite {
   addExportableObject(obj: Composite) {
     this.composite.push(obj);
   }
-
 }

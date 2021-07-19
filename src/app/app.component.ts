@@ -8,7 +8,6 @@ import { LanguageSupportFormat } from './classes/language-support-format';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-
   title = 'composite';
 
   constructor() {
@@ -25,5 +24,4 @@ export class AppComponent {
 
     console.log(finallyaclass.exportStub(j, JSON.parse(test)));
   }
-
 }
