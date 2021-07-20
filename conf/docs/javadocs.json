@@ -1,0 +1,36 @@
+{
+    "specs": [
+        {
+            "spec": "description",
+            "format": "1"
+        },
+        {
+            "spec": "parameter",
+            "format": "@param 1\t2"
+        },
+        {
+            "spec": "return",
+            "format": "@return 1"
+        },
+        {
+            "spec": "exception",
+            "format": "@exception 1"
+        },
+        {
+            "spec": "see",
+            "format": "@see 1"
+        }
+    ],
+
+    "container": [
+        {
+            "opener": "/**"
+        },
+        {
+            "middle": "* "   
+        },
+        {
+            "end": "*/"
+        }
+    ]
+}
