@@ -5,7 +5,7 @@ export class CompositeGroup extends Composite {
   private composite: Composite[];
 
   constructor() {
-    super();
+    super('group');
     this.composite = new Array<Composite>();
   }
 

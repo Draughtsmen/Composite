@@ -1,6 +1,12 @@
 import { LanguageSupportFormat } from './language-support-format';
 
 export abstract class Composite {
+  protected readonly type: string;
+
+  constructor(type: string) {
+    this.type = type;
+  }
+
   /// @func generateStub(lang, doc)
   /// @desc Generates a Composite type's code stub and documentation.
   /// @arg {LanguageSupportFormat} lang
