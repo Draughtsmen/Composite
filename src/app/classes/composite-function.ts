@@ -2,11 +2,11 @@ import { Composite } from './composite';
 import { LanguageSupportFormat } from './language-support-format';
 
 export class CompositeFunction extends Composite {
-  private name:    string;
+  private name: string;
   private retType: string;
-  private args:    string[];
+  private args: string[];
 
-  constructor(r: string, n: string, a:string[]) {
+  constructor(r: string, n: string, a: string[]) {
     super('function');
     this.retType = r;
     this.name = n;
@@ -23,9 +23,9 @@ export class CompositeFunction extends Composite {
 
     // Fills in the function stub if there is one to work off of.
     if (stub != undefined) {
-      stub = stub.replace("1", this.name);
-      stub = stub.replace("2", this.args.join(', '));
-      stub = stub.replace("3", this.retType);
+      stub = stub.replace('1', this.name);
+      stub = stub.replace('2', this.args.join(', '));
+      stub = stub.replace('3', this.retType);
       return stub;
     } else return 'Critical failure: could not find type ' + this.type + '.';
   }
