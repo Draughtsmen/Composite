@@ -9,15 +9,15 @@ export class CompositeGroup extends Composite {
     this.composite = new Array<Composite>();
   }
 
-  /// @func exportStub(lang, doc)
+  /// @func generateStub(lang, doc)
   /// @desc Sequentially generates contained exportable objects' stubs and docs.
   /// @arg {LanguageSupportFormat} lang
   /// @arg {JSON} doc
 
-  exportStub(lang: LanguageSupportFormat, doc: JSON): string {
+  generateStub(lang: LanguageSupportFormat, doc: JSON): string {
     let output: string = '';
     for (var i = 0; i < this.composite.length; ++i) {
-      output += this.composite[i].exportStub(lang, doc) + '\n\n';
+      output += this.composite[i].generateStub(lang, doc) + '\n\n';
     }
     return output;
   }

@@ -1,13 +1,12 @@
-import { Exportable } from './exportable';
 import { LanguageSupportFormat } from './language-support-format';
 
-export abstract class Composite implements Exportable {
-  /// @func exportStub(lang, doc)
+export abstract class Composite {
+  /// @func generateStub(lang, doc)
   /// @desc Generates a Composite type's code stub and documentation.
   /// @arg {LanguageSupportFormat} lang
   /// @arg {JSON} doc
 
-  exportStub(lang: LanguageSupportFormat, doc: JSON): string {
+  generateStub(lang: LanguageSupportFormat, doc: JSON): string {
     return 'ERROR: exportStub() NOT OVERRIDDEN.';
   }
 

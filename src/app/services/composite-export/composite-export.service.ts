@@ -19,6 +19,6 @@ export class CompositeExportService {
   /// @arg {Composite} compositeObj
 
   export(compositeObj: Composite): string {
-    return compositeObj.exportStub(this.language, this.documentation);
+    return compositeObj.generateStub(this.language, this.documentation);
   }
 }

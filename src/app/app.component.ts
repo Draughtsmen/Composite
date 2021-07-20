@@ -22,6 +22,6 @@ export class AppComponent {
       ' : mysuperclass '
     );
 
-    console.log(finallyaclass.exportStub(j, JSON.parse(test)));
+    console.log(finallyaclass.generateStub(j, JSON.parse(test)));
   }
 }

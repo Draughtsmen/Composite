@@ -1,4 +1,3 @@
-import { TokenType } from '@angular/compiler/src/ml_parser/lexer';
 import { Composite } from './composite';
 import { LanguageSupportFormat } from './language-support-format';
 
@@ -18,12 +17,12 @@ export class CompositeClass extends Composite {
     this.memberVariables = new Array<string>();
   }
 
-  /// @func exportStub(lang, doc)
+  /// @func generateStub(lang, doc)
   /// @desc Generates Class stub and documentation in a provided language.
   /// @arg {LanguageSupportFormat} lang
   /// @arg {JSON} doc
 
-  exportStub(lang: LanguageSupportFormat, doc: JSON): string {
+  generateStub(lang: LanguageSupportFormat, doc: JSON): string {
     let stub = this.getFormat(lang, this.type);
 
     // Fills in the class stub is there is one to work off of.
