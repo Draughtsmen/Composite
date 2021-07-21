@@ -1,0 +1,22 @@
+{
+    "specs": [
+        {
+            "spec": "function",
+            "format": "@function 1(2)"
+        },
+        {
+            "spec": "description",
+            "format": "@description 1"
+        },
+        {
+            "spec": "param",
+            "format": "@param {1} 2 3"
+        }
+    ],
+
+    "container": [
+        {
+            "prefix": "/// "   
+        }
+    ]
+}
