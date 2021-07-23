@@ -1,4 +1,5 @@
 import { LanguageSupportFormat } from './language-support-format';
+import { DocumentSupportFormat } from './document-support-format';
 
 export abstract class Composite {
   protected readonly type: string;
@@ -14,9 +15,9 @@ export abstract class Composite {
   /// @func generateStub(lang, doc)
   /// @desc Generates a Composite type's code stub and documentation.
   /// @arg {LanguageSupportFormat} lang
-  /// @arg {JSON} doc
+  /// @arg {DocumentSupportFormat} doc
 
-  generateStub(lang: LanguageSupportFormat, doc: JSON): string {
+  generateStub(lang: LanguageSupportFormat, doc: DocumentSupportFormat): string {
     return 'ERROR: exportStub() NOT OVERRIDDEN.';
   }
 
@@ -35,7 +36,7 @@ export abstract class Composite {
     return this.name;
   }
   
-  setName(name: string): void {
-    this.name = name;
+  setName(newName: string): void {
+    this.name = newName;
   }
 }

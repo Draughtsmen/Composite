@@ -1,5 +1,6 @@
 import { Composite } from './composite';
 import { LanguageSupportFormat } from './language-support-format';
+import { DocumentSupportFormat } from './document-support-format';
 
 export class CompositeGroup extends Composite {
   private composite: Composite[];
@@ -12,9 +13,9 @@ export class CompositeGroup extends Composite {
   /// @func generateStub(lang, doc)
   /// @desc Sequentially generates contained exportable objects' stubs and docs.
   /// @arg {LanguageSupportFormat} lang
-  /// @arg {JSON} doc
+  /// @arg {DocumentSupportFormat} doc
 
-  generateStub(lang: LanguageSupportFormat, doc: JSON): string {
+  generateStub(lang: LanguageSupportFormat, doc: DocumentSupportFormat): string {
     let output: string = '';
     for (var i = 0; i < this.composite.length; ++i) {
       output += this.composite[i].generateStub(lang, doc) + '\n\n';

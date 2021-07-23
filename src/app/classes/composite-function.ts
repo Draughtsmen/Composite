@@ -1,5 +1,6 @@
 import { Composite } from './composite';
 import { LanguageSupportFormat } from './language-support-format';
+import { DocumentSupportFormat } from './document-support-format';
 
 export class CompositeFunction extends Composite {
   private retType: string;
@@ -14,9 +15,9 @@ export class CompositeFunction extends Composite {
   /// @func generateStub(lang, doc)
   /// @desc Generates Function stub and documentation in a provided language.
   /// @arg {LanguageSupportFormat} lang
-  /// @arg {JSON} doc
+  /// @arg {DocumentSupportFormat} doc
 
-  generateStub(lang: LanguageSupportFormat, doc: JSON): string {
+  generateStub(lang: LanguageSupportFormat, doc: DocumentSupportFormat): string {
     let stub = this.getFormat(lang, this.type);
 
     // Fills in the function stub if there is one to work off of.
