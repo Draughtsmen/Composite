@@ -4,8 +4,8 @@ import { LanguageSupportFormat } from './language-support-format';
 export class CompositeGroup extends Composite {
   private composite: Composite[];
 
-  constructor() {
-    super('group');
+  constructor(name: string) {
+    super(name, 'group');
     this.composite = new Array<Composite>();
   }
 

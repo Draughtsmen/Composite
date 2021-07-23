@@ -2,15 +2,13 @@ import { Composite } from './composite';
 import { LanguageSupportFormat } from './language-support-format';
 
 export class CompositeFunction extends Composite {
-  private name: string;
   private retType: string;
   private args: string[];
 
-  constructor(r: string, n: string, a: string[]) {
-    super('function');
-    this.retType = r;
-    this.name = n;
-    this.args = a;
+  constructor(name: string, returnType: string, args: string[]) {
+    super(name, 'function');
+    this.retType = returnType;
+    this.args = args;
   }
 
   /// @func generateStub(lang, doc)

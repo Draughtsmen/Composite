@@ -2,14 +2,12 @@ import { Composite } from './composite';
 import { LanguageSupportFormat } from './language-support-format';
 
 export class CompositeClass extends Composite {
-  private name: string;
   private prefix: string;
   private postfix: string;
   private memberVariables: string[];
 
-  constructor(n: string, before: string, after: string) {
-    super('class');
-    this.name = n;
+  constructor(name: string, before: string, after: string) {
+    super(name, 'class');
     this.prefix = before;
     this.postfix = after;
     this.memberVariables = new Array<string>();
