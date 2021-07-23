@@ -2,11 +2,11 @@ import { Composite } from './composite';
 import { LanguageSupportFormat } from './language-support-format';
 import { DocumentSupportFormat } from './document-support-format';
 
-export class CompositeGroup extends Composite {
+export class CompositeExportableObject extends Composite {
   private composite: Composite[];
 
   constructor(name: string) {
-    super(name, 'group');
+    super(name, 'ExportableObject');
     this.composite = new Array<Composite>();
   }
 
@@ -24,10 +24,31 @@ export class CompositeGroup extends Composite {
   }
 
   /// @func addExportableObject(obj)
-  /// @desc Adds an object for the group to track.
-  /// @arg {Exportable} obj
+  /// @desc Adds a new Composite object to track.
+  /// @arg {CompositeExportableObject} obj
 
-  addExportableObject(obj: Composite) {
+  addExportableObject(obj: Composite): void {
     this.composite.push(obj);
   }
+
+  /// @func removeExportableObject(name)
+  /// @desc Removes a Composite object from the group.
+  /// @arg {string} name
+
+  removeExportableObject(name: string): void {
+    let ExportableObject = this.composite.find(
+      item => item.getName() == name
+    );
+    if(ExportableObject)
+      this.composite.splice(this.composite.indexOf(ExportableObject), 1);
+  }
+
+  /// @func getExportableObject(name)
+  /// @desc Returns the specified Composite object from the group.
+  /// @arg {string} name
+
+  getExportableObject(name: string): Composite | undefined {
+    return this.composite.find(item => item.getName() == name);
+  }
+
 }

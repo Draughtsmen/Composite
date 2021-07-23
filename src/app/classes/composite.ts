@@ -10,8 +10,6 @@ export abstract class Composite {
     this.type = type;
   }
 
-  // ACCESSORS //
-
   /// @func generateStub(lang, doc)
   /// @desc Generates a Composite type's code stub and documentation.
   /// @arg {LanguageSupportFormat} lang
@@ -29,8 +27,6 @@ export abstract class Composite {
   getFormat(lang: LanguageSupportFormat, type: string): string | undefined {
     return lang.templates.find((i) => i.name == type)?.format;
   }
-
-  // GETTERS AND SETTERS //
 
   getName(): string {
     return this.name;
