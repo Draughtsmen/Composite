@@ -2,11 +2,11 @@ import { Composite } from './composite';
 import { LanguageSupportFormat } from './language-support-format';
 import { DocumentSupportFormat } from './document-support-format';
 
-export class CompositeExportableObject extends Composite {
+export class CompositeGroup extends Composite {
   private composite: Composite[];
 
   constructor(name: string) {
-    super(name, 'ExportableObject');
+    super(name, 'group');
     this.composite = new Array<Composite>();
   }
 
@@ -50,5 +50,4 @@ export class CompositeExportableObject extends Composite {
   getExportableObject(name: string): Composite | undefined {
     return this.composite.find(item => item.getName() == name);
   }
-
 }

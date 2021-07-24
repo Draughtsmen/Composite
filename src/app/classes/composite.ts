@@ -28,10 +28,17 @@ export abstract class Composite {
     return lang.templates.find((i) => i.name == type)?.format;
   }
 
+  /// @func getName()
+  /// @desc Returns the project name.
+
   getName(): string {
     return this.name;
   }
   
+  /// @func setName(newName)
+  /// @desc Sets a new name for the component.
+  /// @arg {string} newName
+
   setName(newName: string): void {
     this.name = newName;
   }
