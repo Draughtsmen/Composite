@@ -24,7 +24,10 @@ export class CompositeClass extends Composite {
   /// @arg {LanguageSupportFormat} lang
   /// @arg {DocumentSupportFormat} doc
 
-  generateStub(lang: LanguageSupportFormat, doc: DocumentSupportFormat): string {
+  generateStub(
+    lang: LanguageSupportFormat,
+    doc: DocumentSupportFormat
+  ): string {
     let stub = this.getFormat(lang, this.type);
 
     // Fills in the class stub if there is one to work off of.
@@ -39,7 +42,7 @@ export class CompositeClass extends Composite {
   getPrefix(): string {
     return this.prefix;
   }
-  
+
   /// @func setPrefix(newPrefix)
   /// @desc Sets a new prefix for the class.
   /// @arg {string} newPrefix
@@ -54,7 +57,7 @@ export class CompositeClass extends Composite {
   getPostfix(): string {
     return this.prefix;
   }
-  
+
   /// @func setPostfix(newPostfix)
   /// @desc Sets a new postfix for the class.
   /// @arg {string} newPostfix
@@ -83,8 +86,8 @@ export class CompositeClass extends Composite {
   /// @arg {string} variable
 
   removeMemberVariable(variable: string): void {
-    let memVar = this.memberVariables.find(item => item == variable);
-    if(memVar)
+    let memVar = this.memberVariables.find((item) => item == variable);
+    if (memVar)
       this.memberVariables.splice(this.memberVariables.indexOf(memVar), 1);
   }
 
@@ -94,8 +97,8 @@ export class CompositeClass extends Composite {
   /// @arg {string} newVariable
 
   modifyMemberVariable(variable: string, newVariable: string): void {
-    let oldVar = this.memberVariables.find(item => item == variable);
-    if(oldVar)
+    let oldVar = this.memberVariables.find((item) => item == variable);
+    if (oldVar)
       this.memberVariables[this.memberVariables.indexOf(oldVar)] = newVariable;
   }
 
@@ -119,8 +122,8 @@ export class CompositeClass extends Composite {
   /// @arg {string} name
 
   removeMemberFunction(name: string): void {
-    let memFunc = this.memberFunctions.find(item => item.getName() == name);
-    if(memFunc)
+    let memFunc = this.memberFunctions.find((item) => item.getName() == name);
+    if (memFunc)
       this.memberFunctions.splice(this.memberFunctions.indexOf(memFunc), 1);
   }
 
@@ -131,9 +134,14 @@ export class CompositeClass extends Composite {
   /// @arg {string[]} newArgs
   /// @arg {string} newReturnType
 
-  modifyMemberFunction(name: string, newName: string, newArgs: string[], newReturnType: string): void {
-    let func = this.memberFunctions.find(item => item.getName() == name);
-    if(func) {
+  modifyMemberFunction(
+    name: string,
+    newName: string,
+    newArgs: string[],
+    newReturnType: string
+  ): void {
+    let func = this.memberFunctions.find((item) => item.getName() == name);
+    if (func) {
       func.setName(newName);
       func.setArguments(newArgs);
       func.setReturnType(newReturnType);
@@ -160,9 +168,8 @@ export class CompositeClass extends Composite {
   /// @arg {string} name
 
   removeSubclass(name: string): void {
-    let subclass = this.subclasses.find(item => item.getName() == name);
-    if(subclass)
-      this.subclasses.splice(this.subclasses.indexOf(subclass), 1);
+    let subclass = this.subclasses.find((item) => item.getName() == name);
+    if (subclass) this.subclasses.splice(this.subclasses.indexOf(subclass), 1);
   }
 
   /// @func replaceSubclass(name, newCClass)
@@ -171,8 +178,8 @@ export class CompositeClass extends Composite {
   /// @arg {CompositeClass} newCClass
 
   replaceSubclass(name: string, newCClass: CompositeClass): void {
-    let oldSubclass = this.subclasses.find(item => item.getName() == name);
-    if(oldSubclass)
+    let oldSubclass = this.subclasses.find((item) => item.getName() == name);
+    if (oldSubclass)
       this.subclasses[this.subclasses.indexOf(oldSubclass)] = newCClass;
   }
 }

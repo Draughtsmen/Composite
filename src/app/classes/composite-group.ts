@@ -15,7 +15,10 @@ export class CompositeGroup extends Composite {
   /// @arg {LanguageSupportFormat} lang
   /// @arg {DocumentSupportFormat} doc
 
-  generateStub(lang: LanguageSupportFormat, doc: DocumentSupportFormat): string {
+  generateStub(
+    lang: LanguageSupportFormat,
+    doc: DocumentSupportFormat
+  ): string {
     let output: string = '';
     for (var i = 0; i < this.composite.length; ++i) {
       output += this.composite[i].generateStub(lang, doc) + '\n\n';
@@ -37,9 +40,9 @@ export class CompositeGroup extends Composite {
 
   removeExportableObject(name: string): void {
     let ExportableObject = this.composite.find(
-      item => item.getName() == name
+      (item) => item.getName() == name
     );
-    if(ExportableObject)
+    if (ExportableObject)
       this.composite.splice(this.composite.indexOf(ExportableObject), 1);
   }
 
@@ -48,6 +51,6 @@ export class CompositeGroup extends Composite {
   /// @arg {string} name
 
   getExportableObject(name: string): Composite | undefined {
-    return this.composite.find(item => item.getName() == name);
+    return this.composite.find((item) => item.getName() == name);
   }
 }

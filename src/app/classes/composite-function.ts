@@ -17,7 +17,10 @@ export class CompositeFunction extends Composite {
   /// @arg {LanguageSupportFormat} lang
   /// @arg {DocumentSupportFormat} doc
 
-  generateStub(lang: LanguageSupportFormat, doc: DocumentSupportFormat): string {
+  generateStub(
+    lang: LanguageSupportFormat,
+    doc: DocumentSupportFormat
+  ): string {
     let stub = this.getFormat(lang, this.type);
 
     // Fills in the function stub if there is one to work off of.

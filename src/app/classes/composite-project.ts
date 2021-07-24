@@ -9,7 +9,11 @@ export class CompositeProject {
   private lang: LanguageSupportFormat;
   private doc: DocumentSupportFormat;
 
-  constructor(name: string, lang: LanguageSupportFormat, doc: DocumentSupportFormat) {
+  constructor(
+    name: string,
+    lang: LanguageSupportFormat,
+    doc: DocumentSupportFormat
+  ) {
     this.files = new Array<CompositeGroup>();
     this.name = name;
     this.lang = lang;
@@ -42,9 +46,8 @@ export class CompositeProject {
   /// @arg {string} name
 
   removeGroup(name: string): void {
-    let group = this.files.find(item => item.getName() == name);
-    if(group)
-      this.files.splice(this.files.indexOf(group), 1);
+    let group = this.files.find((item) => item.getName() == name);
+    if (group) this.files.splice(this.files.indexOf(group), 1);
   }
 
   /// @func getGroup(name)
@@ -52,7 +55,7 @@ export class CompositeProject {
   /// @arg {string} name
 
   getGroup(name: string): CompositeGroup | undefined {
-    return this.files.find(item => item.getName() == name);
+    return this.files.find((item) => item.getName() == name);
   }
 
   /// @func getName()

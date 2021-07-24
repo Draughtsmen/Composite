@@ -15,7 +15,10 @@ export abstract class Composite {
   /// @arg {LanguageSupportFormat} lang
   /// @arg {DocumentSupportFormat} doc
 
-  generateStub(lang: LanguageSupportFormat, doc: DocumentSupportFormat): string {
+  generateStub(
+    lang: LanguageSupportFormat,
+    doc: DocumentSupportFormat
+  ): string {
     return 'ERROR: exportStub() NOT OVERRIDDEN.';
   }
 
@@ -34,7 +37,7 @@ export abstract class Composite {
   getName(): string {
     return this.name;
   }
-  
+
   /// @func setName(newName)
   /// @desc Sets a new name for the component.
   /// @arg {string} newName
