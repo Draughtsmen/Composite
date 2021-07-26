@@ -1,18 +1,24 @@
 import { LanguageSupportFormat } from './language-support-format';
+import { DocumentSupportFormat } from './document-support-format';
 
 export abstract class Composite {
   protected readonly type: string;
+  protected name: string;
 
-  constructor(type: string) {
+  constructor(name: string, type: string) {
+    this.name = name;
     this.type = type;
   }
 
   /// @func generateStub(lang, doc)
   /// @desc Generates a Composite type's code stub and documentation.
   /// @arg {LanguageSupportFormat} lang
-  /// @arg {JSON} doc
+  /// @arg {DocumentSupportFormat} doc
 
-  generateStub(lang: LanguageSupportFormat, doc: JSON): string {
+  generateStub(
+    lang: LanguageSupportFormat,
+    doc: DocumentSupportFormat
+  ): string {
     return 'ERROR: exportStub() NOT OVERRIDDEN.';
   }
 
@@ -23,5 +29,20 @@ export abstract class Composite {
 
   getFormat(lang: LanguageSupportFormat, type: string): string | undefined {
     return lang.templates.find((i) => i.name == type)?.format;
+  }
+
+  /// @func getName()
+  /// @desc Returns the project name.
+
+  getName(): string {
+    return this.name;
+  }
+
+  /// @func setName(newName)
+  /// @desc Sets a new name for the component.
+  /// @arg {string} newName
+
+  setName(newName: string): void {
+    this.name = newName;
   }
 }
