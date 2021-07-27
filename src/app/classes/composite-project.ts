@@ -28,7 +28,7 @@ export class CompositeProject {
   exportProject(): string {
     let output: string = '';
     for (var i = 0; i < this.files.length; ++i) {
-      output += this.files[i].generateStub(this.lang, this.doc) + '\n\n';
+      output += "//Start of file '" + this.files[i].getName() + "\'\n" + this.files[i].generateStub(this.lang, this.doc);
     }
     return output;
   }
@@ -78,9 +78,6 @@ export class CompositeProject {
     data["_type"] = "CompositeProject";
     
     data["name"] = this.name;
-    data["lang"] = this.lang;
-    data["doc"] = this.doc;
-
     data["files"] = [];
 
     for (let i = 0; i < this.files.length; i++) {

@@ -4,6 +4,7 @@ import { CompositeClass } from 'src/app/classes/composite-class';
 import { CompositeFunction } from 'src/app/classes/composite-function';
 import { CompositeGroup } from 'src/app/classes/composite-group';
 import { CompositeProject } from 'src/app/classes/composite-project';
+import { DocumentSupportFormat } from 'src/app/classes/document-support-format';
 import { Composite } from '../../classes/composite';
 import { LanguageSupportFormat } from '../../classes/language-support-format';
 
@@ -43,7 +44,7 @@ export class CompositeManagerService {
         "templates": [
           {
             "name": "function",
-            "format": "function 1(2) {\n#\treturn 3#\n}"
+            "format": "function 1(2) {\n\treturn3;\n}"
           },
           {
             "name": "script",
@@ -87,9 +88,9 @@ export class CompositeManagerService {
     return new CompositeProject(name, CompositeManagerService.LANGUAGE_INFO[language]["language"], CompositeManagerService.LANGUAGE_INFO[language]["docs"]);
   }
 
-  static deserializeProject(data: any): CompositeProject {
+  static deserializeProject(data: any, language: string): CompositeProject {
     if (data["_type"] === "CompositeProject") {
-      let composite: CompositeProject = new CompositeProject(data["name"], data["lang"], data["doc"]);
+      let composite: CompositeProject = new CompositeProject(data["name"], CompositeManagerService.LANGUAGE_INFO[language]["language"], CompositeManagerService.LANGUAGE_INFO[language]["docs"]);
       for (let i = 0; i < data["files"].length; i++) {
         composite.addGroup(<CompositeGroup>CompositeManagerService.deserialize(data["files"][i]));
       }

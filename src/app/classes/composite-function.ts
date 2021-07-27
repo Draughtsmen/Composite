@@ -38,7 +38,7 @@ export class CompositeFunction extends Composite {
     if (stub != undefined) {
       stub = stub.replace('1', this.name);
       stub = stub.replace('2', this.args.join(', '));
-      stub = stub.replace('3', this.returnType);
+      stub = stub.replace('3', this.returnType == '' ? '' : ' ' + this.returnType);
       return stub;
     } else return 'Critical failure: could not find type ' + this.type + '.';
   }

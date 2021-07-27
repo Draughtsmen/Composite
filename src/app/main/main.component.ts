@@ -65,7 +65,7 @@ export class MainComponent implements OnInit {
     ipcService.on('load-project-reply', (event, res) => {
       this.ngZone.run(() => {
         this.fullProject = res;
-        this.project = CompositeManagerService.deserializeProject(res["data"]);
+        this.project = CompositeManagerService.deserializeProject(res["data"], this.fullProject.language);
       })
     });
 
