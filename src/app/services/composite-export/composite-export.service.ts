@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DocumentSupportFormat } from 'src/app/classes/document-support-format';
 import { Composite } from '../../classes/composite';
 import { LanguageSupportFormat } from '../../classes/language-support-format';
 
@@ -7,9 +8,9 @@ import { LanguageSupportFormat } from '../../classes/language-support-format';
 })
 export class CompositeExportService {
   public language: LanguageSupportFormat;
-  public documentation: JSON;
+  public documentation: DocumentSupportFormat;
 
-  constructor(l: LanguageSupportFormat, d: JSON) {
+  constructor(l: LanguageSupportFormat, d: DocumentSupportFormat) {
     this.language = l;
     this.documentation = d;
   }
