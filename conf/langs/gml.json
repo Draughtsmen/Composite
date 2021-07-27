@@ -2,38 +2,38 @@
 	"types": [
 		{
 			"type": "string",
-			"format": "1# = \"2\"#;"
+			"format": "[name]# = \"[value]\"#;"
 		},
 		{
 			"type:": "real",
-			"format": "1# = 2#;"
+			"format": "[name]# = [value]#;"
 		},
 		{
 			"type": "array",
-			"format": "1 = array_create(2);"
+			"format": "[name] = array_create([value]);"
 		},
         {
             "type": "boolean",
-            "format": "1# = 2#;"
+            "format": "[name]# = [value]#;"
         },
         {
             "type": "enum",
-            "format": "enum 1 {#\n2\n#}"
+            "format": "enum [name] {#\n[value]\n#}"
         }
 	],
 
 	"templates": [
 		{
 			"name": "function",
-			"format": "function 1(2) {\n#\treturn 3#\n}"
+			"format": "function [name]([args]) {\n#\treturn [return]#\n}"
 		},
 		{
-			"name": "script",
-			"format": ""
+			"name": "class",
+			"format": "[name] {\n}"
 		}
 	],
 
-	"singleCommentRule": "//1",
-	"multiCommentRule": "/*\n1\n*/"
+	"singleCommentRule": "//[value]",
+	"multiCommentRule": "/*\n[value]\n*/"
 
 }	
