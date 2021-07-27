@@ -1,0 +1,35 @@
+{
+	"types": [
+		{
+			"type": "string",
+			"format": "1# = \"2\"#;"
+		},
+		{
+			"type:": "float",
+			"format": "1# = 2f#;"
+		},
+		{
+			"type": "int",
+			"format": "1# = 2#;"
+		},
+        {
+            "type": "bool",
+            "format": "1# = 2#;"
+        }
+	],
+
+	"templates": [
+		{
+			"name": "function",
+			"format": "3 1(2) {\n#\treturn 3;#\n}"
+		},
+		{
+			"name": "class",
+			"format": "1 class 2 3 {\n# #\n}"
+		}
+	],
+
+	"singleCommentRule": "//1",
+	"multiCommentRule": "/*\n1\n*/"
+
+}	
