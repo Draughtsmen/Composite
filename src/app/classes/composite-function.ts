@@ -25,9 +25,9 @@ export class CompositeFunction extends Composite {
 
     // Fills in the function stub if there is one to work off of.
     if (stub != undefined) {
-      stub = stub.replace('1', this.name);
-      stub = stub.replace('2', this.args.join(', '));
-      stub = stub.replace('3', this.returnType);
+      stub = stub.replace('[name]', this.name);
+      stub = stub.replace('[args]', this.args.join(', '));
+      stub = stub.replace('[return]', this.returnType);
       return stub;
     } else return 'Critical failure: could not find type ' + this.type + '.';
   }
