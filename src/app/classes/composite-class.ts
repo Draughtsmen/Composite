@@ -19,6 +19,27 @@ export class CompositeClass extends Composite {
     this.subclasses = new Array<CompositeClass>();
   }
 
+  serialize(): any {
+    let data: any = super.serialize();
+    data["_type"] = "CompositeClass";
+
+    data["prefix"] = this.prefix;
+    data["postfix"] = this.postfix;
+    data["memberVariables"] = [];
+    data["memberFunctions"] = [];
+    data["subclasses"] = [];
+    for (let i = 0; i < this.memberVariables.length; i++) {
+      data["memberVariables"].push(this.memberVariables[i]);
+    }
+    for (let i = 0; i < this.memberFunctions.length; i++) {
+      data["memberFunctions"].push(this.memberFunctions[i].serialize());
+    }
+    for (let i = 0; i < this.subclasses.length; i++) {
+      data["subclasses"].push(this.subclasses[i].serialize());
+    }
+    return data;
+  }
+
   /// @func generateStub(lang, doc)
   /// @desc Generates Class stub and documentation in a provided language.
   /// @arg {LanguageSupportFormat} lang
@@ -181,5 +202,9 @@ export class CompositeClass extends Composite {
     let oldSubclass = this.subclasses.find((item) => item.getName() == name);
     if (oldSubclass)
       this.subclasses[this.subclasses.indexOf(oldSubclass)] = newCClass;
+  }
+
+  getDescendents(): Composite[] {
+    return (<Composite[]> this.subclasses).concat(this.memberFunctions);
   }
 }

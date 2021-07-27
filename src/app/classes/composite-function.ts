@@ -12,6 +12,17 @@ export class CompositeFunction extends Composite {
     this.args = args;
   }
 
+  serialize(): any {
+    let data: any = super.serialize();
+    data["_type"] = "CompositeFunction";
+    data["returnType"] = this.returnType;
+    data["args"] = [];
+    for (let i = 0; i < this.args.length; i++) {
+      data["args"].push(this.args[i]);
+    }
+    return data;
+  }
+
   /// @func generateStub(lang, doc)
   /// @desc Generates Function stub and documentation in a provided language.
   /// @arg {LanguageSupportFormat} lang

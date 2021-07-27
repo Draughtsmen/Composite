@@ -5,9 +5,9 @@ import { DocumentSupportFormat } from './document-support-format';
 
 export class CompositeProject {
   private name: string;
-  private files: CompositeGroup[];
-  private lang: LanguageSupportFormat;
-  private doc: DocumentSupportFormat;
+  public files: CompositeGroup[];
+  public lang: LanguageSupportFormat;
+  public doc: DocumentSupportFormat;
 
   constructor(
     name: string,
@@ -72,4 +72,21 @@ export class CompositeProject {
   setName(newName: string) {
     this.name = newName;
   }
+
+  serialize(): any {
+    let data: any = {};
+    data["_type"] = "CompositeProject";
+    
+    data["name"] = this.name;
+    data["lang"] = this.lang;
+    data["doc"] = this.doc;
+
+    data["files"] = [];
+
+    for (let i = 0; i < this.files.length; i++) {
+      data["files"].push(this.files[i].serialize());
+    }
+    return data;
+  }
+  
 }
