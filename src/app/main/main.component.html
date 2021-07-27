@@ -89,7 +89,7 @@
 >
   <ng-template ngFor let-component [ngForOf]="components" let-i="index">
     <div id="{{sidebarId}}{{i}}" class="row" [ngClass]="{'targeted': component === currComposite}">
-      <div class="pointer" (click)="showComponent(component)" [ngStyle]="{'margin-left': 'calc(8 * ' + depth + 'px)' }">
+      <div class="pointer" (click)="showComponent(component)" [ngStyle]="{'margin-left': 'calc(15 * ' + depth + 'px)' }">
         {{ component.getName() }}
       </div>
       
@@ -102,6 +102,7 @@
         </button>
         
         <button
+          *ngIf="componentCanMakeDescendents(component)"
           type="button"
           class="btn btn-link"
           (click)="openNewComposite(newComposite, component)"
@@ -195,9 +196,6 @@
                 </div>
               </div>
               <div *ngFor="let control of getArrayControls(item.id, dataItem.id); index as i" class="d-flex">
-                <!-- <div class="float-right"> -->
-                  
-                <!-- </div> -->
                 <input class="form-control" placeholder="Argument" required [formControl]="control">
                 <button
                     type="button"
@@ -207,8 +205,6 @@
                     <i class="fas fa-minus pl-2"></i>
                 </button>
               </div>
-            
-            
           </div>
           <div class="col" *ngSwitchCase="'string'">
               <div class="row px-4">
@@ -220,90 +216,5 @@
         </div>
       </div>
     </ng-template>
-    <!-- <div class="modal-body"> -->
-      <!-- <div class="container" formGroupName="class">
-        <div class="row">
-          <div class="col-12">
-          
-          
-          </div>
-        </div>
-      </div> -->
-    <!-- </div> -->
   </form>
 </ng-template>
-
-<!-- <ng-template #newProjectChild let-modal>
-  <form
-    [formGroup]="newProjectChildForm"
-    (ngSubmit)="onNewProjectChildSubmit(modal)"
-  >
-    <div class="modal-header d-flex">
-      <label for="project-child-name">
-        <input class="form-control"
-          type="text"
-          id="project-child-name"
-          placeholder="Name"
-          formControlName="name"
-          required
-        />
-      </label>
-      <div class="ml-auto">
-        <button
-          type="button"
-          class="btn btn-link pr-2"
-          (click)="modal.dismiss()"
-        >
-          <i class="fas fa-times"></i>
-        </button>
-        <button
-          type="submit"
-          class="btn btn-link"
-          value="Submit"
-          [disabled]="!newProjectChildForm.valid"
-        >
-          <i class="fas fa-check"></i>
-        </button>
-      </div>
-    </div>
-    <div class="modal-header d-flex header">
-      <label class="btn btn-light" for="project-child-type-class">
-        <input
-          class="hide-checkbox"
-          type="radio"
-          name="project-child-type"
-          id="project-child-type-class"
-          autocomplete="off"
-          value="class"
-          formControlName="project-child-type"
-          required
-        />
-        Class
-      </label>
-      <label class="btn btn-light" for="project-child-type-file">
-        <input
-          class="hide-checkbox"
-          type="radio"
-          name="project-child-type"
-          id="project-child-type-file"
-          autocomplete="off"
-          value="file"
-          formControlName="project-child-type"
-          required
-          [disabled]="true"
-        />
-        File
-      </label>
-    </div>
-    <div class="modal-body">
-      <div class="container" formGroupName="class">
-        <div class="row">
-          <div class="col-12">
-          
-          
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
-</ng-template> -->

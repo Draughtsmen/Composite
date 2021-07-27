@@ -157,8 +157,15 @@ export class MainComponent implements OnInit {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 
-  openNewComponentChild(content: any) {
-    
+  componentCanMakeDescendents(component: Composite): boolean {
+    if (component instanceof CompositeGroup) {
+      return this.projectTypes.hasOwnProperty('group') && this.projectTypes["group"].length > 0;
+    } else if(component instanceof CompositeFunction) {
+      return this.projectTypes.hasOwnProperty('function') && this.projectTypes["function"].length > 0;
+    } else if(component instanceof CompositeClass) {
+      return this.projectTypes.hasOwnProperty('class') && this.projectTypes["class"].length > 0;
+    }
+    return false;
   }
 
   showComponent(component: Composite | null) {
