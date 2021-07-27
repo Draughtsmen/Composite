@@ -4,16 +4,12 @@ import { LanguageSupportFormat } from './language-support-format';
 import { DocumentSupportFormat } from './document-support-format';
 
 export class CompositeClass extends Composite {
-  private prefix: string;
-  private postfix: string;
   private memberVariables: string[];
   private memberFunctions: CompositeFunction[];
   private subclasses: CompositeClass[];
 
-  constructor(pre: string, name: string, post: string) {
+  constructor(name: string) {
     super(name, 'class');
-    this.prefix = pre;
-    this.postfix = post;
     this.memberVariables = new Array<string>();
     this.memberFunctions = new Array<CompositeFunction>();
     this.subclasses = new Array<CompositeClass>();
@@ -32,38 +28,8 @@ export class CompositeClass extends Composite {
 
     // Fills in the class stub if there is one to work off of.
     if (stub != undefined) {
-      return stub.replace('$1', this.prefix + this.name + this.postfix);
+      return stub.replace('[name]', this.name);
     } else return 'Critical failure: could not find type ' + this.type + '.';
-  }
-
-  /// @func getPrefix()
-  /// @desc Returns the class prefix.
-
-  getPrefix(): string {
-    return this.prefix;
-  }
-
-  /// @func setPrefix(newPrefix)
-  /// @desc Sets a new prefix for the class.
-  /// @arg {string} newPrefix
-
-  setPrefix(newPrefix: string): void {
-    this.name = newPrefix;
-  }
-
-  /// @func getPostfix()
-  /// @desc Returns the class postfix.
-
-  getPostfix(): string {
-    return this.prefix;
-  }
-
-  /// @func setPostfix(newPostfix)
-  /// @desc Sets a new postfix for the class.
-  /// @arg {string} newPostfix
-
-  setPostfix(newPostfix: string): void {
-    this.name = newPostfix;
   }
 
   /// @func getMemberVariables()
