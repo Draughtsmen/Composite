@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IpcRenderer } from 'electron';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IpcService {
   private ipc: IpcRenderer | undefined;
@@ -15,7 +15,10 @@ export class IpcService {
     }
   }
 
-  public on(channel: string, listener: (event: Electron.IpcRendererEvent, ...args: any[]) => void): void {
+  public on(
+    channel: string,
+    listener: (event: Electron.IpcRendererEvent, ...args: any[]) => void
+  ): void {
     if (!this.ipc) {
       return;
     }

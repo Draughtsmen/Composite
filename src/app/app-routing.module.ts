@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main/main.component';
 import { MenuComponent } from './menu/menu.component';
 
-const routes: Routes = [{ path: '', component: MenuComponent },
-{ path: 'project/:id', component: MainComponent}];
+const routes: Routes = [
+  { path: '', component: MenuComponent },
+  { path: 'project/:id', component: MainComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

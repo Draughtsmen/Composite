@@ -8,23 +8,27 @@
       <button type="button" class="btn btn-link" (click)="showComponent(null)">
         <i class="fas fa-bullseye"></i>
       </button>
-      
 
       <!-- <div class="float-right"> -->
-        <!-- <i class="fas fa-minus pr-3"></i> -->
-        <button
-          type="button"
-          class="btn btn-link"
-          (click)="openNewComposite(newComposite, null)"
-        >
-          <i class="fas fa-plus"></i>
-        </button>
+      <!-- <i class="fas fa-minus pr-3"></i> -->
+      <button
+        type="button"
+        class="btn btn-link"
+        (click)="openNewComposite(newComposite, null)"
+      >
+        <i class="fas fa-plus"></i>
+      </button>
       <!-- </div> -->
     </div>
     <ng-container
       *ngTemplateOutlet="
         sidebarItem;
-        context: { components: this.project.files, parentComponent: null, sidebarId: 'sidebar-item-', depth: 0 }
+        context: {
+          components: this.project.files,
+          parentComponent: null,
+          sidebarId: 'sidebar-item-',
+          depth: 0
+        }
       "
     >
     </ng-container>
@@ -63,16 +67,14 @@
         </div>
         <div class="section-content">
           <div *ngIf="currComposite !== null; else sectionPseudocodeFalse">
-            <pre>
-{{currComposite.generateStub(project.lang, project.doc)}}
+            <pre
+              >{{ currComposite.generateStub(project.lang, project.doc) }}
             </pre>
-            
           </div>
           <ng-template #sectionPseudocodeFalse>
-            <pre>
-{{project.exportProject()}}
+            <pre
+              >{{ project.exportProject() }}
             </pre>
-            
           </ng-template>
         </div>
       </div>
@@ -88,19 +90,28 @@
   let-depth="depth"
 >
   <ng-template ngFor let-component [ngForOf]="components" let-i="index">
-    <div id="{{sidebarId}}{{i}}" class="row" [ngClass]="{'targeted': component === currComposite}">
-      <div class="pointer" (click)="showComponent(component)" [ngStyle]="{'margin-left': 'calc(15 * ' + depth + 'px)' }">
+    <div
+      id="{{ sidebarId }}{{ i }}"
+      class="row"
+      [ngClass]="{ targeted: component === currComposite }"
+    >
+      <div
+        class="pointer"
+        (click)="showComponent(component)"
+        [ngStyle]="{ 'margin-left': 'calc(15 * ' + depth + 'px)' }"
+      >
         {{ component.getName() }}
       </div>
-      
+
       <div class="float-right">
-        <button type="button"
-        class="btn btn-link"
-        (click)="deleteComponent(component, parentComponent)"
+        <button
+          type="button"
+          class="btn btn-link"
+          (click)="deleteComponent(component, parentComponent)"
         >
           <i class="fas fa-minus pr-2"></i>
         </button>
-        
+
         <button
           *ngIf="componentCanMakeDescendents(component)"
           type="button"
@@ -130,13 +141,11 @@
 </ng-template>
 
 <ng-template #newComposite let-modal>
-  <form
-    [formGroup]="newCompositeForm"
-    (ngSubmit)="onNewCompositeSubmit(modal)"
-  >
+  <form [formGroup]="newCompositeForm" (ngSubmit)="onNewCompositeSubmit(modal)">
     <div class="modal-header d-flex">
       <label for="name">
-        <input class="form-control"
+        <input
+          class="form-control"
           type="text"
           id="name"
           placeholder="Name"
@@ -163,54 +172,80 @@
       </div>
     </div>
     <div class="modal-header d-flex header">
-      
-      <label *ngFor="let item of currTypes" class="btn btn-light mr-3" for="type-{{item.id}}">
+      <label
+        *ngFor="let item of currTypes"
+        class="btn btn-light mr-3"
+        for="type-{{ item.id }}"
+      >
         <input
           class="hide-checkbox"
           type="radio"
           name="type"
-          id="type-{{item.id}}"
+          id="type-{{ item.id }}"
           autocomplete="off"
-          value="{{item.id}}"
+          value="{{ item.id }}"
           formControlName="type"
           required
           [attr.disabled]="item.disabled ? true : null"
         />
-        {{item.name}}
+        {{ item.name }}
       </label>
     </div>
     <ng-template ngFor let-item [ngForOf]="currTypes">
-      <div *ngIf="item.hasOwnProperty('data')" class="modal-body container" formGroupName="{{item.id}}">
-        <div class="row" *ngFor="let dataItem of item.data" [ngSwitch]="dataItem.type">
+      <div
+        *ngIf="item.hasOwnProperty('data')"
+        class="modal-body container"
+        formGroupName="{{ item.id }}"
+      >
+        <div
+          class="row"
+          *ngFor="let dataItem of item.data"
+          [ngSwitch]="dataItem.type"
+        >
           <div class="col" *ngSwitchCase="'array'">
-              <div class="row px-4">
-                <h2>{{dataItem.name}}</h2>
-                <div>
-                  <button
-                    type="button"
-                    class="btn btn-link pl-2"
-                    (click)="addArrayField(item.id, dataItem.id)"
-                  >
-                    <i class="fas fa-plus"></i>
-                  </button>
-                </div>
-              </div>
-              <div *ngFor="let control of getArrayControls(item.id, dataItem.id); index as i" class="d-flex">
-                <input class="form-control" placeholder="Argument" required [formControl]="control">
+            <div class="row px-4">
+              <h2>{{ dataItem.name }}</h2>
+              <div>
                 <button
-                    type="button"
-                    class="btn btn-link pl-2"
-                    (click)="removeArrayField(item.id, dataItem.id, i)"
-                  >
-                    <i class="fas fa-minus pl-2"></i>
+                  type="button"
+                  class="btn btn-link pl-2"
+                  (click)="addArrayField(item.id, dataItem.id)"
+                >
+                  <i class="fas fa-plus"></i>
                 </button>
               </div>
+            </div>
+            <div
+              *ngFor="
+                let control of getArrayControls(item.id, dataItem.id);
+                index as i
+              "
+              class="d-flex"
+            >
+              <input
+                class="form-control"
+                placeholder="Argument"
+                required
+                [formControl]="control"
+              />
+              <button
+                type="button"
+                class="btn btn-link pl-2"
+                (click)="removeArrayField(item.id, dataItem.id, i)"
+              >
+                <i class="fas fa-minus pl-2"></i>
+              </button>
+            </div>
           </div>
           <div class="col" *ngSwitchCase="'string'">
-              <div class="row px-4">
-                <h2>{{dataItem.name}}</h2>
-              </div>
-              <input class="form-control" placeholder="void" formControlName="{{dataItem.id}}">            
+            <div class="row px-4">
+              <h2>{{ dataItem.name }}</h2>
+            </div>
+            <input
+              class="form-control"
+              placeholder="void"
+              formControlName="{{ dataItem.id }}"
+            />
           </div>
           <ng-template *ngSwitchDefault></ng-template>
         </div>

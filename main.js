@@ -1,9 +1,9 @@
 const { app, BrowserWindow, ipcMain, IpcMessageEvent } = require("electron");
 
-const Store = require('electron-store');
+const Store = require("electron-store");
 const store = new Store();
 
-const { v4: genUuid } = require('uuid');
+const { v4: genUuid } = require("uuid");
 
 const path = require("path");
 
@@ -13,7 +13,7 @@ function createWindow() {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
     },
   });
 
@@ -54,15 +54,14 @@ ipcMain.on("list-projects", (event) => {
 ipcMain.on("load-project", (event, id) => {
   let project = store.get("project-store-" + id, undefined);
   if (project === undefined) {
-    project = {"status": "error", "error": "Project not found."};
+    project = { status: "error", error: "Project not found." };
   }
   event.sender.send("load-project-reply", project);
-  
 });
 
 ipcMain.on("save-project", (event, project) => {
   store.set("project-store-" + project.id, project);
-  event.sender.send('save-project-reply', {"status": "success"});
+  event.sender.send("save-project-reply", { status: "success" });
 });
 
 ipcMain.on("delete-project", (event, id) => {
@@ -70,7 +69,7 @@ ipcMain.on("delete-project", (event, id) => {
   delete list[id];
   store.set("project-list", list);
   store.delete("project-store-" + id);
-  event.sender.send('delete-project-reply', {'status': 'success'});
+  event.sender.send("delete-project-reply", { status: "success" });
 });
 
 /*
@@ -82,16 +81,16 @@ ipcMain.on("delete-project", (event, id) => {
 }
 */
 ipcMain.on("new-project", (event, name, language, baseData) => {
-    let list = store.get("project-list", {});
-    let uuid = genUuid();
-    list[uuid] = {"name": name, "language": language};
-    store.set("project-list", list);
-    let project = {
-      "id": uuid,
-      "name": name,
-      "language": language,
-      "data": baseData
-    };
-    store.set("project-store-" + uuid, project);
-    event.sender.send('new-project-reply', project);
+  let list = store.get("project-list", {});
+  let uuid = genUuid();
+  list[uuid] = { name: name, language: language };
+  store.set("project-list", list);
+  let project = {
+    id: uuid,
+    name: name,
+    language: language,
+    data: baseData,
+  };
+  store.set("project-store-" + uuid, project);
+  event.sender.send("new-project-reply", project);
 });

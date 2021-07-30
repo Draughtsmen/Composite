@@ -9,7 +9,10 @@
     <h2>Projects</h2>
   </div>
   <div id="project-list">
-    <div *ngFor="let projectKey of objectKeys(this.projects)" class="mt-3 project">
+    <div
+      *ngFor="let projectKey of objectKeys(this.projects)"
+      class="mt-3 project"
+    >
       <div class="float-right">
         <button class="btn btn-link" (click)="deleteProject(projectKey)">
           <i class="fas fa-minus pr-2"></i>
@@ -19,7 +22,7 @@
         </button>
         <!-- project.language -->
       </div>
-      <h2>{{projects[projectKey].name}}</h2>
+      <h2>{{ projects[projectKey].name }}</h2>
     </div>
   </div>
 </div>
@@ -28,7 +31,13 @@
   <form [formGroup]="newProjectForm" (ngSubmit)="onNewProjectSubmit(modal)">
     <div class="modal-header d-flex">
       <label for="project-name">
-        <input type="text" id="project-name" placeholder="New Project Title" formControlName="name" required />
+        <input
+          type="text"
+          id="project-name"
+          placeholder="New Project Title"
+          formControlName="name"
+          required
+        />
       </label>
       <div class="ml-auto">
         <button
@@ -38,7 +47,12 @@
         >
           <i class="fas fa-times"></i>
         </button>
-        <button type="submit" class="btn btn-link" value="Submit" [disabled]="!newProjectForm.valid">
+        <button
+          type="submit"
+          class="btn btn-link"
+          value="Submit"
+          [disabled]="!newProjectForm.valid"
+        >
           <i class="fas fa-check"></i>
         </button>
       </div>

@@ -28,7 +28,11 @@ export class CompositeProject {
   exportProject(): string {
     let output: string = '';
     for (var i = 0; i < this.files.length; ++i) {
-      output += "//Start of file '" + this.files[i].getName() + "\'\n" + this.files[i].generateStub(this.lang, this.doc);
+      output +=
+        "//Start of file '" +
+        this.files[i].getName() +
+        "'\n" +
+        this.files[i].generateStub(this.lang, this.doc);
     }
     return output;
   }
@@ -75,15 +79,14 @@ export class CompositeProject {
 
   serialize(): any {
     let data: any = {};
-    data["_type"] = "CompositeProject";
-    
-    data["name"] = this.name;
-    data["files"] = [];
+    data['_type'] = 'CompositeProject';
+
+    data['name'] = this.name;
+    data['files'] = [];
 
     for (let i = 0; i < this.files.length; i++) {
-      data["files"].push(this.files[i].serialize());
+      data['files'].push(this.files[i].serialize());
     }
     return data;
   }
-  
 }

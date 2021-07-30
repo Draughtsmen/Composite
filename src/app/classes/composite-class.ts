@@ -21,21 +21,21 @@ export class CompositeClass extends Composite {
 
   serialize(): any {
     let data: any = super.serialize();
-    data["_type"] = "CompositeClass";
+    data['_type'] = 'CompositeClass';
 
-    data["prefix"] = this.prefix;
-    data["postfix"] = this.postfix;
-    data["memberVariables"] = [];
-    data["memberFunctions"] = [];
-    data["subclasses"] = [];
+    data['prefix'] = this.prefix;
+    data['postfix'] = this.postfix;
+    data['memberVariables'] = [];
+    data['memberFunctions'] = [];
+    data['subclasses'] = [];
     for (let i = 0; i < this.memberVariables.length; i++) {
-      data["memberVariables"].push(this.memberVariables[i]);
+      data['memberVariables'].push(this.memberVariables[i]);
     }
     for (let i = 0; i < this.memberFunctions.length; i++) {
-      data["memberFunctions"].push(this.memberFunctions[i].serialize());
+      data['memberFunctions'].push(this.memberFunctions[i].serialize());
     }
     for (let i = 0; i < this.subclasses.length; i++) {
-      data["subclasses"].push(this.subclasses[i].serialize());
+      data['subclasses'].push(this.subclasses[i].serialize());
     }
     return data;
   }
@@ -205,6 +205,6 @@ export class CompositeClass extends Composite {
   }
 
   getDescendents(): Composite[] {
-    return (<Composite[]> this.subclasses).concat(this.memberFunctions);
+    return (<Composite[]>this.subclasses).concat(this.memberFunctions);
   }
 }

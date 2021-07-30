@@ -3,7 +3,6 @@ import { LanguageSupportFormat } from './language-support-format';
 import { DocumentSupportFormat } from './document-support-format';
 
 export class CompositeGroup extends Composite {
-  
   private composite: Composite[];
 
   constructor(name: string) {
@@ -13,10 +12,10 @@ export class CompositeGroup extends Composite {
 
   serialize(): any {
     let data: any = super.serialize();
-    data["_type"] = "CompositeGroup";
-    data["composite"] = [];
+    data['_type'] = 'CompositeGroup';
+    data['composite'] = [];
     for (let i = 0; i < this.composite.length; i++) {
-      data["composite"].push(this.composite[i].serialize());
+      data['composite'].push(this.composite[i].serialize());
     }
     return data;
   }
@@ -69,5 +68,4 @@ export class CompositeGroup extends Composite {
   getDescendents(): Composite[] {
     return this.composite;
   }
-  
 }

@@ -1,8 +1,13 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  FormGroup,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Composite } from '../classes/composite';
 import { CompositeClass } from '../classes/composite-class';
 import { CompositeFunction } from '../classes/composite-function';
@@ -14,97 +19,108 @@ import { CompositeManagerService } from '../services/composite-export/composite-
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
 })
-export class MainComponent implements OnInit {
+export class MainComponent {
   project: CompositeProject | null;
   modalComposite: any = null;
   currComposite: Composite | null = null;
   currTypes: any = [];
   projectTypes: any = {
-    "project": [
+    project: [
       {
-        id: "file",
-        name: "File",
-        type: "group",
-        append: ".gml"
-      }
+        id: 'file',
+        name: 'File',
+        type: 'group',
+        append: '.gml',
+      },
     ],
-    "group": [
+    group: [
       {
-        id: "function",
-        name: "Function",
-        type: "function",
+        id: 'function',
+        name: 'Function',
+        type: 'function',
         data: [
           {
-            id: "return",
-            name: "Return Type",
-            type: "string"
+            id: 'return',
+            name: 'Return Type',
+            type: 'string',
           },
           {
-            id: "arguments",
-            name: "Arguments",
-            type: "array"
-          }
-        ]
+            id: 'arguments',
+            name: 'Arguments',
+            type: 'array',
+          },
+        ],
       },
       {
-        id: "variable",
-        name: "Variable",
-        type: "variable",
-        disabled: true
-      }
-    ]
-  }
-  newCompositeForm: FormGroup = new FormGroup({
-    
-  });
+        id: 'variable',
+        name: 'Variable',
+        type: 'variable',
+        disabled: true,
+      },
+    ],
+  };
+  newCompositeForm: FormGroup = new FormGroup({});
   fullProject: any;
-  
-  constructor(private modalService: NgbModal, private ipcService: IpcService, private route: ActivatedRoute, private ngZone: NgZone) { 
+
+  constructor(
+    private modalService: NgbModal,
+    private ipcService: IpcService,
+    private route: ActivatedRoute,
+    private ngZone: NgZone
+  ) {
     ipcService.on('load-project-reply', (event, res) => {
       this.ngZone.run(() => {
         this.fullProject = res;
-        this.project = CompositeManagerService.deserializeProject(res["data"], this.fullProject.language);
-      })
+        this.project = CompositeManagerService.deserializeProject(
+          res['data'],
+          this.fullProject.language
+        );
+      });
     });
 
     this.project = null;
     ipcService.send('load-project', this.route.snapshot.params.id);
   }
 
-  ngOnInit(): void {
-
-  }
-
   saveComposite() {
     this.fullProject.data = this.project?.serialize();
-    this.ipcService.send("save-project", this.fullProject);
+    this.ipcService.send('save-project', this.fullProject);
   }
 
   addComposite(newComposite: Composite) {
     if (this.modalComposite == null) {
-      this.project?.addGroup(<CompositeGroup> newComposite);
-    } else if(this.modalComposite instanceof CompositeGroup) {
+      this.project?.addGroup(<CompositeGroup>newComposite);
+    } else if (this.modalComposite instanceof CompositeGroup) {
       (<CompositeGroup>this.modalComposite).addExportableObject(newComposite);
     }
   }
 
   onNewCompositeSubmit(modal: any) {
-    let name = this.newCompositeForm.get("name")?.value;
+    let name = this.newCompositeForm.get('name')?.value;
     for (const item of this.currTypes) {
-      if (item["type"] === "group") {
-        if (item.hasOwnProperty("append")) { //todo: better implementation
-          name += item["append"];
+      if (item['type'] === 'group') {
+        if (item.hasOwnProperty('append')) {
+          //todo: better implementation
+          name += item['append'];
         }
         this.addComposite(new CompositeGroup(name));
-      } else if (item["type"] === "function") {
-        let arr = (<FormArray>this.newCompositeForm.get('function')?.get('arguments'));
+      } else if (item['type'] === 'function') {
+        let arr = <FormArray>(
+          this.newCompositeForm.get('function')?.get('arguments')
+        );
         let strArr: string[] = [];
         for (let i = 0; i < arr.length; i++) {
           strArr.push(arr.at(i).value);
         }
-        this.addComposite(new CompositeFunction(name, this.newCompositeForm.get("function")?.get("return")?.value, strArr));
+        this.addComposite(
+          new CompositeFunction(
+            name,
+            this.newCompositeForm.get('function')?.get('return')?.value,
+            strArr
+          )
+        );
       }
     }
     this.saveComposite();
@@ -112,11 +128,15 @@ export class MainComponent implements OnInit {
   }
 
   getArrayControls(id: string, subId: string): FormControl[] {
-    return (<FormControl[]>(<FormArray>this.newCompositeForm.get(id)?.get(subId)).controls);
+    return <FormControl[]>(
+      (<FormArray>this.newCompositeForm.get(id)?.get(subId)).controls
+    );
   }
 
   addArrayField(id: string, subId: string) {
-    (<FormArray>this.newCompositeForm.get(id)?.get(subId)).push(new FormControl(''));
+    (<FormArray>this.newCompositeForm.get(id)?.get(subId)).push(
+      new FormControl('')
+    );
   }
 
   removeArrayField(id: string, subId: string, index: number) {
@@ -124,29 +144,29 @@ export class MainComponent implements OnInit {
   }
 
   openNewComposite(content: any, currentComposite: any) {
-    
-    if (currentComposite == null) { //Project root
+    if (currentComposite == null) {
+      //Project root
       this.currTypes = this.projectTypes['project'];
-    } else if(currentComposite instanceof CompositeGroup) {
+    } else if (currentComposite instanceof CompositeGroup) {
       this.currTypes = this.projectTypes['group'];
     }
     this.modalComposite = currentComposite;
     let typeSet = false;
     let compositeForm: any = {
-      "name": new FormControl('')
+      name: new FormControl(''),
     };
     for (const item of this.currTypes) {
       if (!typeSet) {
-        compositeForm["type"] = new FormControl(item["id"]);
+        compositeForm['type'] = new FormControl(item['id']);
         typeSet = true;
       }
       if (item.hasOwnProperty('data')) {
         let group: any = {};
-        for (const dataItem of item["data"]) {
-          if (dataItem["type"] === "array") {
-            group[dataItem["id"]] = new FormArray([]);
-          } else if(dataItem["type"] === "string") {
-            group[dataItem["id"]] = new FormControl('');
+        for (const dataItem of item['data']) {
+          if (dataItem['type'] === 'array') {
+            group[dataItem['id']] = new FormArray([]);
+          } else if (dataItem['type'] === 'string') {
+            group[dataItem['id']] = new FormControl('');
           }
         }
         compositeForm[item['id']] = new FormGroup(group);
@@ -154,16 +174,25 @@ export class MainComponent implements OnInit {
     }
     this.newCompositeForm = new FormGroup(compositeForm);
 
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
   componentCanMakeDescendents(component: Composite): boolean {
     if (component instanceof CompositeGroup) {
-      return this.projectTypes.hasOwnProperty('group') && this.projectTypes["group"].length > 0;
-    } else if(component instanceof CompositeFunction) {
-      return this.projectTypes.hasOwnProperty('function') && this.projectTypes["function"].length > 0;
-    } else if(component instanceof CompositeClass) {
-      return this.projectTypes.hasOwnProperty('class') && this.projectTypes["class"].length > 0;
+      return (
+        this.projectTypes.hasOwnProperty('group') &&
+        this.projectTypes['group'].length > 0
+      );
+    } else if (component instanceof CompositeFunction) {
+      return (
+        this.projectTypes.hasOwnProperty('function') &&
+        this.projectTypes['function'].length > 0
+      );
+    } else if (component instanceof CompositeClass) {
+      return (
+        this.projectTypes.hasOwnProperty('class') &&
+        this.projectTypes['class'].length > 0
+      );
     }
     return false;
   }
@@ -182,5 +211,4 @@ export class MainComponent implements OnInit {
     }
     this.saveComposite();
   }
-
 }

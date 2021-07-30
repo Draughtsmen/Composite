@@ -14,11 +14,11 @@ export class CompositeFunction extends Composite {
 
   serialize(): any {
     let data: any = super.serialize();
-    data["_type"] = "CompositeFunction";
-    data["returnType"] = this.returnType;
-    data["args"] = [];
+    data['_type'] = 'CompositeFunction';
+    data['returnType'] = this.returnType;
+    data['args'] = [];
     for (let i = 0; i < this.args.length; i++) {
-      data["args"].push(this.args[i]);
+      data['args'].push(this.args[i]);
     }
     return data;
   }
@@ -38,7 +38,10 @@ export class CompositeFunction extends Composite {
     if (stub != undefined) {
       stub = stub.replace('1', this.name);
       stub = stub.replace('2', this.args.join(', '));
-      stub = stub.replace('3', this.returnType == '' ? '' : ' ' + this.returnType);
+      stub = stub.replace(
+        '3',
+        this.returnType == '' ? '' : ' ' + this.returnType
+      );
       return stub;
     } else return 'Critical failure: could not find type ' + this.type + '.';
   }

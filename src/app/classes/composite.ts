@@ -52,9 +52,9 @@ export abstract class Composite {
 
   serialize(): any {
     let data: any = {};
-    data["_type"] = "Composite";
-    data["name"] = this.name;
-    data["type"] = this.type;
+    data['_type'] = 'Composite';
+    data['name'] = this.name;
+    data['type'] = this.type;
     return data;
-  };
+  }
 }
