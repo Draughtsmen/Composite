@@ -10,6 +10,16 @@ export class CompositeGroup extends Composite {
     this.composite = new Array<Composite>();
   }
 
+  serialize(): any {
+    let data: any = super.serialize();
+    data['_type'] = 'CompositeGroup';
+    data['composite'] = [];
+    for (let i = 0; i < this.composite.length; i++) {
+      data['composite'].push(this.composite[i].serialize());
+    }
+    return data;
+  }
+
   /// @func generateStub(lang, doc)
   /// @desc Sequentially generates contained exportable objects' stubs and docs.
   /// @arg {LanguageSupportFormat} lang
@@ -52,5 +62,10 @@ export class CompositeGroup extends Composite {
 
   getExportableObject(name: string): Composite | undefined {
     return this.composite.find((item) => item.getName() == name);
+  }
+
+  //todo: observable
+  getDescendents(): Composite[] {
+    return this.composite;
   }
 }

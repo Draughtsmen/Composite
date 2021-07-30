@@ -45,4 +45,16 @@ export abstract class Composite {
   setName(newName: string): void {
     this.name = newName;
   }
+
+  getDescendents(): Array<Composite> {
+    return [];
+  }
+
+  serialize(): any {
+    let data: any = {};
+    data['_type'] = 'Composite';
+    data['name'] = this.name;
+    data['type'] = this.type;
+    return data;
+  }
 }
