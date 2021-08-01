@@ -32,10 +32,19 @@ export class CompositeFunction extends Composite {
     lang: LanguageSupportFormat,
     doc: DocumentSupportFormat
   ): string {
-    let specs = this.getDocFormat(doc);
+    let docs = this.getDoc(doc);
 
-    let stub = this.getLangFormat(lang, this.type);
+    let docStub = docs.specs.find((i) => i.name == 'function')?.format;
+    if (docStub != undefined) {
+      docStub = docStub.replace('[name]', this.name);
+      docStub = docStub.replace('[value]', this.args.join(', '));
+      docStub += '\n';
+      // todo: @description, @param
+    } else {
+      docStub = '';
+    }
     // Fills in the function stub if there is one to work off of.
+    let stub = this.getLangFormat(lang, this.type);
     if (stub != undefined) {
       stub = stub.replace('[return]', this.returnType);
       stub = stub.replace('[name]', this.name);
@@ -44,7 +53,7 @@ export class CompositeFunction extends Composite {
       //   '3',
       //   this.returnType == '' ? '' : ' ' + this.returnType
       // );
-      return stub;
+      return docStub + stub;
     } else return 'Critical failure: could not find type ' + this.type + '.';
   }
 

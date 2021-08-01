@@ -21,57 +21,54 @@ export class CompositeManagerService {
         types: [
           {
             name: 'string',
-            format: '[name] = \"[value]\";'
+            format: '[name] = "[value]";',
           },
           {
             name: 'real',
-            format: '[name] = [value];'
+            format: '[name] = [value];',
           },
           {
             name: 'array',
-            format: '[name] = array_create([value]);'
+            format: '[name] = array_create([value]);',
           },
-              {
-                  name: 'boolean',
-                  format: '[name] = [value];'
-              },
-              {
-                  name: 'enum',
-                  format: 'enum [name] {\n[value]\n}'
-              }
+          {
+            name: 'boolean',
+            format: '[name] = [value];',
+          },
+          {
+            name: 'enum',
+            format: 'enum [name] {\n[value]\n}',
+          },
         ],
-      
         templates: [
           {
             name: 'function',
-            format: 'function [name]([value]) {\n\treturn [return];\n}'
+            format: 'function [name]([value]) {\n\treturn [return];\n}',
           },
           {
             name: 'script',
-            format: ''
-          }
+            format: '',
+          },
         ],
-      
         singleCommentRule: '//[value]',
         multiCommentRule: '/*\n[value]\n*/',
       },
       docs: {
         specs: [
           {
-              name: 'function',
-              format: '@function [name]([value])'
+            name: 'function',
+            format: '@function [name]([value])',
           },
           {
-              name: 'description',
-              format: '@description [value]'
+            name: 'description',
+            format: '@description [value]',
           },
           {
-              name: 'parameter',
-              format: '@param {[type]} [name] [value]'
-          }
-      ],
-  
-      prefix: '/// ',
+            name: 'parameter',
+            format: '@param {[type]} [name] [value]',
+          },
+        ],
+        prefix: '/// ',
       },
     },
   };
