@@ -20,58 +20,58 @@ export class CompositeManagerService {
       language: {
         types: [
           {
-            name: "string",
-            format: "[name] = \"[value]\";"
+            name: 'string',
+            format: '[name] = \"[value]\";'
           },
           {
-            name: "real",
-            format: "[name] = [value];"
+            name: 'real',
+            format: '[name] = [value];'
           },
           {
-            name: "array",
-            format: "[name] = array_create([value]);"
+            name: 'array',
+            format: '[name] = array_create([value]);'
           },
               {
-                  name: "boolean",
-                  format: "[name] = [value];"
+                  name: 'boolean',
+                  format: '[name] = [value];'
               },
               {
-                  name: "enum",
-                  format: "enum [name] {\n[value]\n}"
+                  name: 'enum',
+                  format: 'enum [name] {\n[value]\n}'
               }
         ],
       
         templates: [
           {
-            name: "function",
-            format: "function [name]([value]) {\n\treturn [return];\n}"
+            name: 'function',
+            format: 'function [name]([value]) {\n\treturn [return];\n}'
           },
           {
-            name: "script",
-            format: ""
+            name: 'script',
+            format: ''
           }
         ],
       
-        singleCommentRule: "//[value]",
-        multiCommentRule: "/*\n[value]\n*/",
+        singleCommentRule: '//[value]',
+        multiCommentRule: '/*\n[value]\n*/',
       },
       docs: {
         specs: [
           {
-              spec: "function",
-              format: "@function [name]([value])"
+              name: 'function',
+              format: '@function [name]([value])'
           },
           {
-              spec: "description",
-              format: "@description [value]"
+              name: 'description',
+              format: '@description [value]'
           },
           {
-              spec: "parameter",
-              format: "@param {[type]} [name] [value]"
+              name: 'parameter',
+              format: '@param {[type]} [name] [value]'
           }
       ],
   
-      prefix: "/// ",
+      prefix: '/// ',
       },
     },
   };

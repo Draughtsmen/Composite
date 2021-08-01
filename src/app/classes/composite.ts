@@ -27,8 +27,12 @@ export abstract class Composite {
   /// @arg {LanguageSupportFormat} lang
   /// @arg {String} type
 
-  getFormat(lang: LanguageSupportFormat, type: string): string | undefined {
+  getLangFormat(lang: LanguageSupportFormat, type: string): string | undefined {
     return lang.templates.find((i) => i.name == type)?.format;
+  }
+
+  getDoc(doc: DocumentSupportFormat): DocumentSupportFormat {
+    return doc;
   }
 
   /// @func getName()

@@ -49,13 +49,13 @@ export class CompositeClass extends Composite {
     lang: LanguageSupportFormat,
     doc: DocumentSupportFormat
   ): string {
-    let stub = this.getFormat(lang, this.type);
+    let stub = this.getLangFormat(lang, this.type);
 
     // Fills in the class stub if there is one to work off of.
     if (stub != undefined) {
       //return stub.replace('$1', this.prefix + this.name + this.postfix);
       //stub = stub.replace("[modifier]", "modifier");
-      stub = stub.replace("[name]", this.name);
+      stub = stub.replace('[name]', this.name);
       return stub;
     } else return 'Critical failure: could not find type ' + this.type + '.';
   }
