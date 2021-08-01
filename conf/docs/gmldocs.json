@@ -2,21 +2,18 @@
     "specs": [
         {
             "spec": "function",
-            "format": "@function 1(2)"
+            "format": "@function [name]([value])"
         },
         {
             "spec": "description",
-            "format": "@description 1"
+            "format": "@description [value]"
         },
         {
             "spec": "parameter",
-            "format": "@param {1} 2 3"
+            "format": "@param {[type]} [name] [value]"
         }
     ],
 
-    "container": [
-        {
-            "prefix": "/// "   
-        }
-    ]
+    "prefix": "/// "   
+
 }

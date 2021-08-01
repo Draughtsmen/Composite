@@ -9,7 +9,7 @@ export interface LanguageSupportFormat {
 
 // A helper interface to store types ('int', 'string', etc.).
 interface type {
-  type: string;
+  name: string;
   format: string;
 }
 
