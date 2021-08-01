@@ -25,9 +25,11 @@
 		},
 		{
 			"name": "class",
-			"format": "[access] class [name] {\n# #\n}"
+			"format": "[modifier] class [name] {\n# #\n}"
 		}
 	],
+
+	"modifiers": ["public", "protected", "private"],
 
 	"singleCommentRule": "//[value]",
 	"multiCommentRule": "/*\n[value]\n*/"

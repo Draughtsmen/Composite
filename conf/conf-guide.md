@@ -14,6 +14,10 @@ Each element in "types" must contain two key-value pairs, **"name"** and **"form
 
 Each element in "templates" must contain two key-value pairs, **"name"** and **"format"**. Similar to before, "name" is the string name of the template, and "format" is a string that specifies how to display the template.
 
+### "modifiers"
+
+If a language supports modifiers, the file may contain a key-value pair named "modifiers", along with a string array of the modifier names.
+
 ### Other
 
 Language files also support rules which determine how a specific syntax should be formatted.
@@ -34,4 +38,4 @@ Static terms represent the constant parts of a format, such as equal signs and s
 - [value] - The value(s) the defining structure is declaring. Used in initializing variables, function parameters, and descriptions.
 - [type] - The type of the defining structure, usually used for specifications. 
 - [return] - Used for a function's return value.
-- [access] - Used to define the access modifier for a template.
+- [modifier] - Used to define the access modifier for a template.

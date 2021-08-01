@@ -1,11 +1,13 @@
 // An interface to fetch documentation formatting stored in JSON files
 export interface DocumentSupportFormat {
   specs: Array<spec>;
-  container: Array<string>;
+  opener: string;
+  prefix: string;
+  closer: string;
 }
 
 // A helper interface to store specs
 interface spec {
-  type: string;
+  name: string;
   format: string;
 }
