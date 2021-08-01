@@ -25,7 +25,7 @@
 	"templates": [
 		{
 			"name": "function",
-			"format": "function [name]([value]) {\n#\treturn [return];#\n}"
+			"format": "function [name]([value]) {\n\treturn [return];\n}"
 		},
 		{
 			"name": "script",

@@ -1,15 +1,15 @@
 {
     "specs": [
         {
-            "spec": "function",
+            "name": "function",
             "format": "@function [name]([value])"
         },
         {
-            "spec": "description",
+            "name": "description",
             "format": "@description [value]"
         },
         {
-            "spec": "parameter",
+            "name": "parameter",
             "format": "@param {[type]} [name] [value]"
         }
     ],
