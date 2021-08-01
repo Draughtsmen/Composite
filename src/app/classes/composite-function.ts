@@ -32,16 +32,18 @@ export class CompositeFunction extends Composite {
     lang: LanguageSupportFormat,
     doc: DocumentSupportFormat
   ): string {
-    let stub = this.getFormat(lang, this.type);
+    let specs = this.getDocFormat(doc);
 
+    let stub = this.getLangFormat(lang, this.type);
     // Fills in the function stub if there is one to work off of.
     if (stub != undefined) {
-      stub = stub.replace('1', this.name);
-      stub = stub.replace('2', this.args.join(', '));
-      stub = stub.replace(
-        '3',
-        this.returnType == '' ? '' : ' ' + this.returnType
-      );
+      stub = stub.replace('[return]', this.returnType);
+      stub = stub.replace('[name]', this.name);
+      stub = stub.replace('[value]', this.args.join(', '));
+      // stub = stub.replace(
+      //   '3',
+      //   this.returnType == '' ? '' : ' ' + this.returnType
+      // );
       return stub;
     } else return 'Critical failure: could not find type ' + this.type + '.';
   }

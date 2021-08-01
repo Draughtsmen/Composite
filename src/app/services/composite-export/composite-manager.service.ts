@@ -20,62 +20,58 @@ export class CompositeManagerService {
       language: {
         types: [
           {
-            type: 'string',
-            format: '1# = "2"#;',
+            name: "string",
+            format: "[name] = \"[value]\";"
           },
           {
-            'type:': 'real',
-            format: '1# = 2#;',
+            name: "real",
+            format: "[name] = [value];"
           },
           {
-            type: 'array',
-            format: '1 = array_create(2);',
+            name: "array",
+            format: "[name] = array_create([value]);"
           },
-          {
-            type: 'boolean',
-            format: '1# = 2#;',
-          },
-          {
-            type: 'enum',
-            format: 'enum 1 {#\n2\n#}',
-          },
+              {
+                  name: "boolean",
+                  format: "[name] = [value];"
+              },
+              {
+                  name: "enum",
+                  format: "enum [name] {\n[value]\n}"
+              }
         ],
-
+      
         templates: [
           {
-            name: 'function',
-            format: 'function 1(2) {\n\treturn3;\n}',
+            name: "function",
+            format: "function [name]([value]) {\n\treturn [return];\n}"
           },
           {
-            name: 'script',
-            format: '',
-          },
+            name: "script",
+            format: ""
+          }
         ],
-
-        singleCommentRule: '//1',
-        multiCommentRule: '/*\n1\n*/',
+      
+        singleCommentRule: "//[value]",
+        multiCommentRule: "/*\n[value]\n*/",
       },
       docs: {
         specs: [
           {
-            spec: 'function',
-            format: '@function 1(2)',
+              spec: "function",
+              format: "@function [name]([value])"
           },
           {
-            spec: 'description',
-            format: '@description 1',
+              spec: "description",
+              format: "@description [value]"
           },
           {
-            spec: 'parameter',
-            format: '@param {1} 2 3',
-          },
-        ],
-
-        container: [
-          {
-            prefix: '/// ',
-          },
-        ],
+              spec: "parameter",
+              format: "@param {[type]} [name] [value]"
+          }
+      ],
+  
+      prefix: "/// ",
       },
     },
   };

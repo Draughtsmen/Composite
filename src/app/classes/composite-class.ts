@@ -53,7 +53,10 @@ export class CompositeClass extends Composite {
 
     // Fills in the class stub if there is one to work off of.
     if (stub != undefined) {
-      return stub.replace('$1', this.prefix + this.name + this.postfix);
+      //return stub.replace('$1', this.prefix + this.name + this.postfix);
+      //stub = stub.replace("[modifier]", "modifier");
+      stub = stub.replace("[name]", this.name);
+      return stub;
     } else return 'Critical failure: could not find type ' + this.type + '.';
   }
 
