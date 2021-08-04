@@ -52,6 +52,10 @@ export class CompositeFunction extends Composite {
     let docs = this.getDoc(doc);
     let docStub: string = '';
 
+    // Get the documentation prefix if able.
+    let prefix = docs.prefix;
+    if (prefix == undefined) prefix = '';
+
     // Document the function outline if able.
     let functStub = docs.specs.find((i) => i.name == 'function')?.format;
     if (functStub != undefined) {
@@ -59,7 +63,7 @@ export class CompositeFunction extends Composite {
       functStub = functStub.replace('[value]', this.args.join(', '));
       functStub += '\n';
 
-      docStub += functStub;
+      docStub += prefix + functStub;
     }
 
     // Document the function description if able.
@@ -68,7 +72,7 @@ export class CompositeFunction extends Composite {
       descStub = descStub.replace('[value]', this.description);
       descStub += '\n';
 
-      docStub += descStub;
+      docStub += prefix + descStub;
     }
 
     // Document the function parameters if able.
@@ -81,7 +85,7 @@ export class CompositeFunction extends Composite {
         // Todo: Functionality and data for [type] and [value].
         paramStub += '\n';
 
-        docStub += paramStub;
+        docStub += prefix + paramStub;
         paramStub = reversion;
       }
     }
@@ -93,12 +97,9 @@ export class CompositeFunction extends Composite {
       stub = stub.replace('[name]', this.name);
       stub = stub.replace('[value]', this.args.join(', '));
 
-      return docStub + stub;
+      return docStub + '\n' + stub;
     } else return 'Critical failure: could not find type ' + this.type + '.';
   }
-
-  /// @func getArguments()
-  /// @desc Returns the function's arguments.
 
   /**
    * Gets the arguments.
@@ -109,21 +110,14 @@ export class CompositeFunction extends Composite {
     return this.args;
   }
 
-  /// @func setArguments(newArgs)
-  /// @desc Replaces the function's arguments with new ones.
-  /// @arg {string[]} newArgs
-
   /**
    * Sets the arguments.
    *
-   * @param {string[]} newArgs The new arguments
+   * @param {string[]} newArgs - The new arguments
    */
   setArguments(newArgs: string[]): void {
     this.args = newArgs;
   }
-
-  /// @func getReturnType()
-  /// @desc Returns the function's return type.
 
   /**
    * Gets the return type.
@@ -134,14 +128,10 @@ export class CompositeFunction extends Composite {
     return this.returnType;
   }
 
-  /// @func setReturnType(newReturnType)
-  /// @desc Sets a new function return type.
-  /// @arg {string} newReturnType
-
   /**
    * Sets the return type.
    *
-   * @param {string} newReturnType The new return type
+   * @param {string} newReturnType - The new return type
    */
   setReturnType(newReturnType: string): void {
     this.returnType = newReturnType;

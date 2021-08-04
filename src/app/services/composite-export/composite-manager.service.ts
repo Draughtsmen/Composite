@@ -141,7 +141,7 @@ export class CompositeManagerService {
         data['description']
       );
       for (let i = 0; i < data['composite'].length; i++) {
-        composite.addExportableObject(
+        composite.addCompositeObject(
           CompositeManagerService.deserialize(data['composite'][i])
         );
       }

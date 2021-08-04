@@ -2,6 +2,11 @@ import { Composite } from './composite';
 import { LanguageSupportFormat } from './language-support-format';
 import { DocumentSupportFormat } from './document-support-format';
 
+/**
+ * This class describes a composite group.
+ *
+ * @class CompositeGroup (name)
+ */
 export class CompositeGroup extends Composite {
   private composite: Composite[];
 
@@ -10,6 +15,11 @@ export class CompositeGroup extends Composite {
     this.composite = new Array<Composite>();
   }
 
+  /**
+   * Serializes the CompositeGroup for external storage in JSON.
+   *
+   * @return {any} The JSON-serialized form of the CompositeGroup.
+   */
   serialize(): any {
     let data: any = super.serialize();
     data['_type'] = 'CompositeGroup';
@@ -20,11 +30,13 @@ export class CompositeGroup extends Composite {
     return data;
   }
 
-  /// @func generateStub(lang, doc)
-  /// @desc Sequentially generates contained exportable objects' stubs and docs.
-  /// @arg {LanguageSupportFormat} lang
-  /// @arg {DocumentSupportFormat} doc
-
+  /**
+   * Generates the documentation and stub according to chosen templates.
+   *
+   * @param {LanguageSupportFormat} lang - The chosen programming language.
+   * @param {DocumentSupportFormat} doc - The chosen documentation style.
+   * @return {string} Group documentation and stub.
+   */
   generateStub(
     lang: LanguageSupportFormat,
     doc: DocumentSupportFormat
@@ -36,35 +48,40 @@ export class CompositeGroup extends Composite {
     return output;
   }
 
-  /// @func addExportableObject(obj)
-  /// @desc Adds a new Composite object to track.
-  /// @arg {CompositeExportableObject} obj
-
-  addExportableObject(obj: Composite): void {
+  /**
+   * Adds a Composite object.
+   *
+   * @param {Composite} obj - The object.
+   */
+  addCompositeObject(obj: Composite): void {
     this.composite.push(obj);
   }
 
-  /// @func removeExportableObject(name)
-  /// @desc Removes a Composite object from the group.
-  /// @arg {string} name
-
-  removeExportableObject(name: string): void {
-    let ExportableObject = this.composite.find(
-      (item) => item.getName() == name
-    );
-    if (ExportableObject)
-      this.composite.splice(this.composite.indexOf(ExportableObject), 1);
+  /**
+   * Removes a Composite object.
+   *
+   * @param {string} name - The name of the object to remove.
+   */
+  removeCompositeObject(name: string): void {
+    let CObject = this.composite.find((item) => item.getName() == name);
+    if (CObject) this.composite.splice(this.composite.indexOf(CObject), 1);
   }
 
-  /// @func getExportableObject(name)
-  /// @desc Returns the specified Composite object from the group.
-  /// @arg {string} name
-
-  getExportableObject(name: string): Composite | undefined {
+  /**
+   * Gets the named Composite object.
+   *
+   * @param {string} name - The name of the object to get from the group.
+   * @return {(Composite|undefined)} The Composite object.
+   */
+  getCompositeObject(name: string): Composite | undefined {
     return this.composite.find((item) => item.getName() == name);
   }
 
-  //todo: observable
+  //
+  // todo: observable
+  //
+  // @return {Composite[]} The descendents.
+  //
   getDescendents(): Composite[] {
     return this.composite;
   }

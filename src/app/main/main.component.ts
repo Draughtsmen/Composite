@@ -93,7 +93,7 @@ export class MainComponent {
     if (this.modalComposite == null) {
       this.project?.addGroup(<CompositeGroup>newComposite);
     } else if (this.modalComposite instanceof CompositeGroup) {
-      (<CompositeGroup>this.modalComposite).addExportableObject(newComposite);
+      (<CompositeGroup>this.modalComposite).addCompositeObject(newComposite);
     }
   }
 
@@ -208,7 +208,7 @@ export class MainComponent {
       this.project?.removeGroup(component.getName());
     } else {
       if (parentComponent instanceof CompositeGroup) {
-        parentComponent.removeExportableObject(component.getName());
+        parentComponent.removeCompositeObject(component.getName());
       }
     }
     this.saveComposite();
