@@ -5,8 +5,8 @@ import { DocumentSupportFormat } from './document-support-format';
 export class CompositeGroup extends Composite {
   private composite: Composite[];
 
-  constructor(name: string) {
-    super(name, 'group');
+  constructor(name: string, description: string) {
+    super(name, description, 'group');
     this.composite = new Array<Composite>();
   }
 

@@ -99,13 +99,14 @@ export class MainComponent {
 
   onNewCompositeSubmit(modal: any) {
     let name = this.newCompositeForm.get('name')?.value;
+    let description = this.newCompositeForm.get('description')?.value;
     for (const item of this.currTypes) {
       if (item['type'] === 'group') {
         if (item.hasOwnProperty('append')) {
           //todo: better implementation
           name += item['append'];
         }
-        this.addComposite(new CompositeGroup(name));
+        this.addComposite(new CompositeGroup(name, description));
       } else if (item['type'] === 'function') {
         let arr = <FormArray>(
           this.newCompositeForm.get('function')?.get('arguments')
@@ -117,6 +118,7 @@ export class MainComponent {
         this.addComposite(
           new CompositeFunction(
             name,
+            description,
             this.newCompositeForm.get('function')?.get('return')?.value,
             strArr
           )

@@ -19,7 +19,8 @@ export class AppComponent {
     let finallyaclass: CompositeClass = new CompositeClass(
       'myClass',
       'public ',
-      ' : mysuperclass '
+      ' : mysuperclass ',
+      'A test class.'
     );
 
     // console.log(finallyaclass.generateStub(j, JSON.parse(test)));

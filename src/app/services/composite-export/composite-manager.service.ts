@@ -106,7 +106,8 @@ export class CompositeManagerService {
       let composite: CompositeClass = new CompositeClass(
         data['prefix'],
         data['name'],
-        data['postfix']
+        data['postfix'],
+        data['description']
       );
       for (let i = 0; i < data['memberVariables'].length; i++) {
         composite.addMemberVariable(data['memberVariable'][i]);
@@ -129,12 +130,16 @@ export class CompositeManagerService {
     } else if (data['_type'] === 'CompositeFunction') {
       let composite: CompositeFunction = new CompositeFunction(
         data['name'],
+        data['description'],
         data['returnType'],
         data['args']
       );
       return composite;
     } else if (data['_type'] === 'CompositeGroup') {
-      let composite: CompositeGroup = new CompositeGroup(data['name']);
+      let composite: CompositeGroup = new CompositeGroup(
+        data['name'],
+        data['description']
+      );
       for (let i = 0; i < data['composite'].length; i++) {
         composite.addExportableObject(
           CompositeManagerService.deserialize(data['composite'][i])
