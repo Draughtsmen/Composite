@@ -1,36 +1,29 @@
 {
     "specs": [
         {
-            "spec": "description",
-            "format": "1"
+            "name": "description",
+            "format": "[value]"
         },
         {
-            "spec": "parameter",
-            "format": "@param 1\t2"
+            "name": "parameter",
+            "format": "@param [name]\t[value]"
         },
         {
-            "spec": "return",
-            "format": "@return 1"
+            "name": "return",
+            "format": "@return [return]"
         },
         {
-            "spec": "exception",
-            "format": "@exception 1"
+            "name": "exception",
+            "format": "@exception [value]"
         },
         {
-            "spec": "see",
-            "format": "@see 1"
+            "name": "see",
+            "format": "@see [value]"
         }
     ],
 
-    "container": [
-        {
-            "opener": "/**"
-        },
-        {
-            "prefix": "* "   
-        },
-        {
-            "closer": "*/"
-        }
-    ]
+    "opener": "/**",
+    "prefix": "* ", 
+    "closer": "*/"
+
 }

@@ -8,6 +8,11 @@ import { DocumentSupportFormat } from 'src/app/classes/document-support-format';
 import { Composite } from '../../classes/composite';
 import { LanguageSupportFormat } from '../../classes/language-support-format';
 
+/**
+ * This class describes the Composite Manager Service.
+ *
+ * @class CompositeManagerService (name)
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -20,68 +25,68 @@ export class CompositeManagerService {
       language: {
         types: [
           {
-            type: 'string',
-            format: '1# = "2"#;',
+            name: 'string',
+            format: '[name] = "[value]";',
           },
           {
-            'type:': 'real',
-            format: '1# = 2#;',
+            name: 'real',
+            format: '[name] = [value];',
           },
           {
-            type: 'array',
-            format: '1 = array_create(2);',
+            name: 'array',
+            format: '[name] = array_create([value]);',
           },
           {
-            type: 'boolean',
-            format: '1# = 2#;',
+            name: 'boolean',
+            format: '[name] = [value];',
           },
           {
-            type: 'enum',
-            format: 'enum 1 {#\n2\n#}',
+            name: 'enum',
+            format: 'enum [name] {\n[value]\n}',
           },
         ],
-
         templates: [
           {
             name: 'function',
-            format: 'function 1(2) {\n\treturn3;\n}',
+            format: 'function [name]([value]) {\n\treturn [return];\n}',
           },
           {
             name: 'script',
             format: '',
           },
         ],
-
-        singleCommentRule: '//1',
-        multiCommentRule: '/*\n1\n*/',
+        singleCommentRule: '//[value]',
+        multiCommentRule: '/*\n[value]\n*/',
       },
       docs: {
         specs: [
           {
-            spec: 'function',
-            format: '@function 1(2)',
+            name: 'function',
+            format: '@function [name]([value])',
           },
           {
-            spec: 'description',
-            format: '@description 1',
+            name: 'description',
+            format: '@description [value]',
           },
           {
-            spec: 'parameter',
-            format: '@param {1} 2 3',
+            name: 'parameter',
+            format: '@param {[type]} [name] [value]',
           },
         ],
-
-        container: [
-          {
-            prefix: '/// ',
-          },
-        ],
+        prefix: '/// ',
       },
     },
   };
 
   constructor() {}
 
+  /**
+   * Creates a project in Composite.
+   *
+   * @param {string} name - The name of the new project.
+   * @param {string} language - The project's programming language.
+   * @return {CompositeProject} A new Composite Project.
+   */
   static createProject(name: string, language: string) {
     return new CompositeProject(
       name,
@@ -90,6 +95,13 @@ export class CompositeManagerService {
     );
   }
 
+  /**
+   * Deserializes a whole Composite Project.
+   *
+   * @param {any} data - The Composite Project's raw data.
+   * @param {string} language - A supported language.
+   * @return {CompositeProject} A Composite Project.
+   */
   static deserializeProject(data: any, language: string): CompositeProject {
     if (data['_type'] === 'CompositeProject') {
       let composite: CompositeProject = new CompositeProject(
@@ -107,14 +119,21 @@ export class CompositeManagerService {
     throw new Error('Invalid type');
   }
 
-  //maybe put this in Composite instead?
+  /**
+   * Recursively deserializes Composite objects.
+   *
+   * @param {any} data - The data to deserialize.
+   * @return {Composite} The Composite object that was deserialized.
+   */
   static deserialize(data: any): Composite {
     if (data['_type'] === 'CompositeClass') {
       let composite: CompositeClass = new CompositeClass(
         data['prefix'],
         data['name'],
-        data['postfix']
+        data['postfix'],
+        data['description']
       );
+
       for (let i = 0; i < data['memberVariables'].length; i++) {
         composite.addMemberVariable(data['memberVariable'][i]);
       }
@@ -136,14 +155,18 @@ export class CompositeManagerService {
     } else if (data['_type'] === 'CompositeFunction') {
       let composite: CompositeFunction = new CompositeFunction(
         data['name'],
+        data['description'],
         data['returnType'],
         data['args']
       );
       return composite;
     } else if (data['_type'] === 'CompositeGroup') {
-      let composite: CompositeGroup = new CompositeGroup(data['name']);
+      let composite: CompositeGroup = new CompositeGroup(
+        data['name'],
+        data['description']
+      );
       for (let i = 0; i < data['composite'].length; i++) {
-        composite.addExportableObject(
+        composite.addCompositeObject(
           CompositeManagerService.deserialize(data['composite'][i])
         );
       }

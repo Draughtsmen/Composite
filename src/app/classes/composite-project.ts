@@ -29,9 +29,9 @@ export class CompositeProject {
     let output: string = '';
     for (var i = 0; i < this.files.length; ++i) {
       output +=
-        "//Start of file '" +
+        "// Start of file '" +
         this.files[i].getName() +
-        "'\n" +
+        "'\n\n" +
         this.files[i].generateStub(this.lang, this.doc);
     }
     return output;

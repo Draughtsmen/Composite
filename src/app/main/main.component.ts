@@ -93,19 +93,20 @@ export class MainComponent {
     if (this.modalComposite == null) {
       this.project?.addGroup(<CompositeGroup>newComposite);
     } else if (this.modalComposite instanceof CompositeGroup) {
-      (<CompositeGroup>this.modalComposite).addExportableObject(newComposite);
+      (<CompositeGroup>this.modalComposite).addCompositeObject(newComposite);
     }
   }
 
   onNewCompositeSubmit(modal: any) {
     let name = this.newCompositeForm.get('name')?.value;
+    let description = this.newCompositeForm.get('description')?.value;
     for (const item of this.currTypes) {
       if (item['type'] === 'group') {
         if (item.hasOwnProperty('append')) {
           //todo: better implementation
           name += item['append'];
         }
-        this.addComposite(new CompositeGroup(name));
+        this.addComposite(new CompositeGroup(name, description));
       } else if (item['type'] === 'function') {
         let arr = <FormArray>(
           this.newCompositeForm.get('function')?.get('arguments')
@@ -117,6 +118,7 @@ export class MainComponent {
         this.addComposite(
           new CompositeFunction(
             name,
+            description,
             this.newCompositeForm.get('function')?.get('return')?.value,
             strArr
           )
@@ -206,7 +208,7 @@ export class MainComponent {
       this.project?.removeGroup(component.getName());
     } else {
       if (parentComponent instanceof CompositeGroup) {
-        parentComponent.removeExportableObject(component.getName());
+        parentComponent.removeCompositeObject(component.getName());
       }
     }
     this.saveComposite();

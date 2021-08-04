@@ -1,35 +1,37 @@
 {
 	"types": [
 		{
-			"type": "string",
-			"format": "1# = \"2\"#;"
+			"name": "string",
+			"format": "string [name] = \"[value]\";"
 		},
 		{
-			"type:": "float",
-			"format": "1# = 2f#;"
+			"name": "float",
+			"format": "float [name] = [value]f;"
 		},
 		{
-			"type": "int",
-			"format": "1# = 2#;"
+			"name": "int",
+			"format": "int [name] = [value];"
 		},
         {
-            "type": "bool",
-            "format": "1# = 2#;"
+            "name": "bool",
+            "format": "bool [name] = [value];"
         }
 	],
 
 	"templates": [
 		{
 			"name": "function",
-			"format": "3 1(2) {\n#\treturn 3;#\n}"
+			"format": "[return] [name]([value]) {\n\treturn [return];\n}"
 		},
 		{
 			"name": "class",
-			"format": "1 class 2 3 {\n# #\n}"
+			"format": "[modifier] class [name] {\n# #\n}"
 		}
 	],
 
-	"singleCommentRule": "//1",
-	"multiCommentRule": "/*\n1\n*/"
+	"modifiers": ["public", "protected", "private"],
+
+	"singleCommentRule": "//[value]",
+	"multiCommentRule": "/*\n[value]\n*/"
 
 }	
