@@ -7,6 +7,7 @@ const { v4: genUuid } = require("uuid");
 
 const path = require("path");
 
+
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
@@ -14,6 +15,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
+      enableRemoteModule: true,
     },
   });
 
