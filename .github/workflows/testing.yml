@@ -28,7 +28,7 @@ jobs:
       - name: Install XVFB
         run: apt-get install xvfb
       - name: Configure XVFB
-        run: xvfb-maybe electron-mocha ./test/*.js
+        run: xvfb-run electron-mocha ./test/*.js
 #      - name: Run tests
 #        run: npm test
   
