@@ -25,6 +25,10 @@ jobs:
         run: npm install --save-dev @angular/cli
       - name: Install dependencies
         run: npm install
+      - name: Install XVFB
+        run: apt-get install xvfb
+      - name: Configure XVFB
+        run: xvfb-maybe electron-mocha ./test/*.js
 #      - name: Run tests
 #        run: npm test
   
