@@ -50,7 +50,7 @@ export class CompositeProject {
   }
 
   /**
-   * Adds a ComppsiteGroup to the project.
+   * Adds a CompositeGroup to the project.
    *
    * @param {CompositeGroup} obj - The CompositeGroup to add.
    */

@@ -58,7 +58,7 @@ export class MenuComponent implements OnInit {
       this.ipcService.send('list-projects');
     });
 
-    // To be run after the "delete-project" even is sent and received.
+    // To be run after the "delete-project" event is sent and received.
     this.ipcService.on('delete-project-reply', (event, res) => {
       this.ipcService.send('list-projects');
     });

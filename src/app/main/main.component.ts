@@ -98,7 +98,7 @@ export class MainComponent {
   }
 
   /**
-   * Serializes and saves the Compoiste Project.
+   * Serializes and saves the Composite Project.
    */
   saveComposite() {
     this.fullProject.data = this.project?.serialize();
