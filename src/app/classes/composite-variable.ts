@@ -9,14 +9,17 @@ import { DocumentSupportFormat } from './document-support-format';
  */
 export class CompositeVariable extends Composite {
   private variableType: string;
+  private value: string;
 
   constructor(
     name: string,
     description: string,
-    variableType: string
+    variableType: string,
+    value: string
   ) {
     super(name, description, 'variable');
     this.variableType = variableType;
+    this.value = value;
   }
 
   /**
@@ -30,13 +33,32 @@ export class CompositeVariable extends Composite {
     lang: LanguageSupportFormat,
     doc: DocumentSupportFormat
   ): string {
-    let docs = this.getDoc(doc);
     let docStub: string = '';
 
+    // Get the documentation prefix if able.
+    let prefix = doc.prefix;
+    if (prefix == undefined) prefix = '';
+
+    // Document the variable if able.
+    let varStub = doc.specs.find((i) => i.name == 'parameter')?.format;
+    if (varStub != undefined) {
+      varStub = varStub.replace('[name]', this.name);
+      varStub = varStub.replace('[type]', this.variableType);
+      varStub = varStub.replace('[value]', this.description);
+      varStub += '\n';
+
+      docStub += prefix + varStub;
+    }
+
     // Fill in the variable stub if there is one to work off of.
-    let stub = this.getLangFormat(lang, this.type);
+    let stub = lang.types.find((i) => i.name == this.variableType)?.format;
     if (stub != undefined) {
+      stub = stub.replace('[name]', this.name);
+      stub = stub.replace('[value]', this.value);
+
       return docStub + '\n' + stub;
+    } else if (stub == undefined && docStub.length > 0) {
+      return docStub;
     } else return 'Critical failure: could not find type ' + this.type + '.';
   }
 
@@ -48,6 +70,8 @@ export class CompositeVariable extends Composite {
   serialize(): any {
     let data: any = super.serialize();
     data['_type'] = 'CompositeVariable';
+    data['variableType'] = this.variableType;
+    data['value'] = this.value;
     return data;
   }
 
@@ -67,5 +91,23 @@ export class CompositeVariable extends Composite {
    */
   setReturnType(newVariableType: string): void {
     this.variableType = newVariableType;
+  }
+
+  /**
+   * Gets the value of the variable.
+   *
+   * @return {string} The value.
+   */
+  getValue(): string {
+    return this.value;
+  }
+
+  /**
+   * Sets the value of the variable.
+   *
+   * @param {string} newValue - The new value.
+   */
+  setValue(newValue: string): void {
+    this.value = newValue;
   }
 }
