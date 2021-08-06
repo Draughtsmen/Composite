@@ -66,7 +66,7 @@ export class CompositeProject {
   removeGroup(name: string): void {
     let group = this.files.find((item) => item.getName() == name);
     if (group) this.files.splice(this.files.indexOf(group), 1);
-  } 
+  }
 
   /**
    * Gets the named group from the project.

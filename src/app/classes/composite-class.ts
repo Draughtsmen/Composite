@@ -15,6 +15,7 @@ export class CompositeClass extends Composite {
   private memberFunctions: CompositeFunction[];
   private subclasses: CompositeClass[];
 
+  // TODO: Incorporate with CompoisteVariable.
   constructor(pre: string, name: string, post: string, description: string) {
     super(name, description, 'class');
     this.prefix = pre;
