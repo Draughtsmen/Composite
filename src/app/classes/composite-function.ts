@@ -113,7 +113,7 @@ export class CompositeFunction extends Composite {
   /**
    * Sets the arguments.
    *
-   * @param {string[]} newArgs - The new arguments
+   * @param {string[]} newArgs - The new arguments.
    */
   setArguments(newArgs: string[]): void {
     this.args = newArgs;
@@ -131,7 +131,7 @@ export class CompositeFunction extends Composite {
   /**
    * Sets the return type.
    *
-   * @param {string} newReturnType - The new return type
+   * @param {string} newReturnType - The new return type.
    */
   setReturnType(newReturnType: string): void {
     this.returnType = newReturnType;

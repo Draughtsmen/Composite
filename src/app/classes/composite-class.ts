@@ -82,7 +82,7 @@ export class CompositeClass extends Composite {
   /**
    * Sets the prefix.
    *
-   * @param {string} newPrefix - The new prefix
+   * @param {string} newPrefix - The new prefix.
    */
   setPrefix(newPrefix: string): void {
     this.name = newPrefix;
@@ -100,7 +100,7 @@ export class CompositeClass extends Composite {
   /**
    * Sets the postfix.
    *
-   * @param {string} newPostfix - The new postfix
+   * @param {string} newPostfix - The new postfix.
    */
   setPostfix(newPostfix: string): void {
     this.name = newPostfix;
@@ -118,7 +118,7 @@ export class CompositeClass extends Composite {
   /**
    * Adds a member variable.
    *
-   * @param {string} variable - The variable
+   * @param {string} variable - The variable.
    */
   addMemberVariable(variable: string): void {
     this.memberVariables.push(variable);
@@ -127,7 +127,7 @@ export class CompositeClass extends Composite {
   /**
    * Removes the specified member variable.
    *
-   * @param {string} variable -  The variable
+   * @param {string} variable -  The variable.
    */
   removeMemberVariable(variable: string): void {
     let memVar = this.memberVariables.find((item) => item == variable);
