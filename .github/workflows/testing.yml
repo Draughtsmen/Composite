@@ -25,6 +25,8 @@ jobs:
         run: npm install --save-dev @angular/cli
       - name: Install dependencies
         run: npm install
+      - name: Install Chrome
+        run: apt install google-chrome-stable
       - name: Headless Chrome
         run: chrome --headless --remote-debugging-port=9222 https://chromium.org --disable-gpu
       - name: Run tests
