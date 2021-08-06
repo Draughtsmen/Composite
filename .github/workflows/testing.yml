@@ -25,10 +25,8 @@ jobs:
         run: npm install --save-dev @angular/cli
       - name: Install dependencies
         run: npm install
-      - name: Install XVFB
-        run: apt-get install xvfb
-      - name: Configure XVFB
-        run: xvfb-run electron-mocha ./test/*.js
-#      - name: Run tests
-#        run: npm test
+      - name: Headless Chrome
+        run: chrome --headless --remote-debugging-port=9222 https://chromium.org --disable-gpu
+      - name: Run tests
+        run: npm test
   
