@@ -14,7 +14,7 @@
     "lint:stylelint": "stylelint \"src/**/*.scss\"",
     "lint:stylelint-fix": "npm run lint:stylelint -- --fix",
     "test": "mocha --exit",
-    "serverTest": "xvfb-maybe electron-mocha ./test/*.js"
+    "serverTest": "xvfb-run electron-mocha ./test/*.js"
   },
   "private": true,
   "dependencies": {
