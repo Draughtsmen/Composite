@@ -76,13 +76,13 @@ export class CompositeFunction extends Composite {
     }
 
     // Document the function parameters if able.
+    // TODO: Integrate with CompositeVariable.
     let paramStub = docs.specs.find((i) => i.name == 'parameter')?.format;
     if (paramStub != undefined) {
       let reversion = paramStub;
       for (var index = 0; index < this.args.length; index++) {
         let param = this.args[index];
         paramStub = paramStub.replace('[name]', this.args[index]);
-        // Todo: Functionality and data for [type] and [value].
         paramStub += '\n';
 
         docStub += prefix + paramStub;
@@ -113,7 +113,7 @@ export class CompositeFunction extends Composite {
   /**
    * Sets the arguments.
    *
-   * @param {string[]} newArgs - The new arguments
+   * @param {string[]} newArgs - The new arguments.
    */
   setArguments(newArgs: string[]): void {
     this.args = newArgs;
@@ -131,7 +131,7 @@ export class CompositeFunction extends Composite {
   /**
    * Sets the return type.
    *
-   * @param {string} newReturnType - The new return type
+   * @param {string} newReturnType - The new return type.
    */
   setReturnType(newReturnType: string): void {
     this.returnType = newReturnType;

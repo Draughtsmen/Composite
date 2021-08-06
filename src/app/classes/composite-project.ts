@@ -3,12 +3,24 @@ import { CompositeGroup } from './composite-group';
 import { LanguageSupportFormat } from './language-support-format';
 import { DocumentSupportFormat } from './document-support-format';
 
+/**
+ * This class describes a composite project.
+ *
+ * @class CompositeProject (name)
+ */
 export class CompositeProject {
   private name: string;
   public files: CompositeGroup[];
   public lang: LanguageSupportFormat;
   public doc: DocumentSupportFormat;
 
+  /**
+   * Constructs a new instance.
+   *
+   * @param {string} name - The name of the project.
+   * @param {LanguageSupportFormat} lang - The chosen programming language.
+   * @param {DocumentSupportFormat} doc - The chosen documentation style.
+   */
   constructor(
     name: string,
     lang: LanguageSupportFormat,
@@ -20,67 +32,78 @@ export class CompositeProject {
     this.doc = doc;
   }
 
-  /// @func exportProject(lang, doc)
-  /// @desc Exports the whole project.
-  /// @arg {LanguageSupportFormat} lang
-  /// @arg {JSON} doc
-
+  /**
+   * Generates all of the project's stubs in order.
+   *
+   * @return {string} All code stubs and documentation in the project.
+   */
   exportProject(): string {
     let output: string = '';
     for (var i = 0; i < this.files.length; ++i) {
       output +=
-        "// Start of file '" +
+        "/* Start of file '" +
         this.files[i].getName() +
-        "'\n\n" +
+        "' */\n\n" +
         this.files[i].generateStub(this.lang, this.doc);
     }
     return output;
   }
 
-  /// @func addGroup(obj)
-  /// @desc Adds a new CompositeGroup to track.
-  /// @arg {CompositeGroup} obj
-
+  /**
+   * Adds a CompositeGroup to the project.
+   *
+   * @param {CompositeGroup} obj - The CompositeGroup to add.
+   */
   addGroup(obj: CompositeGroup): void {
     this.files.push(obj);
   }
 
-  /// @func removeGroup(name)
-  /// @desc Removes a CompositeGroup from the project.
-  /// @arg {string} name
-
+  /**
+   * Removes the named CompositeGroup from the project.
+   *
+   * @param {string} name - The name of the group to remove.
+   */
   removeGroup(name: string): void {
     let group = this.files.find((item) => item.getName() == name);
     if (group) this.files.splice(this.files.indexOf(group), 1);
   }
 
-  /// @func getGroup(name)
-  /// @desc Returns the specified CompositeGroup in the project.
-  /// @arg {string} name
-
+  /**
+   * Gets the named group from the project.
+   *
+   * @param {string} name - The name of the group to get.
+   * @return {(CompositeGroup|undefined)} The group from the project.
+   */
   getGroup(name: string): CompositeGroup | undefined {
     return this.files.find((item) => item.getName() == name);
   }
 
-  /// @func getName()
-  /// @desc Returns the project name.
-
+  /**
+   * Gets the project name.
+   *
+   * @return {string} The project name.
+   */
   getName(): string {
     return this.name;
   }
 
-  /// @func setName(newName)
-  /// @desc Sets a new project name.
-  /// @arg {string} newName
-
+  /**
+   * Sets the project name.
+   *
+   * @param {string} newName - The new project name.
+   */
   setName(newName: string) {
     this.name = newName;
   }
 
+  /**
+   * Serializes the Composite Project for external storage in JSON.
+   *
+   * @return {any} The JSON-serialized form of the Composite Project.
+   */
   serialize(): any {
     let data: any = {};
     data['_type'] = 'CompositeProject';
-
     data['name'] = this.name;
     data['files'] = [];
 

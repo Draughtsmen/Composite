@@ -16,6 +16,11 @@ import { CompositeProject } from '../classes/composite-project';
 import { IpcService } from '../ipc.service';
 import { CompositeManagerService } from '../services/composite-export/composite-manager.service';
 
+/**
+ * This class describes the main component of the frontend.
+ *
+ * @class MainComponent (name)
+ */
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -64,6 +69,14 @@ export class MainComponent {
   newCompositeForm: FormGroup = new FormGroup({});
   fullProject: any;
 
+  /**
+   * Constructs a new instance of the Main frontend component.
+   *
+   * @param {NgModal} modalService
+   * @param {IpcService} ipcService
+   * @param {ActivatedRoute} routeb
+   * @param {NgZone} ngZone
+   */
   constructor(
     private modalService: NgbModal,
     private ipcService: IpcService,
@@ -84,11 +97,19 @@ export class MainComponent {
     ipcService.send('load-project', this.route.snapshot.params.id);
   }
 
+  /**
+   * Serializes and saves the Composite Project.
+   */
   saveComposite() {
     this.fullProject.data = this.project?.serialize();
     this.ipcService.send('save-project', this.fullProject);
   }
 
+  /**
+   * Adds either a CompositeGroup or a Composite object to the project.
+   *
+   * @param {(Composite|number)} newComposite - The new composite to add.
+   */
   addComposite(newComposite: Composite) {
     if (this.modalComposite == null) {
       this.project?.addGroup(<CompositeGroup>newComposite);
@@ -97,6 +118,11 @@ export class MainComponent {
     }
   }
 
+  /**
+   * **Called on new composite submit.
+   *
+   * @param {any} modal - The modal to close on completion of the function.
+   */
   onNewCompositeSubmit(modal: any) {
     let name = this.newCompositeForm.get('name')?.value;
     let description = this.newCompositeForm.get('description')?.value;
@@ -129,22 +155,48 @@ export class MainComponent {
     modal.close();
   }
 
+  /**
+   * Gets the FormControl array from a doubly-specified Composite Form element.
+   *
+   * @param {string} id - The identifier.
+   * @param {string} subId - The sub identifier.
+   * @return {FormControl[]} The array controls.
+   */
   getArrayControls(id: string, subId: string): FormControl[] {
     return <FormControl[]>(
       (<FormArray>this.newCompositeForm.get(id)?.get(subId)).controls
     );
   }
 
+  /**
+   * Adds a new array field to the doubly-specified Composite Form.
+   *
+   * @param {string} id - The identifier.
+   * @param {string} subId - The sub identifier.
+   */
   addArrayField(id: string, subId: string) {
     (<FormArray>this.newCompositeForm.get(id)?.get(subId)).push(
       new FormControl('')
     );
   }
 
+  /**
+   * Removes the indexed array field from the doubly-specified Composite Form.
+   *
+   * @param {string} id - The identifier.
+   * @param {string} subId - The sub identifier.
+   * @param {number} index - The index.
+   */
   removeArrayField(id: string, subId: string, index: number) {
     (<FormArray>this.newCompositeForm.get(id)?.get(subId)).removeAt(index);
   }
 
+  /**
+   * **Opens a new composite.
+   *
+   * @param {any} content - The content.
+   * @param {any} currentComposite - The current composite.
+   */
   openNewComposite(content: any, currentComposite: any) {
     if (currentComposite == null) {
       //Project root
@@ -179,6 +231,12 @@ export class MainComponent {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 
+  /**
+   * Checks if a provided Composite object can have descendants.
+   *
+   * @param {Composite} component - The component to check.
+   * @return {boolean} True if component can have descendants.  False otherwise.
+   */
   componentCanMakeDescendents(component: Composite): boolean {
     if (component instanceof CompositeGroup) {
       return (
@@ -199,10 +257,21 @@ export class MainComponent {
     return false;
   }
 
+  /**
+   * Selects the component as the current Composite object to display.
+   *
+   * @param {(Composite|null)} component - The component.
+   */
   showComponent(component: Composite | null) {
     this.currComposite = component;
   }
 
+  /**
+   * Deletes the chosen Composite object from the Composite project.
+   *
+   * @param {Composite} component - The component to delete.
+   * @param {any} parentComponent - The parent component if it is a Group.
+   */
   deleteComponent(component: Composite, parentComponent: any) {
     if (parentComponent == null) {
       this.project?.removeGroup(component.getName());
