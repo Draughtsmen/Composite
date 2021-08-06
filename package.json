@@ -29,8 +29,6 @@
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "bootstrap": "^4.6.0",
-    "chromedriver": "^92.0.1",
-    "chromium": "^3.0.2",
     "electron-store": "^8.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
