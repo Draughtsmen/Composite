@@ -1,19 +1,13 @@
 name: Testing CI
 
-on:
-  push:
-    branches:
-      - master
-    tags:
-      - v[0-9]+.[0-9]+.[0-9]+*
-  pull_request:
+on: [pull_request]
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest]
         node-version: [12.x]
 
     steps:
