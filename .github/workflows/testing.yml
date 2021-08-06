@@ -1,34 +1,41 @@
-name: Testing
+name: Testing CI
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+*
+  pull_request:
 
 jobs:
-  test:
-    name: test
-    runs-on: ubuntu-18.04
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-      - name: Cache Node Modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        node-version: [12.x]
 
-      - name: Install Angular CLI
-        run: npm install --save-dev @angular/cli
-      - name: Install dependencies
-        run: npm install
-#      - name: Install Chrome
-#        run: apt install google-chrome-stable
-#      - name: Headless Chrome
-#        run: chrome --headless --remote-debugging-port=9222 https://chromium.org --disable-gpu
-      - name: Run tests
+    steps:
+      - name: Fix git checkout line endings
+        run: git config --global core.autocrlf input
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Get npm cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install
+        run: npm ci
+      - name: Test
         run: npm test
   
