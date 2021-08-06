@@ -12,8 +12,11 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
+      //nodeIntegration: true,
+      //contextIsolation: false,
+      preload:  'path/to/preload.ts',
+      contextIsolation: !isTestMode,  // Spectron tests can't work with contextIsolation: true
+      enableRemoteModule: isTestMode, // Spectron tests can't work with enableRemoteModule: false
     },
   });
 
