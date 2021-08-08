@@ -1,21 +1,21 @@
 {
-    "name": "gmldocs",
+    "gmldocs":
+    {
+        "specs": [
+            {
+                "name": "function",
+                "format": "@function [name]([value])"
+            },
+            {
+                "name": "description",
+                "format": "@description [value]"
+            },
+            {
+                "name": "parameter",
+                "format": "@param {[type]} [name] [value]"
+            }
+        ],
 
-    "specs": [
-        {
-            "name": "function",
-            "format": "@function [name]([value])"
-        },
-        {
-            "name": "description",
-            "format": "@description [value]"
-        },
-        {
-            "name": "parameter",
-            "format": "@param {[type]} [name] [value]"
-        }
-    ],
-
-    "prefix": "/// "
-
+        "prefix": "/// "
+    }
 }

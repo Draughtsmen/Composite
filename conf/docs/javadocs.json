@@ -1,31 +1,31 @@
 {
-    "name": "javadocs",
+    "javadocs":
+    {
+        "specs": [
+            {
+                "name": "description",
+                "format": "[value]"
+            },
+            {
+                "name": "parameter",
+                "format": "@param [name]\t[value]"
+            },
+            {
+                "name": "return",
+                "format": "@return [return]"
+            },
+            {
+                "name": "exception",
+                "format": "@exception [value]"
+            },
+            {
+                "name": "see",
+                "format": "@see [value]"
+            }
+        ],
 
-    "specs": [
-        {
-            "name": "description",
-            "format": "[value]"
-        },
-        {
-            "name": "parameter",
-            "format": "@param [name]\t[value]"
-        },
-        {
-            "name": "return",
-            "format": "@return [return]"
-        },
-        {
-            "name": "exception",
-            "format": "@exception [value]"
-        },
-        {
-            "name": "see",
-            "format": "@see [value]"
-        }
-    ],
-
-    "opener": "/**",
-    "prefix": "* ", 
-    "closer": "*/"
-
+        "opener": "/**",
+        "prefix": "* ", 
+        "closer": "*/"
+    }
 }
