@@ -110,6 +110,7 @@ export class MenuComponent implements OnInit {
       'new-project',
       name,
       language,
+      doc,
       CompositeManagerService.createProject(name, language, doc).serialize()
     );
     modal.close();

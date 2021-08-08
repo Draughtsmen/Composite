@@ -80,15 +80,16 @@ ipcMain.on("delete-project", (event, id) => {
   data: <composite data>
 }
 */
-ipcMain.on("new-project", (event, name, language, baseData) => {
+ipcMain.on("new-project", (event, name, language, doc, baseData) => {
   let list = store.get("project-list", {});
   let uuid = genUuid();
-  list[uuid] = { name: name, language: language };
+  list[uuid] = { name: name, language: language, doc: doc };
   store.set("project-list", list);
   let project = {
     id: uuid,
     name: name,
     language: language,
+    doc: doc,
     data: baseData,
   };
   store.set("project-store-" + uuid, project);

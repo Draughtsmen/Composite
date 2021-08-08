@@ -88,7 +88,8 @@ export class MainComponent {
         this.fullProject = res;
         this.project = CompositeManagerService.deserializeProject(
           res['data'],
-          this.fullProject.language
+          this.fullProject.language,
+          this.fullProject.doc
         );
       });
     });

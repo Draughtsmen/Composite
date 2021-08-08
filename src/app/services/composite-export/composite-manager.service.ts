@@ -20,64 +20,10 @@ export class CompositeManagerService {
   public static readonly SUPPORTED_LANGUAGES: any = {
     GML: 'gml',
   };
-  private static readonly LANGUAGE_INFO: any = {
-    gml: {
-      types: [
-        {
-          name: 'string',
-          format: '[name] = "[value]";',
-        },
-        {
-          name: 'real',
-          format: '[name] = [value];',
-        },
-        {
-          name: 'array',
-          format: '[name] = array_create([value]);',
-        },
-        {
-          name: 'boolean',
-          format: '[name] = [value];',
-        },
-        {
-          name: 'enum',
-          format: 'enum [name] {\n[value]\n}',
-        },
-      ],
-      templates: [
-        {
-          name: 'function',
-          format: 'function [name]([value]) {\n\treturn [return];\n}',
-        },
-        {
-          name: 'script',
-          format: '',
-        },
-      ],
-      singleCommentRule: '//[value]',
-      multiCommentRule: '/*\n[value]\n*/',
-    },
-  };
 
-  private static readonly DOC_INFO: any = {
-    gmldocs: {
-      specs: [
-        {
-          name: 'function',
-          format: '@function [name]([value])',
-        },
-        {
-          name: 'description',
-          format: '@description [value]',
-        },
-        {
-          name: 'parameter',
-          format: '@param {[type]} [name] [value]',
-        },
-      ],
-      prefix: '/// ',
-    },
-  };
+  private static LANGUAGE_INFO: any;
+
+  private static DOC_INFO: any;
 
   constructor() {}
 
@@ -104,12 +50,12 @@ export class CompositeManagerService {
    * @param {string} language - A supported language.
    * @return {CompositeProject} A Composite Project.
    */
-  static deserializeProject(data: any, language: string): CompositeProject {
+  static deserializeProject(data: any, language: string, doc: string): CompositeProject {
     if (data['_type'] === 'CompositeProject') {
       let composite: CompositeProject = new CompositeProject(
         data['name'],
-        CompositeManagerService.LANGUAGE_INFO[language]['language'],
-        CompositeManagerService.LANGUAGE_INFO[language]['docs']
+        CompositeManagerService.LANGUAGE_INFO[language],
+        CompositeManagerService.DOC_INFO[doc]
       );
       for (let i = 0; i < data['files'].length; i++) {
         composite.addGroup(
