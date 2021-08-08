@@ -105,6 +105,7 @@ export class MenuComponent implements OnInit {
     let name = this.newProjectForm.get('name')?.value;
     let language = this.newProjectForm.get('language')?.value;
     let doc = this.newProjectForm.get('doc')?.value;
+
     this.ipcService.send(
       'new-project',
       name,
