@@ -1,4 +1,6 @@
 {
+    "name": "gmldocs",
+
     "specs": [
         {
             "name": "function",
@@ -14,6 +16,6 @@
         }
     ],
 
-    "prefix": "/// "   
+    "prefix": "/// "
 
 }
