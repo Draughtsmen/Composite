@@ -50,7 +50,11 @@ export class CompositeManagerService {
    * @param {string} language - A supported language.
    * @return {CompositeProject} A Composite Project.
    */
-  static deserializeProject(data: any, language: string, doc: string): CompositeProject {
+  static deserializeProject(
+    data: any,
+    language: string,
+    doc: string
+  ): CompositeProject {
     if (data['_type'] === 'CompositeProject') {
       let composite: CompositeProject = new CompositeProject(
         data['name'],
