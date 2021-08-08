@@ -25,6 +25,7 @@ export class MenuComponent implements OnInit {
   newProjectForm = new FormGroup({
     name: new FormControl(''),
     language: new FormControl(''),
+    doc: new FormControl(''),
   });
 
   /**
@@ -103,11 +104,12 @@ export class MenuComponent implements OnInit {
   onNewProjectSubmit(modal: any) {
     let name = this.newProjectForm.get('name')?.value;
     let language = this.newProjectForm.get('language')?.value;
+    let doc = this.newProjectForm.get('doc')?.value;
     this.ipcService.send(
       'new-project',
       name,
       language,
-      CompositeManagerService.createProject(name, language).serialize()
+      CompositeManagerService.createProject(name, language, doc).serialize()
     );
     modal.close();
   }

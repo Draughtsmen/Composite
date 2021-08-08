@@ -22,59 +22,60 @@ export class CompositeManagerService {
   };
   private static readonly LANGUAGE_INFO: any = {
     gml: {
-      language: {
-        types: [
-          {
-            name: 'string',
-            format: '[name] = "[value]";',
-          },
-          {
-            name: 'real',
-            format: '[name] = [value];',
-          },
-          {
-            name: 'array',
-            format: '[name] = array_create([value]);',
-          },
-          {
-            name: 'boolean',
-            format: '[name] = [value];',
-          },
-          {
-            name: 'enum',
-            format: 'enum [name] {\n[value]\n}',
-          },
-        ],
-        templates: [
-          {
-            name: 'function',
-            format: 'function [name]([value]) {\n\treturn [return];\n}',
-          },
-          {
-            name: 'script',
-            format: '',
-          },
-        ],
-        singleCommentRule: '//[value]',
-        multiCommentRule: '/*\n[value]\n*/',
-      },
-      docs: {
-        specs: [
-          {
-            name: 'function',
-            format: '@function [name]([value])',
-          },
-          {
-            name: 'description',
-            format: '@description [value]',
-          },
-          {
-            name: 'parameter',
-            format: '@param {[type]} [name] [value]',
-          },
-        ],
-        prefix: '/// ',
-      },
+      types: [
+        {
+          name: 'string',
+          format: '[name] = "[value]";',
+        },
+        {
+          name: 'real',
+          format: '[name] = [value];',
+        },
+        {
+          name: 'array',
+          format: '[name] = array_create([value]);',
+        },
+        {
+          name: 'boolean',
+          format: '[name] = [value];',
+        },
+        {
+          name: 'enum',
+          format: 'enum [name] {\n[value]\n}',
+        },
+      ],
+      templates: [
+        {
+          name: 'function',
+          format: 'function [name]([value]) {\n\treturn [return];\n}',
+        },
+        {
+          name: 'script',
+          format: '',
+        },
+      ],
+      singleCommentRule: '//[value]',
+      multiCommentRule: '/*\n[value]\n*/',
+    },
+  };
+
+  private static readonly DOC_INFO: any = {
+    gmldocs: {
+      specs: [
+        {
+          name: 'function',
+          format: '@function [name]([value])',
+        },
+        {
+          name: 'description',
+          format: '@description [value]',
+        },
+        {
+          name: 'parameter',
+          format: '@param {[type]} [name] [value]',
+        },
+      ],
+      prefix: '/// ',
     },
   };
 
@@ -85,13 +86,14 @@ export class CompositeManagerService {
    *
    * @param {string} name - The name of the new project.
    * @param {string} language - The project's programming language.
+   * @param {string} doc - The project's documentation type.
    * @return {CompositeProject} A new Composite Project.
    */
-  static createProject(name: string, language: string) {
+  static createProject(name: string, language: string, doc: string) {
     return new CompositeProject(
       name,
-      CompositeManagerService.LANGUAGE_INFO[language]['language'],
-      CompositeManagerService.LANGUAGE_INFO[language]['docs']
+      CompositeManagerService.LANGUAGE_INFO[language],
+      CompositeManagerService.DOC_INFO[doc]
     );
   }
 
