@@ -1,8 +1,12 @@
 // An interface to catch language information stored in JSON files
 export interface LanguageSupportFormat {
+  name: string;
+  extension: string;
+
   types: Array<type>;
   templates: Array<template>;
   modifiers: Array<string>;
+  
   singleCommentRule: string;
   multiCommentRule: string;
 }
