@@ -1,4 +1,6 @@
 {
+	"name": "GML",
+	"extension": ".gml",
 	"types": [
 		{
 			"name": "string",
@@ -24,7 +26,8 @@
 
 	"templates": [
 		{
-			"name": "function",
+			"id" : "function",
+			"name": "Function",
 			"format": "function [name]([value]) {\n\treturn [return];\n}"
 		},
 		{

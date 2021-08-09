@@ -1,4 +1,6 @@
 {
+	"name": "C#",
+	"extension": ".cs",
 	"types": [
 		{
 			"name": "string",
@@ -20,12 +22,19 @@
 
 	"templates": [
 		{
-			"name": "function",
+			"id" : "function",
+			"name": "Function",
 			"format": "[return] [name]([value]) {\n\treturn [return];\n}"
 		},
 		{
-			"name": "class",
+			"id" : "class",
+			"name": "Class",
 			"format": "[modifier] class [name] {\n# #\n}"
+		},
+		{
+			"id" : "variable",
+			"name": "Variable",
+			"format": "[type] [name] = [value];"
 		}
 	],
 
