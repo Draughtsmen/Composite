@@ -1,46 +1,41 @@
 {
-	"name": "C#",
-	"extension": ".cs",
-	"types": [
-		{
-			"name": "string",
-			"format": "string [name] = \"[value]\";"
-		},
-		{
-			"name": "float",
-			"format": "float [name] = [value]f;"
-		},
-		{
-			"name": "int",
-			"format": "int [name] = [value];"
-		},
-        {
-            "name": "bool",
-            "format": "bool [name] = [value];"
-        }
-	],
+	"c#":
+	{
+		"extension": "cs",
 
-	"templates": [
-		{
-			"id" : "function",
-			"name": "Function",
-			"format": "[return] [name]([value]) {\n\treturn [return];\n}"
-		},
-		{
-			"id" : "class",
-			"name": "Class",
-			"format": "[modifier] class [name] {\n# #\n}"
-		},
-		{
-			"id" : "variable",
-			"name": "Variable",
-			"format": "[type] [name] = [value];"
-		}
-	],
+		"types": [
+			{
+				"name": "string",
+				"format": "string [name] = \"[value]\";"
+			},
+			{
+				"name": "float",
+				"format": "float [name] = [value]f;"
+			},
+			{
+				"name": "int",
+				"format": "int [name] = [value];"
+			},
+			{
+				"name": "bool",
+				"format": "bool [name] = [value];"
+			}
+		],
 
-	"modifiers": ["public", "protected", "private"],
+		"templates": [
+			{
+				"name": "function",
+				"format": "[return] [name]([value]) {\n\treturn [return];\n}"
+			},
+			{
+				"name": "class",
+				"format": "[modifier] class [name] {\n# #\n}"
+			}
+		],
 
-	"singleCommentRule": "//[value]",
-	"multiCommentRule": "/*\n[value]\n*/"
+		"modifiers": ["public", "protected", "private"],
 
+		"singleCommentRule": "//[value]",
+		"multiCommentRule": "/*\n[value]\n*/"
+	}
 }	

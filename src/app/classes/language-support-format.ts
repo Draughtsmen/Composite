@@ -5,6 +5,7 @@ export interface LanguageSupportFormat {
   types: Array<type>;
   templates: Array<template>;
   modifiers: Array<string>;
+
   singleCommentRule: string;
   multiCommentRule: string;
 }
