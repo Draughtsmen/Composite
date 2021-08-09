@@ -1,5 +1,6 @@
 // An interface to catch language information stored in JSON files
 export interface LanguageSupportFormat {
+  project : Array<project>;
   name: string;
   extension: string;
   types: Array<type>;
@@ -8,6 +9,13 @@ export interface LanguageSupportFormat {
 
   singleCommentRule: string;
   multiCommentRule: string;
+}
+
+
+interface project{
+  name: string,
+  type: string,
+  append: string,
 }
 
 // A helper interface to store types ('int', 'string', etc.).

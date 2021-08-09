@@ -24,15 +24,29 @@
 
 		"templates": [
 			{
-				"name": "function",
+				"type": "function",
+				"name": "Function",
 				"format": "[return] [name]([value]) {\n\treturn [return];\n}"
 			},
 			{
-				"name": "class",
+				"type": "class",
+				"name": "Class",
 				"format": "[modifier] class [name] {\n# #\n}"
+			},
+			{
+				"type": "variable",
+				"name": "Variable",
+				"format": "[type] [name] = [value];\n}"
 			}
 		],
 
+		"project": [
+			{
+			  "name": "File",
+			  "type": "group",
+			  "append": ".cs"
+			}
+		],
 		"modifiers": ["public", "protected", "private"],
 
 		"singleCommentRule": "//[value]",

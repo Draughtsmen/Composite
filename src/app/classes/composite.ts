@@ -39,7 +39,7 @@ export abstract class Composite {
    * @return {(string|undefined)} A template stub if one exists.
    */
   getLangFormat(lang: LanguageSupportFormat, type: string): string | undefined {
-    return lang.templates.find((i) => i.name == type)?.format;
+    return lang.templates.find((i) => i.id == type)?.format;
   }
 
   /**

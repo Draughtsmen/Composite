@@ -28,12 +28,39 @@
 
 		"templates": [
 			{
-				"name": "function",
-				"format": "function [name]([value]) {\n\treturn [return];\n}"
+				"id": "function",
+				"name": "Function",
+				"format": "function [name]([value]) {\n\treturn [return];\n}",
+				"data": [
+					{
+					  "id": "return",
+					  "name": "Return Type",
+					  "type": "string"
+					},
+					{
+					  "id": "arguments",
+					  "name": "Arguments",
+					  "type": "array"
+					}
+				  ]
 			},
 			{
 				"name": "script",
 				"format": ""
+			},
+			{
+				"id": "variable",
+				"name": "Variable",
+				"format": "[name] = [value];\n}"
+			}
+		],
+
+		"project": [
+			{
+			  "id": "file",
+			  "name": "File",
+			  "type": "group",
+			  "append": ".gml"
 			}
 		],
 

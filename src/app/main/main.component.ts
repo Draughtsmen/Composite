@@ -8,6 +8,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { sandboxed } from 'process';
 import { Composite } from '../classes/composite';
 import { CompositeClass } from '../classes/composite-class';
 import { CompositeFunction } from '../classes/composite-function';
@@ -31,7 +32,7 @@ export class MainComponent {
   modalComposite: any = null;
   currComposite: Composite | null = null;
   currTypes: any = [];
-  projectTypes: any = {
+  /*projectTypes: any = {
     project: [
       {
         id: 'file',
@@ -65,7 +66,7 @@ export class MainComponent {
         disabled: true,
       },
     ],
-  };
+  };*/
   newCompositeForm: FormGroup = new FormGroup({});
   fullProject: any;
 
@@ -128,13 +129,13 @@ export class MainComponent {
     let name = this.newCompositeForm.get('name')?.value;
     let description = this.newCompositeForm.get('description')?.value;
     for (const item of this.currTypes) {
-      if (item['type'] === 'group') {
+      if (item['id'] === 'file') {
         if (item.hasOwnProperty('append')) {
           //todo: better implementation
           name += item['append'];
         }
         this.addComposite(new CompositeGroup(name, description));
-      } else if (item['type'] === 'function') {
+      } else if (item['id'] === 'function') {
         let arr = <FormArray>(
           this.newCompositeForm.get('function')?.get('arguments')
         );
@@ -201,9 +202,11 @@ export class MainComponent {
   openNewComposite(content: any, currentComposite: any) {
     if (currentComposite == null) {
       //Project root
-      this.currTypes = this.projectTypes['project'];
+      //this.currTypes = this.projectTypes['project'];
+      this.currTypes = this.project?.lang.project;
     } else if (currentComposite instanceof CompositeGroup) {
-      this.currTypes = this.projectTypes['group'];
+      //this.currTypes = this.projectTypes['group'];
+      this.currTypes = this.project?.lang.templates;
     }
     this.modalComposite = currentComposite;
     let typeSet = false;
@@ -241,18 +244,26 @@ export class MainComponent {
   componentCanMakeDescendents(component: Composite): boolean {
     if (component instanceof CompositeGroup) {
       return (
-        this.projectTypes.hasOwnProperty('group') &&
-        this.projectTypes['group'].length > 0
+        //this.projectTypes.hasOwnProperty('group') &&
+        //this.projectTypes['group'].length > 0
+        this.project?.lang != undefined && 
+        this.project.lang.hasOwnProperty('project') && 
+        this.project.lang.project.length > 0
       );
     } else if (component instanceof CompositeFunction) {
       return (
-        this.projectTypes.hasOwnProperty('function') &&
-        this.projectTypes['function'].length > 0
+        //this.projectTypes.hasOwnProperty('function') &&
+        //this.projectTypes['function'].length > 0
+        //this.project?.lang != undefined && 
+        //this.project.lang.templates.find(t => t.id === "function") != undefined
+        false
       );
     } else if (component instanceof CompositeClass) {
       return (
-        this.projectTypes.hasOwnProperty('class') &&
-        this.projectTypes['class'].length > 0
+        //this.projectTypes.hasOwnProperty('class') &&
+        //this.projectTypes['class'].length > 0
+        this.project?.lang != undefined && 
+        this.project.lang.templates.find(t => t.id === "class") != undefined
       );
     }
     return false;
