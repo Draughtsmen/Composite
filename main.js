@@ -47,6 +47,7 @@ app.on("window-all-closed", () => {
 ipcMain.on("list-projects", (event) => {
   // load conf files
   // TODO: support for loading multiple conf files via fs.readDir
+  let lang = JSON.parse(fs.readFileSync("conf/langs/c#.json"));
   let lang = JSON.parse(fs.readFileSync("conf/langs/gml.json"));
   let doc = JSON.parse(fs.readFileSync("conf/docs/gmldocs.json"));
 

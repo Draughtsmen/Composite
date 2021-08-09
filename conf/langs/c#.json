@@ -32,7 +32,19 @@
 			{
 				"id": "function",
 				"name": "Function",
-				"format": "[return] [name]([value]) {\n\treturn [return];\n}"
+				"format": "[return] [name]([value]) {\n\treturn [return];\n}",
+				"data": [
+					{
+					  "id": "return",
+					  "name": "Return Type",
+					  "type": "string"
+					},
+					{
+					  "id": "arguments",
+					  "name": "Arguments",
+					  "type": "array"
+					}
+				  ]
 			},
 			{
 				"id": "class",

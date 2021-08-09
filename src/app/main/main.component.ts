@@ -207,25 +207,17 @@ export class MainComponent {
   componentCanMakeDescendents(component: Composite): boolean {
     if (component instanceof CompositeGroup) {
       return (
-        //this.projectTypes.hasOwnProperty('group') &&
-        //this.projectTypes['group'].length > 0
         this.project?.lang != undefined &&
         this.project.lang.hasOwnProperty('project') &&
         this.project.lang.project.length > 0
       );
     } else if (component instanceof CompositeFunction) {
       return (
-        //this.projectTypes.hasOwnProperty('function') &&
-        //this.projectTypes['function'].length > 0
-        //this.project?.lang != undefined &&
-        //this.project.lang.templates.find(t => t.id === "function") != undefined
         // RETURNING FALSE AT THE MOMENT SINCE VARIABLE SUPPORT DOESN'T WORK
         false
       );
     } else if (component instanceof CompositeClass) {
       return (
-        //this.projectTypes.hasOwnProperty('class') &&
-        //this.projectTypes['class'].length > 0
         this.project?.lang != undefined &&
         this.project.lang.templates.find((t) => t.id === 'class') != undefined
       );
