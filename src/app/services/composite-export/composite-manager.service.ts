@@ -27,6 +27,11 @@ export class CompositeManagerService {
 
   constructor() {}
 
+  static storeConf(language: JSON, doc: JSON) {
+    CompositeManagerService.LANGUAGE_INFO = language;
+    CompositeManagerService.DOC_INFO = doc;
+  }
+
   /**
    * Creates a project in Composite.
    *

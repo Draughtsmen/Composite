@@ -47,6 +47,11 @@ export class MenuComponent implements OnInit {
    * Adds IpcService event-response functionality.
    */
   ngOnInit(): void {
+    // To be run after configuration files have been read.
+    this.ipcService.on('load-conf', (event, lang, doc) => {
+      CompositeManagerService.storeConf(lang, doc);
+    });
+
     // To be run after the "list-projects" event is sent and received.
     this.ipcService.on('list-projects-reply', (event, res) => {
       this.ngZone.run(() => {
@@ -104,7 +109,7 @@ export class MenuComponent implements OnInit {
   onNewProjectSubmit(modal: any) {
     let name = this.newProjectForm.get('name')?.value;
     let language = this.newProjectForm.get('language')?.value;
-    let doc = this.newProjectForm.get('doc')?.value;
+    let doc = 'gmldocs'; //this.newProjectForm.get('doc')?.value;
 
     this.ipcService.send(
       'new-project',
