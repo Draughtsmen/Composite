@@ -32,41 +32,6 @@ export class MainComponent {
   modalComposite: any = null;
   currComposite: Composite | null = null;
   currTypes: any = [];
-  /*projectTypes: any = {
-    project: [
-      {
-        id: 'file',
-        name: 'File',
-        type: 'group',
-        append: '.gml',
-      },
-    ],
-    group: [
-      {
-        id: 'function',
-        name: 'Function',
-        type: 'function',
-        data: [
-          {
-            id: 'return',
-            name: 'Return Type',
-            type: 'string',
-          },
-          {
-            id: 'arguments',
-            name: 'Arguments',
-            type: 'array',
-          },
-        ],
-      },
-      {
-        id: 'variable',
-        name: 'Variable',
-        type: 'variable',
-        disabled: true,
-      },
-    ],
-  };*/
   newCompositeForm: FormGroup = new FormGroup({});
   fullProject: any;
 
@@ -202,10 +167,8 @@ export class MainComponent {
   openNewComposite(content: any, currentComposite: any) {
     if (currentComposite == null) {
       //Project root
-      //this.currTypes = this.projectTypes['project'];
       this.currTypes = this.project?.lang.project;
     } else if (currentComposite instanceof CompositeGroup) {
-      //this.currTypes = this.projectTypes['group'];
       this.currTypes = this.project?.lang.templates;
     }
     this.modalComposite = currentComposite;
@@ -246,24 +209,25 @@ export class MainComponent {
       return (
         //this.projectTypes.hasOwnProperty('group') &&
         //this.projectTypes['group'].length > 0
-        this.project?.lang != undefined && 
-        this.project.lang.hasOwnProperty('project') && 
+        this.project?.lang != undefined &&
+        this.project.lang.hasOwnProperty('project') &&
         this.project.lang.project.length > 0
       );
     } else if (component instanceof CompositeFunction) {
       return (
         //this.projectTypes.hasOwnProperty('function') &&
         //this.projectTypes['function'].length > 0
-        //this.project?.lang != undefined && 
+        //this.project?.lang != undefined &&
         //this.project.lang.templates.find(t => t.id === "function") != undefined
+        // RETURNING FALSE AT THE MOMENT SINCE VARIABLE SUPPORT DOESN'T WORK
         false
       );
     } else if (component instanceof CompositeClass) {
       return (
         //this.projectTypes.hasOwnProperty('class') &&
         //this.projectTypes['class'].length > 0
-        this.project?.lang != undefined && 
-        this.project.lang.templates.find(t => t.id === "class") != undefined
+        this.project?.lang != undefined &&
+        this.project.lang.templates.find((t) => t.id === 'class') != undefined
       );
     }
     return false;

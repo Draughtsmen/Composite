@@ -1,8 +1,14 @@
 {
 	"gml":
 	{
-		"extension": "gml",
-
+		"project": [
+			{
+			  "id": "file",
+			  "name": "File",
+			  "append": ".gml"
+			}
+		],
+		
 		"types": [
 			{
 				"name": "string",
@@ -52,15 +58,6 @@
 				"id": "variable",
 				"name": "Variable",
 				"format": "[name] = [value];\n}"
-			}
-		],
-
-		"project": [
-			{
-			  "id": "file",
-			  "name": "File",
-			  "type": "group",
-			  "append": ".gml"
 			}
 		],
 

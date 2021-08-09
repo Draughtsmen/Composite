@@ -1,7 +1,13 @@
 {
 	"c#":
 	{
-		"extension": "cs",
+		"project": [
+			{
+			  "name": "File",
+			  "id": "file",
+			  "append": ".cs"
+			}
+		],
 
 		"types": [
 			{
@@ -24,29 +30,22 @@
 
 		"templates": [
 			{
-				"type": "function",
+				"id": "function",
 				"name": "Function",
 				"format": "[return] [name]([value]) {\n\treturn [return];\n}"
 			},
 			{
-				"type": "class",
+				"id": "class",
 				"name": "Class",
 				"format": "[modifier] class [name] {\n# #\n}"
 			},
 			{
-				"type": "variable",
+				"id": "variable",
 				"name": "Variable",
 				"format": "[type] [name] = [value];\n}"
 			}
 		],
 
-		"project": [
-			{
-			  "name": "File",
-			  "type": "group",
-			  "append": ".cs"
-			}
-		],
 		"modifiers": ["public", "protected", "private"],
 
 		"singleCommentRule": "//[value]",
