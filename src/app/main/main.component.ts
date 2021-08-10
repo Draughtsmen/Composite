@@ -95,7 +95,7 @@ export class MainComponent {
     let name = this.newCompositeForm.get('name')?.value;
     let description = this.newCompositeForm.get('description')?.value;
     let type = this.newCompositeForm.get('type')?.value;
-    console.log("okay so type is " + type);
+    console.log('okay so type is ' + type);
     // Iterate through current context
     for (const item of this.currTypes) {
       // Give all files the proper extension
@@ -125,17 +125,23 @@ export class MainComponent {
         // Expand variables with their types and values
       } else if (item['id'] === 'variable' && type == 'variable') {
         // REMOVE HARD CODING, was just this for testing
-        let strType : string = this.newCompositeForm.get('variable')?.get('type')?.value;
-        let strVal : string = this.newCompositeForm.get('variable')?.get('enter')?.value;
+        let strType: string = this.newCompositeForm
+          .get('variable')
+          ?.get('type')?.value;
+        let strVal: string = this.newCompositeForm
+          .get('variable')
+          ?.get('enter')?.value;
         this.addComposite(
           new CompositeVariable(name, description, strType, strVal)
         );
         // Expand classes with their info
       } else if (item['id'] === 'class' && type == 'class') {
         // HAS DEFAULT "PRE" and "POST", will change later
-        let strMod : string = this.newCompositeForm.get('class')?.get('modifier')?.value;
-        
-        console.log("modifier should be " + strMod);
+        let strMod: string = this.newCompositeForm
+          .get('class')
+          ?.get('modifier')?.value;
+
+        console.log('modifier should be ' + strMod);
         this.addComposite(new CompositeClass('pre', name, 'post', description));
       }
     }
@@ -199,7 +205,7 @@ export class MainComponent {
     };
     for (const item of this.currTypes) {
       if (!typeSet) {
-        console.log("setting one of the many types to " + item['id']);
+        console.log('setting one of the many types to ' + item['id']);
         compositeForm['type'] = new FormControl(item['id']);
       }
       if (item.hasOwnProperty('data')) {
@@ -207,7 +213,10 @@ export class MainComponent {
         for (const dataItem of item['data']) {
           if (dataItem['type'] === 'array') {
             group[dataItem['id']] = new FormArray([]);
-          } else if (dataItem['type'] === 'string' || dataItem['type'] === 'dropdown') {
+          } else if (
+            dataItem['type'] === 'string' ||
+            dataItem['type'] === 'dropdown'
+          ) {
             group[dataItem['id']] = new FormControl('');
           }
         }

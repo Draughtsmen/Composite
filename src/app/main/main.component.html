@@ -252,29 +252,31 @@
               <h2>{{ dataItem.name }}</h2>
             </div>
             <select
-              *ngIf = "dataItem.id === 'type'"
+              *ngIf="dataItem.id === 'type'"
               class="form-control"
               placeholder="void"
               formControlName="{{ dataItem.id }}"
             >
               <option
                 *ngFor="let t of project?.lang?.types; let i = index"
-                value="{{project!.lang!.types[i]!.name}}"
+                value="{{ project!.lang!.types[i]!.name }}"
               >
-                {{ project!.lang!.types[i]!.name }}</option>
+                {{ project!.lang!.types[i]!.name }}
+              </option>
               >
             </select>
             <select
-              *ngIf = "dataItem.id === 'modifier'"
+              *ngIf="dataItem.id === 'modifier'"
               class="form-control"
               placeholder="void"
               formControlName="{{ dataItem.id }}"
             >
               <option
                 *ngFor="let t of project?.lang?.modifiers; let i = index"
-                value="{{project!.lang!.modifiers[i]}}"
+                value="{{ project!.lang!.modifiers[i] }}"
               >
-                {{ project!.lang!.modifiers[i] }}</option>
+                {{ project!.lang!.modifiers[i] }}
+              </option>
               >
             </select>
           </div>
