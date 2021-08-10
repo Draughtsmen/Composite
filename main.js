@@ -49,7 +49,7 @@ function mergeJSON(dir) {
   let files = fs.readdirSync(dir);
   let fulljson = {};
 
-  files.forEach(file => {
+  files.forEach((file) => {
     let json = JSON.parse(fs.readFileSync(dir + file));
     fulljson[json["name"]] = json[json["name"]];
   });
