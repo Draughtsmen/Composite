@@ -35,9 +35,9 @@
 				"format": "[return] [name]([value]) {\n\treturn [return];\n}",
 				"data": [
 					{
-					  "id": "return",
+					  "id": "type",
 					  "name": "Return Type",
-					  "type": "string"
+					  "type": "dropdown"
 					},
 					{
 					  "id": "arguments",
@@ -49,12 +49,31 @@
 			{
 				"id": "class",
 				"name": "Class",
-				"format": "[modifier] class [name] {\n# #\n}"
+				"format": "[modifier] class [name] {\n# #\n}",
+				"data": [
+					{
+						"id": "modifier",
+						"name": "Select Modifier",
+						"type": "dropdown"
+					}
+				]
 			},
 			{
 				"id": "variable",
 				"name": "Variable",
-				"format": "[type] [name] = [value];\n}"
+				"format": "[type] [name] = [value];\n}",
+				"data": [
+					{
+						"id": "type",
+						"name": "Select Type",
+						"type": "dropdown"
+					},
+					{
+						"id": "enter",
+						"name": "Value",
+						"type": "string"
+					}
+				]
 			}
 		],
 
