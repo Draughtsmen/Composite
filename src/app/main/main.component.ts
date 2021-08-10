@@ -93,13 +93,16 @@ export class MainComponent {
   onNewCompositeSubmit(modal: any) {
     let name = this.newCompositeForm.get('name')?.value;
     let description = this.newCompositeForm.get('description')?.value;
+    // Iterate through current context
     for (const item of this.currTypes) {
+      // Give all files the proper extension
       if (item['id'] === 'file') {
         if (item.hasOwnProperty('append')) {
           //todo: better implementation
           name += item['append'];
         }
         this.addComposite(new CompositeGroup(name, description));
+        // Expand functions with their arguments and return values
       } else if (item['id'] === 'function') {
         let arr = <FormArray>(
           this.newCompositeForm.get('function')?.get('arguments')
@@ -116,7 +119,7 @@ export class MainComponent {
             strArr
           )
         );
-      }
+      } // TODO: Add similar treatment to variables and classes
     }
     this.saveComposite();
     modal.close();
