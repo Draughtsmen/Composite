@@ -118,7 +118,7 @@ export class MainComponent {
           new CompositeFunction(
             name,
             description,
-            this.newCompositeForm.get('function')?.get('enter')?.value,
+            this.newCompositeForm.get('function')?.get('type')?.value,
             strArr
           )
         );
