@@ -42,7 +42,7 @@
 				"data": [
 					{
 					  "id": "return",
-					  "name": "Return Type",
+					  "name": "Return Variables",
 					  "type": "string"
 					},
 					{
@@ -65,7 +65,6 @@
 				]
 			}
 		],
-
 		"singleCommentRule": "//[value]",
 		"multiCommentRule": "/*\n[value]\n*/"
 	}
