@@ -51,13 +51,9 @@
 				  ]
 			},
 			{
-				"name": "script",
-				"format": ""
-			},
-			{
 				"id": "variable",
 				"name": "Variable",
-				"format": "[name] = [value];\n}",
+				"format": "[name] = [value];\n",
 				"data": [
 					{
 						"id": "enter",

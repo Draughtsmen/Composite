@@ -157,9 +157,18 @@ export class MainComponent {
           .get('class')
           ?.get('modifier')?.value;
 
-        this.addComposite(
-          new CompositeClass(strMod, name, 'post', description)
+        let newclass: CompositeClass = new CompositeClass(
+          strMod,
+          name,
+          '',
+          description
         );
+        if (this.currComposite instanceof CompositeClass) {
+          newclass.setBaseClass(this.currComposite.getName());
+          this.currComposite.assignSubclass(newclass);
+        } else {
+          this.addComposite(newclass);
+        }
       }
     }
     this.saveComposite();

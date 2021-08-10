@@ -11,16 +11,16 @@ import { CompositeVariable } from './composite-variable';
  */
 export class CompositeClass extends Composite {
   private modifier: string;
-  private postfix: string;
+  private baseClass: string;
   private memberVariables: CompositeVariable[];
   private memberFunctions: CompositeFunction[];
   private subclasses: CompositeClass[];
 
   // TODO: Incorporate with CompoisteVariable.
-  constructor(mod: string, name: string, post: string, description: string) {
+  constructor(mod: string, name: string, base: string, description: string) {
     super(name, description, 'class');
     this.modifier = mod;
-    this.postfix = post;
+    this.baseClass = base;
     this.memberVariables = new Array<CompositeVariable>();
     this.memberFunctions = new Array<CompositeFunction>();
     this.subclasses = new Array<CompositeClass>();
@@ -36,7 +36,7 @@ export class CompositeClass extends Composite {
     data['_type'] = 'CompositeClass';
 
     data['prefix'] = this.modifier;
-    data['postfix'] = this.postfix;
+    data['postfix'] = this.baseClass;
     data['memberVariables'] = [];
     data['memberFunctions'] = [];
     data['subclasses'] = [];
@@ -69,6 +69,17 @@ export class CompositeClass extends Composite {
     if (stub != undefined) {
       stub = stub.replace('[name]', this.name);
       stub = stub.replace('[modifier]', this.modifier);
+      if (this.baseClass == '') {
+        stub =
+          stub.substring(0, stub.indexOf('[begin]')) +
+          stub.substring(stub.indexOf('[end]') + 5, stub.length);
+      } else {
+        stub = stub.replace('[base]', this.baseClass);
+        stub = stub.replace('[begin]', '');
+        stub = stub.replace('[end]', '');
+      }
+
+      // Get the internals of the function (variables + functions)
       let internal: string = '';
       this.getMemberVariables().forEach((element) => {
         internal += '\n' + element.generateStub(lang, doc) + '\n';
@@ -80,6 +91,11 @@ export class CompositeClass extends Composite {
       internal = '\t' + internal;
       internal = internal.replaceAll('\n', '\n\t');
       stub = stub.replace('# #', internal);
+
+      // Display subclasses
+      this.getSubclasses().forEach((element) => {
+        stub += '\n' + element.generateStub(lang, doc) + '\n';
+      });
       return stub;
     } else return 'Critical failure: could not find type ' + this.type + '.';
   }
@@ -98,8 +114,8 @@ export class CompositeClass extends Composite {
    *
    * @param {string} newPrefix - The new prefix.
    */
-  setPrefix(newPrefix: string): void {
-    this.name = newPrefix;
+  setModifier(newPrefix: string): void {
+    this.modifier = newPrefix;
   }
 
   /**
@@ -107,8 +123,8 @@ export class CompositeClass extends Composite {
    *
    * @return {string} The postfix.
    */
-  getPostfix(): string {
-    return this.postfix;
+  getBaseClass(): string {
+    return this.baseClass;
   }
 
   /**
@@ -116,8 +132,8 @@ export class CompositeClass extends Composite {
    *
    * @param {string} newPostfix - The new postfix.
    */
-  setPostfix(newPostfix: string): void {
-    this.name = newPostfix;
+  setBaseClass(newPostfix: string): void {
+    this.baseClass = newPostfix;
   }
 
   /**
