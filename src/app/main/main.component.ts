@@ -95,7 +95,7 @@ export class MainComponent {
     let name = this.newCompositeForm.get('name')?.value;
     let description = this.newCompositeForm.get('description')?.value;
     // Iterate through current context
-    
+
     for (const item of this.currTypes) {
       // Give all files the proper extension
       if (item['id'] === 'file') {
@@ -124,11 +124,13 @@ export class MainComponent {
         // Expand variables with their types and values
       } else if (item['id'] === 'variable') {
         // REMOVE HARD CODING, was just this for testing
-        this.addComposite(new CompositeVariable(name, description, "string", "testvalue"));
+        this.addComposite(
+          new CompositeVariable(name, description, 'string', 'testvalue')
+        );
         // Expand classes with their info
-      } else if (item['id'] === 'class'){
+      } else if (item['id'] === 'class') {
         // HAS DEFAULT "PRE" and "POST", will change later
-        this.addComposite(new CompositeClass("pre", name, "post", description));
+        this.addComposite(new CompositeClass('pre', name, 'post', description));
       }
     }
     this.saveComposite();

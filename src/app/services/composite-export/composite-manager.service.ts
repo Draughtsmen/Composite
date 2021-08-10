@@ -130,8 +130,7 @@ export class CompositeManagerService {
         );
       }
       return composite;
-    }
-    else if (data['_type'] === "CompositeVariable"){
+    } else if (data['_type'] === 'CompositeVariable') {
       let composite: CompositeVariable = new CompositeVariable(
         data['name'],
         data['description'],
