@@ -193,7 +193,6 @@ export class MainComponent {
     };
     for (const item of this.currTypes) {
       if (!typeSet) {
-        console.log(item['id']);
         compositeForm['type'] = new FormControl(item['id']);
         typeSet = true;
       }
