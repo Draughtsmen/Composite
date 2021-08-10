@@ -2,6 +2,7 @@ import { Composite } from './composite';
 import { CompositeFunction } from './composite-function';
 import { LanguageSupportFormat } from './language-support-format';
 import { DocumentSupportFormat } from './document-support-format';
+import { CompositeVariable } from './composite-variable';
 
 /**
  * This class describes a composite class.
@@ -9,18 +10,18 @@ import { DocumentSupportFormat } from './document-support-format';
  * @class CompositeClass (name)
  */
 export class CompositeClass extends Composite {
-  private prefix: string;
-  private postfix: string;
-  private memberVariables: string[];
+  private modifier: string;
+  private baseClass: string;
+  private memberVariables: CompositeVariable[];
   private memberFunctions: CompositeFunction[];
   private subclasses: CompositeClass[];
 
   // TODO: Incorporate with CompoisteVariable.
-  constructor(pre: string, name: string, post: string, description: string) {
+  constructor(mod: string, name: string, base: string, description: string) {
     super(name, description, 'class');
-    this.prefix = pre;
-    this.postfix = post;
-    this.memberVariables = new Array<string>();
+    this.modifier = mod;
+    this.baseClass = base;
+    this.memberVariables = new Array<CompositeVariable>();
     this.memberFunctions = new Array<CompositeFunction>();
     this.subclasses = new Array<CompositeClass>();
   }
@@ -34,13 +35,13 @@ export class CompositeClass extends Composite {
     let data: any = super.serialize();
     data['_type'] = 'CompositeClass';
 
-    data['prefix'] = this.prefix;
-    data['postfix'] = this.postfix;
+    data['prefix'] = this.modifier;
+    data['postfix'] = this.baseClass;
     data['memberVariables'] = [];
     data['memberFunctions'] = [];
     data['subclasses'] = [];
     for (let i = 0; i < this.memberVariables.length; i++) {
-      data['memberVariables'].push(this.memberVariables[i]);
+      data['memberVariables'].push(this.memberVariables[i].serialize());
     }
     for (let i = 0; i < this.memberFunctions.length; i++) {
       data['memberFunctions'].push(this.memberFunctions[i].serialize());
@@ -67,6 +68,34 @@ export class CompositeClass extends Composite {
     // Fills in the class stub if there is one to work off of.
     if (stub != undefined) {
       stub = stub.replace('[name]', this.name);
+      stub = stub.replace('[modifier]', this.modifier);
+      if (this.baseClass == '') {
+        stub =
+          stub.substring(0, stub.indexOf('[begin]')) +
+          stub.substring(stub.indexOf('[end]') + 5, stub.length);
+      } else {
+        stub = stub.replace('[base]', this.baseClass);
+        stub = stub.replace('[begin]', '');
+        stub = stub.replace('[end]', '');
+      }
+
+      // Get the internals of the function (variables + functions)
+      let internal: string = '';
+      this.getMemberVariables().forEach((element) => {
+        internal += '\n' + element.generateStub(lang, doc) + '\n';
+      });
+      this.getMemberFunctions().forEach((element) => {
+        internal += '\n' + element.generateStub(lang, doc) + '\n';
+      });
+      // THIS INDENTATION IS HARD-CODED, SHOULD CHANGE BASED ON DOC
+      internal = '\t' + internal;
+      internal = internal.replaceAll('\n', '\n\t');
+      stub = stub.replace('# #', internal);
+
+      // Display subclasses
+      this.getSubclasses().forEach((element) => {
+        stub += '\n' + element.generateStub(lang, doc) + '\n';
+      });
       return stub;
     } else return 'Critical failure: could not find type ' + this.type + '.';
   }
@@ -76,8 +105,8 @@ export class CompositeClass extends Composite {
    *
    * @return {string} The prefix.
    */
-  getPrefix(): string {
-    return this.prefix;
+  getModifier(): string {
+    return this.modifier;
   }
 
   /**
@@ -85,8 +114,8 @@ export class CompositeClass extends Composite {
    *
    * @param {string} newPrefix - The new prefix.
    */
-  setPrefix(newPrefix: string): void {
-    this.name = newPrefix;
+  setModifier(newPrefix: string): void {
+    this.modifier = newPrefix;
   }
 
   /**
@@ -94,8 +123,8 @@ export class CompositeClass extends Composite {
    *
    * @return {string} The postfix.
    */
-  getPostfix(): string {
-    return this.prefix;
+  getBaseClass(): string {
+    return this.baseClass;
   }
 
   /**
@@ -103,34 +132,34 @@ export class CompositeClass extends Composite {
    *
    * @param {string} newPostfix - The new postfix.
    */
-  setPostfix(newPostfix: string): void {
-    this.name = newPostfix;
+  setBaseClass(newPostfix: string): void {
+    this.baseClass = newPostfix;
   }
 
   /**
    * Gets the member variables.
    *
-   * @return {string[]} The member variables.
+   * @return {CompositeVariable[]} The member variables.
    */
-  getMemberVariables(): string[] {
+  getMemberVariables(): CompositeVariable[] {
     return this.memberVariables;
   }
 
   /**
    * Adds a member variable.
    *
-   * @param {string} variable - The variable.
+   * @param {CompositeVariable} variable - The variable.
    */
-  addMemberVariable(variable: string): void {
+  addMemberVariable(variable: CompositeVariable): void {
     this.memberVariables.push(variable);
   }
 
   /**
    * Removes the specified member variable.
    *
-   * @param {string} variable -  The variable.
+   * @param {CompositeVariable} variable -  The variable.
    */
-  removeMemberVariable(variable: string): void {
+  removeMemberVariable(variable: CompositeVariable): void {
     let memVar = this.memberVariables.find((item) => item == variable);
     if (memVar)
       this.memberVariables.splice(this.memberVariables.indexOf(memVar), 1);
@@ -139,10 +168,13 @@ export class CompositeClass extends Composite {
   /**
    * Replaces one member variable with another.
    *
-   * @param {string} variable - The variable to replace.
-   * @param {string} newVariable The new variable to insert.
+   * @param {CompositeVariable} variable - The variable to replace.
+   * @param {CompositeVariable} newVariable The new variable to insert.
    */
-  modifyMemberVariable(variable: string, newVariable: string): void {
+  modifyMemberVariable(
+    variable: CompositeVariable,
+    newVariable: CompositeVariable
+  ): void {
     let oldVar = this.memberVariables.find((item) => item == variable);
     if (oldVar)
       this.memberVariables[this.memberVariables.indexOf(oldVar)] = newVariable;
@@ -245,6 +277,8 @@ export class CompositeClass extends Composite {
    * @return {Composite[]} The descendents.
    */
   getDescendents(): Composite[] {
-    return (<Composite[]>this.subclasses).concat(this.memberFunctions);
+    return (<Composite[]>this.subclasses)
+      .concat(this.memberFunctions)
+      .concat(this.memberVariables);
   }
 }

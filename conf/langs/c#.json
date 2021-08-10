@@ -15,7 +15,7 @@
 			{
 				"name": "string",
 				"format": "string [name] = \"[value]\";"
-			},
+			}, 
 			{
 				"name": "float",
 				"format": "float [name] = [value]f;"
@@ -51,7 +51,7 @@
 			{
 				"id": "class",
 				"name": "Class",
-				"format": "[modifier] class [name] {\n# #\n}",
+				"format": "[modifier] class [name][begin] : [base][end] {\n# #\n}",
 				"data": [
 					{
 						"id": "modifier",
