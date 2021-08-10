@@ -94,8 +94,8 @@ export class MainComponent {
   onNewCompositeSubmit(modal: any) {
     let name = this.newCompositeForm.get('name')?.value;
     let description = this.newCompositeForm.get('description')?.value;
+    let type = this.newCompositeForm.get('type')?.value;
     // Iterate through current context
-
     for (const item of this.currTypes) {
       // Give all files the proper extension
       if (item['id'] === 'file') {
@@ -105,7 +105,7 @@ export class MainComponent {
         }
         this.addComposite(new CompositeGroup(name, description));
         // Expand functions with their arguments and return values
-      } else if (item['id'] === 'function') {
+      } else if (item['id'] === 'function' && type == 'function') {
         let arr = <FormArray>(
           this.newCompositeForm.get('function')?.get('arguments')
         );
@@ -122,13 +122,13 @@ export class MainComponent {
           )
         );
         // Expand variables with their types and values
-      } else if (item['id'] === 'variable') {
+      } else if (item['id'] === 'variable' && type == 'variable' ) {
         // REMOVE HARD CODING, was just this for testing
         this.addComposite(
           new CompositeVariable(name, description, 'string', 'testvalue')
         );
         // Expand classes with their info
-      } else if (item['id'] === 'class') {
+      } else if (item['id'] === 'class' && type == 'class') {
         // HAS DEFAULT "PRE" and "POST", will change later
         this.addComposite(new CompositeClass('pre', name, 'post', description));
       }
@@ -193,6 +193,7 @@ export class MainComponent {
     };
     for (const item of this.currTypes) {
       if (!typeSet) {
+        console.log(item['id']);
         compositeForm['type'] = new FormControl(item['id']);
         typeSet = true;
       }
