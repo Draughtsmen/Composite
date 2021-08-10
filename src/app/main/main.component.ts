@@ -98,7 +98,7 @@ export class MainComponent {
     // Iterate through current context
     for (const item of this.currTypes) {
       // Give all files the proper extension
-      if (item['id'] === 'file') {
+      if (item['id'] === 'file' && type == 'file') {
         if (item.hasOwnProperty('append')) {
           //todo: better implementation
           name += item['append'];
