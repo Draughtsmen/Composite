@@ -94,7 +94,7 @@ export class MainComponent {
   onNewCompositeSubmit(modal: any) {
     let name = this.newCompositeForm.get('name')?.value;
     let description = this.newCompositeForm.get('description')?.value;
-    description = "DEFAULT DESCRIPTION";
+    description = 'DEFAULT DESCRIPTION';
     let type = this.newCompositeForm.get('type')?.value;
     // Iterate through current context
     for (const item of this.currTypes) {

@@ -17,8 +17,28 @@
 				"format": "string [name] = \"[value]\";"
 			}, 
 			{
+				"name": "object",
+				"format": "object [name] = [value];"
+			}, 
+			{
+				"name": "dynamic",
+				"format": "dynamic [name] = [value];"
+			}, 
+			{
+				"name": "char",
+				"format": "char [name] = '[value]';"
+			}, 
+			{
 				"name": "float",
 				"format": "float [name] = [value]f;"
+			},
+			{
+				"name": "double",
+				"format": "double [name] = [value]d;"
+			},
+			{
+				"name": "decimal",
+				"format": "double [name] = [value]m;"
 			},
 			{
 				"name": "int",
