@@ -58,6 +58,11 @@
 				"format": "[name] = [value];\n",
 				"data": [
 					{
+						"id": "type",
+						"name": "Select Type",
+						"type": "dropdown"
+					},
+					{
 						"id": "enter",
 						"name": "Value",
 						"type": "string"
