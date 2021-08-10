@@ -181,21 +181,21 @@
           class="hide-checkbox"
           type="radio"
           name="type"
+          formControlName="type"
           id="type-{{ item.id }}"
           autocomplete="off"
           value="{{ item.id }}"
-          formControlName="type"
           required
-          [attr.disabled]="item.disabled ? true : null" 
+          [attr.disabled]="item.disabled ? true : null"
         />
         {{ item.name }}
       </label>
     </div>
     <ng-template ngFor let-item [ngForOf]="currTypes">
       <div
-        *ngIf="item.hasOwnProperty('data')"
-        class="modal-body container"
         formGroupName="{{ item.id }}"
+        class="modal-body container"
+        *ngIf="newCompositeForm.get('type')?.value === item.id"
       >
         <div
           class="row"

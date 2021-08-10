@@ -122,7 +122,7 @@ export class MainComponent {
           )
         );
         // Expand variables with their types and values
-      } else if (item['id'] === 'variable' && type == 'variable' ) {
+      } else if (item['id'] === 'variable' && type == 'variable') {
         // REMOVE HARD CODING, was just this for testing
         this.addComposite(
           new CompositeVariable(name, description, 'string', 'testvalue')
@@ -194,7 +194,6 @@ export class MainComponent {
     for (const item of this.currTypes) {
       if (!typeSet) {
         compositeForm['type'] = new FormControl(item['id']);
-        typeSet = true;
       }
       if (item.hasOwnProperty('data')) {
         let group: any = {};
