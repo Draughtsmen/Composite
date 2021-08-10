@@ -4,6 +4,7 @@ import { CompositeClass } from 'src/app/classes/composite-class';
 import { CompositeFunction } from 'src/app/classes/composite-function';
 import { CompositeGroup } from 'src/app/classes/composite-group';
 import { CompositeProject } from 'src/app/classes/composite-project';
+import { CompositeVariable } from 'src/app/classes/composite-variable';
 import { DocumentSupportFormat } from 'src/app/classes/document-support-format';
 import { Composite } from '../../classes/composite';
 import { LanguageSupportFormat } from '../../classes/language-support-format';
@@ -128,6 +129,15 @@ export class CompositeManagerService {
           CompositeManagerService.deserialize(data['composite'][i])
         );
       }
+      return composite;
+    }
+    else if (data['_type'] === "CompositeVariable"){
+      let composite: CompositeVariable = new CompositeVariable(
+        data['name'],
+        data['description'],
+        data['variableType'],
+        data['value']
+      );
       return composite;
     }
     throw new Error('Invalid type');

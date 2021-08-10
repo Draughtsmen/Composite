@@ -14,6 +14,7 @@ import { CompositeClass } from '../classes/composite-class';
 import { CompositeFunction } from '../classes/composite-function';
 import { CompositeGroup } from '../classes/composite-group';
 import { CompositeProject } from '../classes/composite-project';
+import { CompositeVariable } from '../classes/composite-variable';
 import { IpcService } from '../ipc.service';
 import { CompositeManagerService } from '../services/composite-export/composite-manager.service';
 
@@ -94,6 +95,7 @@ export class MainComponent {
     let name = this.newCompositeForm.get('name')?.value;
     let description = this.newCompositeForm.get('description')?.value;
     // Iterate through current context
+    
     for (const item of this.currTypes) {
       // Give all files the proper extension
       if (item['id'] === 'file') {
@@ -119,7 +121,15 @@ export class MainComponent {
             strArr
           )
         );
-      } // TODO: Add similar treatment to variables and classes
+        // Expand variables with their types and values
+      } else if (item['id'] === 'variable') {
+        // REMOVE HARD CODING, was just this for testing
+        this.addComposite(new CompositeVariable(name, description, "string", "testvalue"));
+        // Expand classes with their info
+      } else if (item['id'] === 'class'){
+        // HAS DEFAULT "PRE" and "POST", will change later
+        this.addComposite(new CompositeClass("pre", name, "post", description));
+      }
     }
     this.saveComposite();
     modal.close();
