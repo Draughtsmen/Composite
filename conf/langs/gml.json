@@ -1,4 +1,6 @@
 {
+	"name": "gml",
+
 	"gml":
 	{
 		"project": [
@@ -64,4 +66,4 @@
 		"singleCommentRule": "//[value]",
 		"multiCommentRule": "/*\n[value]\n*/"
 	}
-}	
+}

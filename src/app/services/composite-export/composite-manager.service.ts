@@ -24,7 +24,6 @@ export class CompositeManagerService {
   };
 
   private static LANGUAGE_INFO: any;
-
   private static DOC_INFO: any;
 
   constructor() {}
@@ -43,6 +42,8 @@ export class CompositeManagerService {
    * @return {CompositeProject} A new Composite Project.
    */
   static createProject(name: string, language: string, doc: string) {
+    console.log(language);
+    console.log(doc);
     return new CompositeProject(
       name,
       CompositeManagerService.LANGUAGE_INFO[language],

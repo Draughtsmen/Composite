@@ -44,15 +44,26 @@ app.on("window-all-closed", () => {
   }
 });
 
+// reads a directory of JSON conf files and merges them into one object
+function mergeJSON(dir) {
+  let files = fs.readdirSync(dir);
+  let fulljson = {};
+
+  files.forEach(file => {
+    let json = JSON.parse(fs.readFileSync(dir + file));
+    fulljson[json["name"]] = json[json["name"]];
+  });
+
+  console.log(fulljson);
+  return fulljson;
+}
+
 ipcMain.on("list-projects", (event) => {
   // load conf files
-  // TODO: support for loading multiple conf files via fs.readDir
-  // Switch around to use c# instead
-  let lang = JSON.parse(fs.readFileSync("conf/langs/c#.json"));
-  //let lang = JSON.parse(fs.readFileSync("conf/langs/gml.json"));
-  let doc = JSON.parse(fs.readFileSync("conf/docs/gmldocs.json"));
+  let langjson = mergeJSON("conf/langs/");
+  let docjson = mergeJSON("conf/docs/");
 
-  event.sender.send("load-conf", lang, doc);
+  event.sender.send("load-conf", langjson, docjson);
 
   let list = store.get("project-list", undefined);
   if (list === undefined) {
