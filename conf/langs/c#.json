@@ -13,7 +13,7 @@
 			{
 				"name": "string",
 				"format": "string [name] = \"[value]\";"
-			},
+			}, 
 			{
 				"name": "float",
 				"format": "float [name] = [value]f;"

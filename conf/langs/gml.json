@@ -57,7 +57,14 @@
 			{
 				"id": "variable",
 				"name": "Variable",
-				"format": "[name] = [value];\n}"
+				"format": "[name] = [value];\n}",
+				"data": [
+					{
+						"id": "enter",
+						"name": "Value",
+						"type": "string"
+					}
+				]
 			}
 		],
 

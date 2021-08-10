@@ -95,7 +95,6 @@ export class MainComponent {
     let name = this.newCompositeForm.get('name')?.value;
     let description = this.newCompositeForm.get('description')?.value;
     let type = this.newCompositeForm.get('type')?.value;
-    console.log('okay so type is ' + type);
     // Iterate through current context
     for (const item of this.currTypes) {
       // Give all files the proper extension
@@ -114,26 +113,43 @@ export class MainComponent {
         for (let i = 0; i < arr.length; i++) {
           strArr.push(arr.at(i).value);
         }
-        this.addComposite(
-          new CompositeFunction(
-            name,
-            description,
-            this.newCompositeForm.get('function')?.get('type')?.value,
-            strArr
-          )
+
+        // Make func from specs
+        let newfunc: CompositeFunction = new CompositeFunction(
+          name,
+          description,
+          this.newCompositeForm.get('function')?.get('type')?.value,
+          strArr
         );
+
+        // Either add to file or class
+        if (this.currComposite instanceof CompositeClass) {
+          this.currComposite.addMemberFunction(newfunc);
+        } else {
+          this.addComposite(newfunc);
+        }
         // Expand variables with their types and values
       } else if (item['id'] === 'variable' && type == 'variable') {
-        // REMOVE HARD CODING, was just this for testing
         let strType: string = this.newCompositeForm
           .get('variable')
           ?.get('type')?.value;
         let strVal: string = this.newCompositeForm
           .get('variable')
           ?.get('enter')?.value;
-        this.addComposite(
-          new CompositeVariable(name, description, strType, strVal)
+
+        //Make var from specs
+        let newvar: CompositeVariable = new CompositeVariable(
+          name,
+          description,
+          strType,
+          strVal
         );
+
+        if (this.currComposite instanceof CompositeClass) {
+          this.currComposite.addMemberVariable(newvar);
+        } else {
+          this.addComposite(newvar);
+        }
         // Expand classes with their info
       } else if (item['id'] === 'class' && type == 'class') {
         // HAS DEFAULT "PRE" and "POST", will change later
@@ -141,8 +157,9 @@ export class MainComponent {
           .get('class')
           ?.get('modifier')?.value;
 
-        console.log('modifier should be ' + strMod);
-        this.addComposite(new CompositeClass('pre', name, 'post', description));
+        this.addComposite(
+          new CompositeClass(strMod, name, 'post', description)
+        );
       }
     }
     this.saveComposite();
@@ -195,7 +212,10 @@ export class MainComponent {
     if (currentComposite == null) {
       //Project root
       this.currTypes = this.project?.lang.project;
-    } else if (currentComposite instanceof CompositeGroup) {
+    } else if (
+      currentComposite instanceof CompositeGroup ||
+      currentComposite instanceof CompositeClass
+    ) {
       this.currTypes = this.project?.lang.templates;
     }
     this.modalComposite = currentComposite;
@@ -205,7 +225,6 @@ export class MainComponent {
     };
     for (const item of this.currTypes) {
       if (!typeSet) {
-        console.log('setting one of the many types to ' + item['id']);
         compositeForm['type'] = new FormControl(item['id']);
       }
       if (item.hasOwnProperty('data')) {

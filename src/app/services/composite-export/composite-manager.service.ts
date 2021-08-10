@@ -94,7 +94,11 @@ export class CompositeManagerService {
       );
 
       for (let i = 0; i < data['memberVariables'].length; i++) {
-        composite.addMemberVariable(data['memberVariable'][i]);
+        composite.addMemberVariable(
+          <CompositeVariable>(
+            CompositeManagerService.deserialize(data['memberVariables'][i])
+          )
+        );
       }
       for (let i = 0; i < data['memberFunctions'].length; i++) {
         composite.addMemberFunction(
