@@ -93,7 +93,7 @@ export class CompositeFunction extends Composite {
     // Fill in the function stub if there is one to work off of.
     let stub = this.getLangFormat(lang, this.type);
     if (stub != undefined) {
-      stub = stub.replace('[return]', this.returnType);
+      stub = stub.replaceAll('[return]', this.returnType);
       stub = stub.replace('[name]', this.name);
       stub = stub.replace('[value]', this.args.join(', '));
 
