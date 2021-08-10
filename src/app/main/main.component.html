@@ -181,10 +181,10 @@
           class="hide-checkbox"
           type="radio"
           name="type"
+          formControlName="type"
           id="type-{{ item.id }}"
           autocomplete="off"
           value="{{ item.id }}"
-          formControlName="type"
           required
           [attr.disabled]="item.disabled ? true : null"
         />
@@ -193,9 +193,9 @@
     </div>
     <ng-template ngFor let-item [ngForOf]="currTypes">
       <div
-        *ngIf="item.hasOwnProperty('data')"
-        class="modal-body container"
         formGroupName="{{ item.id }}"
+        class="modal-body container"
+        *ngIf="newCompositeForm.get('type')?.value === item.id"
       >
         <div
           class="row"
@@ -246,6 +246,39 @@
               placeholder="void"
               formControlName="{{ dataItem.id }}"
             />
+          </div>
+          <div class="col" *ngSwitchCase="'dropdown'">
+            <div class="row px-4">
+              <h2>{{ dataItem.name }}</h2>
+            </div>
+            <select
+              *ngIf="dataItem.id === 'type'"
+              class="form-control"
+              placeholder="void"
+              formControlName="{{ dataItem.id }}"
+            >
+              <option
+                *ngFor="let t of project?.lang?.types; let i = index"
+                value="{{ project!.lang!.types[i]!.name }}"
+              >
+                {{ project!.lang!.types[i]!.name }}
+              </option>
+              >
+            </select>
+            <select
+              *ngIf="dataItem.id === 'modifier'"
+              class="form-control"
+              placeholder="void"
+              formControlName="{{ dataItem.id }}"
+            >
+              <option
+                *ngFor="let t of project?.lang?.modifiers; let i = index"
+                value="{{ project!.lang!.modifiers[i] }}"
+              >
+                {{ project!.lang!.modifiers[i] }}
+              </option>
+              >
+            </select>
           </div>
           <ng-template *ngSwitchDefault></ng-template>
         </div>

@@ -1,39 +1,76 @@
 {
-	"types": [
-		{
-			"name": "string",
-			"format": "[name] = \"[value]\";"
-		},
-		{
-			"name": "real",
-			"format": "[name] = [value];"
-		},
-		{
-			"name": "array",
-			"format": "[name] = array_create([value]);"
-		},
-        {
-            "name": "boolean",
-            "format": "[name] = [value];"
-        },
-        {
-            "name": "enum",
-            "format": "enum [name] {\n[value]\n}"
-        }
-	],
+	"name": "gml",
 
-	"templates": [
-		{
-			"name": "function",
-			"format": "function [name]([value]) {\n\treturn [return];\n}"
-		},
-		{
-			"name": "script",
-			"format": ""
-		}
-	],
+	"gml":
+	{
+		"project": [
+			{
+			  "id": "file",
+			  "name": "File",
+			  "append": ".gml"
+			}
+		],
+		
+		"types": [
+			{
+				"name": "string",
+				"format": "[name] = \"[value]\";"
+			},
+			{
+				"name": "real",
+				"format": "[name] = [value];"
+			},
+			{
+				"name": "array",
+				"format": "[name] = array_create([value]);"
+			},
+			{
+				"name": "boolean",
+				"format": "[name] = [value];"
+			},
+			{
+				"name": "enum",
+				"format": "enum [name] {\n[value]\n}"
+			}
+		],
 
-	"singleCommentRule": "//[value]",
-	"multiCommentRule": "/*\n[value]\n*/"
-
-}	
+		"templates": [
+			{
+				"id": "function",
+				"name": "Function",
+				"format": "function [name]([value]) {\n\treturn [return];\n}",
+				"data": [
+					{
+					  "id": "return",
+					  "name": "Return Variables",
+					  "type": "string"
+					},
+					{
+					  "id": "arguments",
+					  "name": "Arguments",
+					  "type": "array"
+					}
+				  ]
+			},
+			{
+				"id": "variable",
+				"name": "Variable",
+				"format": "[name] = [value];\n",
+				"data": [
+					{
+						"id": "type",
+						"name": "Select Type",
+						"type": "dropdown"
+					},
+					{
+						"id": "enter",
+						"name": "Value",
+						"type": "string"
+					}
+				]
+			}
+		],
+		"singleCommentRule": "//[value]",
+		"multiCommentRule": "/*\n[value]\n*/"
+	}
+}

@@ -4,6 +4,7 @@ import { CompositeClass } from 'src/app/classes/composite-class';
 import { CompositeFunction } from 'src/app/classes/composite-function';
 import { CompositeGroup } from 'src/app/classes/composite-group';
 import { CompositeProject } from 'src/app/classes/composite-project';
+import { CompositeVariable } from 'src/app/classes/composite-variable';
 import { DocumentSupportFormat } from 'src/app/classes/document-support-format';
 import { Composite } from '../../classes/composite';
 import { LanguageSupportFormat } from '../../classes/language-support-format';
@@ -19,79 +20,34 @@ import { LanguageSupportFormat } from '../../classes/language-support-format';
 export class CompositeManagerService {
   public static readonly SUPPORTED_LANGUAGES: any = {
     GML: 'gml',
-  };
-  private static readonly LANGUAGE_INFO: any = {
-    gml: {
-      language: {
-        types: [
-          {
-            name: 'string',
-            format: '[name] = "[value]";',
-          },
-          {
-            name: 'real',
-            format: '[name] = [value];',
-          },
-          {
-            name: 'array',
-            format: '[name] = array_create([value]);',
-          },
-          {
-            name: 'boolean',
-            format: '[name] = [value];',
-          },
-          {
-            name: 'enum',
-            format: 'enum [name] {\n[value]\n}',
-          },
-        ],
-        templates: [
-          {
-            name: 'function',
-            format: 'function [name]([value]) {\n\treturn [return];\n}',
-          },
-          {
-            name: 'script',
-            format: '',
-          },
-        ],
-        singleCommentRule: '//[value]',
-        multiCommentRule: '/*\n[value]\n*/',
-      },
-      docs: {
-        specs: [
-          {
-            name: 'function',
-            format: '@function [name]([value])',
-          },
-          {
-            name: 'description',
-            format: '@description [value]',
-          },
-          {
-            name: 'parameter',
-            format: '@param {[type]} [name] [value]',
-          },
-        ],
-        prefix: '/// ',
-      },
-    },
+    CSharp: 'c#',
   };
 
+  private static LANGUAGE_INFO: any;
+  private static DOC_INFO: any;
+
   constructor() {}
+
+  static storeConf(language: JSON, doc: JSON) {
+    CompositeManagerService.LANGUAGE_INFO = language;
+    CompositeManagerService.DOC_INFO = doc;
+  }
 
   /**
    * Creates a project in Composite.
    *
    * @param {string} name - The name of the new project.
    * @param {string} language - The project's programming language.
+   * @param {string} doc - The project's documentation type.
    * @return {CompositeProject} A new Composite Project.
    */
-  static createProject(name: string, language: string) {
+  static createProject(name: string, language: string, doc: string) {
+    console.log(language);
+    console.log(doc);
     return new CompositeProject(
       name,
-      CompositeManagerService.LANGUAGE_INFO[language]['language'],
-      CompositeManagerService.LANGUAGE_INFO[language]['docs']
+      CompositeManagerService.LANGUAGE_INFO[language],
+      CompositeManagerService.DOC_INFO[doc]
     );
   }
 
@@ -102,12 +58,16 @@ export class CompositeManagerService {
    * @param {string} language - A supported language.
    * @return {CompositeProject} A Composite Project.
    */
-  static deserializeProject(data: any, language: string): CompositeProject {
+  static deserializeProject(
+    data: any,
+    language: string,
+    doc: string
+  ): CompositeProject {
     if (data['_type'] === 'CompositeProject') {
       let composite: CompositeProject = new CompositeProject(
         data['name'],
-        CompositeManagerService.LANGUAGE_INFO[language]['language'],
-        CompositeManagerService.LANGUAGE_INFO[language]['docs']
+        CompositeManagerService.LANGUAGE_INFO[language],
+        CompositeManagerService.DOC_INFO[doc]
       );
       for (let i = 0; i < data['files'].length; i++) {
         composite.addGroup(
@@ -135,7 +95,11 @@ export class CompositeManagerService {
       );
 
       for (let i = 0; i < data['memberVariables'].length; i++) {
-        composite.addMemberVariable(data['memberVariable'][i]);
+        composite.addMemberVariable(
+          <CompositeVariable>(
+            CompositeManagerService.deserialize(data['memberVariables'][i])
+          )
+        );
       }
       for (let i = 0; i < data['memberFunctions'].length; i++) {
         composite.addMemberFunction(
@@ -170,6 +134,14 @@ export class CompositeManagerService {
           CompositeManagerService.deserialize(data['composite'][i])
         );
       }
+      return composite;
+    } else if (data['_type'] === 'CompositeVariable') {
+      let composite: CompositeVariable = new CompositeVariable(
+        data['name'],
+        data['description'],
+        data['variableType'],
+        data['value']
+      );
       return composite;
     }
     throw new Error('Invalid type');

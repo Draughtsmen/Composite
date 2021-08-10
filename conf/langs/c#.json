@@ -1,37 +1,107 @@
 {
-	"types": [
-		{
-			"name": "string",
-			"format": "string [name] = \"[value]\";"
-		},
-		{
-			"name": "float",
-			"format": "float [name] = [value]f;"
-		},
-		{
-			"name": "int",
-			"format": "int [name] = [value];"
-		},
-        {
-            "name": "bool",
-            "format": "bool [name] = [value];"
-        }
-	],
+	"name": "c#",
 
-	"templates": [
-		{
-			"name": "function",
-			"format": "[return] [name]([value]) {\n\treturn [return];\n}"
-		},
-		{
-			"name": "class",
-			"format": "[modifier] class [name] {\n# #\n}"
-		}
-	],
+	"c#":
+	{
+		"project": [
+			{
+			  "name": "File",
+			  "id": "file",
+			  "append": ".cs"
+			}
+		],
 
-	"modifiers": ["public", "protected", "private"],
+		"types": [
+			{
+				"name": "string",
+				"format": "string [name] = \"[value]\";"
+			}, 
+			{
+				"name": "object",
+				"format": "object [name] = [value];"
+			}, 
+			{
+				"name": "dynamic",
+				"format": "dynamic [name] = [value];"
+			}, 
+			{
+				"name": "char",
+				"format": "char [name] = '[value]';"
+			}, 
+			{
+				"name": "float",
+				"format": "float [name] = [value]f;"
+			},
+			{
+				"name": "double",
+				"format": "double [name] = [value]d;"
+			},
+			{
+				"name": "decimal",
+				"format": "double [name] = [value]m;"
+			},
+			{
+				"name": "int",
+				"format": "int [name] = [value];"
+			},
+			{
+				"name": "bool",
+				"format": "bool [name] = [value];"
+			}
+		],
 
-	"singleCommentRule": "//[value]",
-	"multiCommentRule": "/*\n[value]\n*/"
+		"templates": [
+			{
+				"id": "function",
+				"name": "Function",
+				"format": "[return] [name]([value]) {\n\treturn [return];\n}",
+				"data": [
+					{
+					  "id": "type",
+					  "name": "Return Type",
+					  "type": "dropdown"
+					},
+					{
+					  "id": "arguments",
+					  "name": "Arguments",
+					  "type": "array"
+					}
+				  ]
+			},
+			{
+				"id": "class",
+				"name": "Class",
+				"format": "[modifier] class [name][begin] : [base][end] {\n# #\n}",
+				"data": [
+					{
+						"id": "modifier",
+						"name": "Select Modifier",
+						"type": "dropdown"
+					}
+				]
+			},
+			{
+				"id": "variable",
+				"name": "Variable",
+				"format": "[type] [name] = [value];\n}",
+				"data": [
+					{
+						"id": "type",
+						"name": "Select Type",
+						"type": "dropdown"
+					},
+					{
+						"id": "enter",
+						"name": "Value",
+						"type": "string"
+					}
+				]
+			}
+		],
 
-}	
+		"modifiers": ["public", "protected", "private"],
+
+		"singleCommentRule": "//[value]",
+		"multiCommentRule": "/*\n[value]\n*/"
+	}
+}

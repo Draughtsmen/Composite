@@ -8,11 +8,13 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { sandboxed } from 'process';
 import { Composite } from '../classes/composite';
 import { CompositeClass } from '../classes/composite-class';
 import { CompositeFunction } from '../classes/composite-function';
 import { CompositeGroup } from '../classes/composite-group';
 import { CompositeProject } from '../classes/composite-project';
+import { CompositeVariable } from '../classes/composite-variable';
 import { IpcService } from '../ipc.service';
 import { CompositeManagerService } from '../services/composite-export/composite-manager.service';
 
@@ -31,41 +33,6 @@ export class MainComponent {
   modalComposite: any = null;
   currComposite: Composite | null = null;
   currTypes: any = [];
-  projectTypes: any = {
-    project: [
-      {
-        id: 'file',
-        name: 'File',
-        type: 'group',
-        append: '.gml',
-      },
-    ],
-    group: [
-      {
-        id: 'function',
-        name: 'Function',
-        type: 'function',
-        data: [
-          {
-            id: 'return',
-            name: 'Return Type',
-            type: 'string',
-          },
-          {
-            id: 'arguments',
-            name: 'Arguments',
-            type: 'array',
-          },
-        ],
-      },
-      {
-        id: 'variable',
-        name: 'Variable',
-        type: 'variable',
-        disabled: true,
-      },
-    ],
-  };
   newCompositeForm: FormGroup = new FormGroup({});
   fullProject: any;
 
@@ -88,7 +55,8 @@ export class MainComponent {
         this.fullProject = res;
         this.project = CompositeManagerService.deserializeProject(
           res['data'],
-          this.fullProject.language
+          this.fullProject.language,
+          this.fullProject.doc
         );
       });
     });
@@ -126,14 +94,19 @@ export class MainComponent {
   onNewCompositeSubmit(modal: any) {
     let name = this.newCompositeForm.get('name')?.value;
     let description = this.newCompositeForm.get('description')?.value;
+    description = 'DEFAULT DESCRIPTION';
+    let type = this.newCompositeForm.get('type')?.value;
+    // Iterate through current context
     for (const item of this.currTypes) {
-      if (item['type'] === 'group') {
+      // Give all files the proper extension
+      if (item['id'] === 'file' && type == 'file') {
         if (item.hasOwnProperty('append')) {
           //todo: better implementation
           name += item['append'];
         }
         this.addComposite(new CompositeGroup(name, description));
-      } else if (item['type'] === 'function') {
+        // Expand functions with their arguments and return values
+      } else if (item['id'] === 'function' && type == 'function') {
         let arr = <FormArray>(
           this.newCompositeForm.get('function')?.get('arguments')
         );
@@ -141,14 +114,62 @@ export class MainComponent {
         for (let i = 0; i < arr.length; i++) {
           strArr.push(arr.at(i).value);
         }
-        this.addComposite(
-          new CompositeFunction(
-            name,
-            description,
-            this.newCompositeForm.get('function')?.get('return')?.value,
-            strArr
-          )
+
+        // Make func from specs
+        let newfunc: CompositeFunction = new CompositeFunction(
+          name,
+          description,
+          this.newCompositeForm.get('function')?.get('type')?.value,
+          strArr
         );
+
+        // Either add to file or class
+        if (this.currComposite instanceof CompositeClass) {
+          this.currComposite.addMemberFunction(newfunc);
+        } else {
+          this.addComposite(newfunc);
+        }
+        // Expand variables with their types and values
+      } else if (item['id'] === 'variable' && type == 'variable') {
+        let strType: string = this.newCompositeForm
+          .get('variable')
+          ?.get('type')?.value;
+        let strVal: string = this.newCompositeForm
+          .get('variable')
+          ?.get('enter')?.value;
+
+        //Make var from specs
+        let newvar: CompositeVariable = new CompositeVariable(
+          name,
+          description,
+          strType,
+          strVal
+        );
+
+        if (this.currComposite instanceof CompositeClass) {
+          this.currComposite.addMemberVariable(newvar);
+        } else {
+          this.addComposite(newvar);
+        }
+        // Expand classes with their info
+      } else if (item['id'] === 'class' && type == 'class') {
+        // HAS DEFAULT "PRE" and "POST", will change later
+        let strMod: string = this.newCompositeForm
+          .get('class')
+          ?.get('modifier')?.value;
+
+        let newclass: CompositeClass = new CompositeClass(
+          strMod,
+          name,
+          '',
+          description
+        );
+        if (this.currComposite instanceof CompositeClass) {
+          newclass.setBaseClass(this.currComposite.getName());
+          this.currComposite.assignSubclass(newclass);
+        } else {
+          this.addComposite(newclass);
+        }
       }
     }
     this.saveComposite();
@@ -200,9 +221,12 @@ export class MainComponent {
   openNewComposite(content: any, currentComposite: any) {
     if (currentComposite == null) {
       //Project root
-      this.currTypes = this.projectTypes['project'];
-    } else if (currentComposite instanceof CompositeGroup) {
-      this.currTypes = this.projectTypes['group'];
+      this.currTypes = this.project?.lang.project;
+    } else if (
+      currentComposite instanceof CompositeGroup ||
+      currentComposite instanceof CompositeClass
+    ) {
+      this.currTypes = this.project?.lang.templates;
     }
     this.modalComposite = currentComposite;
     let typeSet = false;
@@ -212,14 +236,16 @@ export class MainComponent {
     for (const item of this.currTypes) {
       if (!typeSet) {
         compositeForm['type'] = new FormControl(item['id']);
-        typeSet = true;
       }
       if (item.hasOwnProperty('data')) {
         let group: any = {};
         for (const dataItem of item['data']) {
           if (dataItem['type'] === 'array') {
             group[dataItem['id']] = new FormArray([]);
-          } else if (dataItem['type'] === 'string') {
+          } else if (
+            dataItem['type'] === 'string' ||
+            dataItem['type'] === 'dropdown'
+          ) {
             group[dataItem['id']] = new FormControl('');
           }
         }
@@ -240,18 +266,19 @@ export class MainComponent {
   componentCanMakeDescendents(component: Composite): boolean {
     if (component instanceof CompositeGroup) {
       return (
-        this.projectTypes.hasOwnProperty('group') &&
-        this.projectTypes['group'].length > 0
+        this.project?.lang != undefined &&
+        this.project.lang.hasOwnProperty('project') &&
+        this.project.lang.project.length > 0
       );
     } else if (component instanceof CompositeFunction) {
       return (
-        this.projectTypes.hasOwnProperty('function') &&
-        this.projectTypes['function'].length > 0
+        // RETURNING FALSE AT THE MOMENT SINCE VARIABLE SUPPORT DOESN'T WORK
+        false
       );
     } else if (component instanceof CompositeClass) {
       return (
-        this.projectTypes.hasOwnProperty('class') &&
-        this.projectTypes['class'].length > 0
+        this.project?.lang != undefined &&
+        this.project.lang.templates.find((t) => t.id === 'class') != undefined
       );
     }
     return false;

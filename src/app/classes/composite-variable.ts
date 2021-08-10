@@ -40,7 +40,7 @@ export class CompositeVariable extends Composite {
     if (prefix == undefined) prefix = '';
 
     // Document the variable if able.
-    let varStub = doc.specs.find((i) => i.name == 'parameter')?.format;
+    let varStub = doc.specs.find((i) => i.name == 'variable')?.format;
     if (varStub != undefined) {
       varStub = varStub.replace('[name]', this.name);
       varStub = varStub.replace('[type]', this.variableType);
@@ -56,7 +56,7 @@ export class CompositeVariable extends Composite {
       stub = stub.replace('[name]', this.name);
       stub = stub.replace('[value]', this.value);
 
-      return docStub + '\n' + stub;
+      return docStub + stub;
     } else if (stub == undefined && docStub.length > 0) {
       return docStub;
     } else return 'Critical failure: could not find type ' + this.type + '.';

@@ -6,6 +6,7 @@ const store = new Store();
 const { v4: genUuid } = require("uuid");
 
 const path = require("path");
+const fs = require("fs");
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -43,7 +44,27 @@ app.on("window-all-closed", () => {
   }
 });
 
+// reads a directory of JSON conf files and merges them into one object
+function mergeJSON(dir) {
+  let files = fs.readdirSync(dir);
+  let fulljson = {};
+
+  files.forEach((file) => {
+    let json = JSON.parse(fs.readFileSync(dir + file));
+    fulljson[json["name"]] = json[json["name"]];
+  });
+
+  console.log(fulljson);
+  return fulljson;
+}
+
 ipcMain.on("list-projects", (event) => {
+  // load conf files
+  let langjson = mergeJSON("conf/langs/");
+  let docjson = mergeJSON("conf/docs/");
+
+  event.sender.send("load-conf", langjson, docjson);
+
   let list = store.get("project-list", undefined);
   if (list === undefined) {
     store.set("project-list", {});
@@ -80,15 +101,16 @@ ipcMain.on("delete-project", (event, id) => {
   data: <composite data>
 }
 */
-ipcMain.on("new-project", (event, name, language, baseData) => {
+ipcMain.on("new-project", (event, name, language, doc, baseData) => {
   let list = store.get("project-list", {});
   let uuid = genUuid();
-  list[uuid] = { name: name, language: language };
+  list[uuid] = { name: name, language: language, doc: doc };
   store.set("project-list", list);
   let project = {
     id: uuid,
     name: name,
     language: language,
+    doc: doc,
     data: baseData,
   };
   store.set("project-store-" + uuid, project);
