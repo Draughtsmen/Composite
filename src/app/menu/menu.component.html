@@ -61,6 +61,7 @@
       <div class="container">
         <div class="row">
           <div class="col-5">
+            <!-- Languages Section. -->
             <div class="row justify-content-space-between">
               <h2>Languages</h2>
               <div class="ml-auto">
@@ -83,6 +84,31 @@
                   required
                 />
                 {{ language.key }}
+              </label>
+            </div>
+            <!-- Documentation Section. -->
+            <div class="row justify-content-space-between">
+              <h2>Doc Styles</h2>
+              <div class="ml-auto">
+                <i class="fas fa-plus text-muted"></i>
+              </div>
+            </div>
+            <div
+              *ngFor="let doc of Manager.SUPPORTED_DOCS | keyvalue"
+              class="row"
+            >
+              <label class="btn btn-light" for="doc-{{ doc.value }}">
+                <input
+                  class="hide-checkbox"
+                  type="radio"
+                  name="doc"
+                  id="doc-{{ doc.value }}"
+                  autocomplete="off"
+                  value="{{ doc.value }}"
+                  formControlName="doc"
+                  required
+                />
+                {{ doc.key }}
               </label>
             </div>
           </div>

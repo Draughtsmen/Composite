@@ -109,7 +109,7 @@ export class MenuComponent implements OnInit {
   onNewProjectSubmit(modal: any) {
     let name = this.newProjectForm.get('name')?.value;
     let language = this.newProjectForm.get('language')?.value;
-    let doc = 'gmldocs'; //this.newProjectForm.get('doc')?.value;
+    let doc = this.newProjectForm.get('doc')?.value;
 
     this.ipcService.send(
       'new-project',

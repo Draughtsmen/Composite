@@ -22,6 +22,11 @@ export class CompositeManagerService {
     GML: 'gml',
     CSharp: 'c#',
   };
+  public static readonly SUPPORTED_DOCS: any = {
+    GMLDocs: 'gmldocs',
+    JavaDocs: 'javadocs',
+  };
+
 
   private static LANGUAGE_INFO: any;
   private static DOC_INFO: any;

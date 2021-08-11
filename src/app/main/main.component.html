@@ -41,9 +41,7 @@
             <i class="fas fa-angle-down"></i>
           </div>
         </div>
-        <div class="section-content">
-          <ng-container *ngTemplateOutlet="modifyComposite;"></ng-container>
-        </div>
+        <ng-container *ngTemplateOutlet="modifyComposite;"></ng-container>
       </div>
 
       <!-- The generated stub/documentation display. -->
@@ -119,6 +117,8 @@
     <div class="section-content" *ngIf="currComposite !== null">
       <!-- INPUT: Description. -->
       <input type="text" class="form-control" formControlName="description" placeholder="Description" value="{{ currComposite.getDescription() }}" required>
+      <hr/>
+      <!-- TODO: Generate additional inputs based on currComposite type. -->
     </div>
   </form>
 </ng-template>

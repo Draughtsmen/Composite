@@ -89,6 +89,15 @@ export abstract class Composite {
   }
 
   /**
+   * Gets the type.
+   *
+   * @return {string} The type.
+   */
+  getType(): string {
+    return this.type;
+  }
+
+  /**
    * Gets the descendents.
    *
    * @return {Array<Composite>} The descendents.
