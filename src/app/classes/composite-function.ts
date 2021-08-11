@@ -53,7 +53,7 @@ export class CompositeFunction extends Composite {
     let docStub: string = '';
 
     // Get the documentation openers, prefixes, and closers if able.
-    let opener = docs.opener ? docs.opener : '';
+    let opener = docs.opener ? docs.opener + '\n' : '';
     let prefix = docs.prefix ? docs.prefix : '';
     let closer = docs.closer ? docs.closer : '';
 
@@ -98,7 +98,7 @@ export class CompositeFunction extends Composite {
       stub = stub.replace('[name]', this.name);
       stub = stub.replace('[value]', this.args.join(', '));
 
-      return opener + '\n' + docStub + closer + '\n' + stub;
+      return opener + docStub + closer + '\n' + stub;
     } else return 'Critical failure: could not find type ' + this.type + '.';
   }
 

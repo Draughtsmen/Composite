@@ -39,6 +39,8 @@ export class MainComponent {
   });
   fullProject: any;
 
+  templates: any = null;
+
   /**
    * Constructs a new instance of the Main frontend component.
    *
@@ -310,7 +312,19 @@ export class MainComponent {
    * @param {(Composite|null)} component - The component.
    */
   showComponent(component: Composite | null) {
+    // Select the component.
     this.currComposite = component;
+
+    // Update important information for the frontend.
+    this.templates = this.project?.lang.templates;
+    console.log(this.templates);
+
+    // Prepare the modification form if need be.
+    let modifyForm = {
+      description: new FormControl(this.currComposite?.getDescription()),
+    }
+
+    this.modifyCompositeForm = new FormGroup(modifyForm);
   }
 
   /**
