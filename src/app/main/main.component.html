@@ -34,14 +34,16 @@
   <div id="panel-right">
     <div id="section-list">
       <!-- Where the form to modify data and documentation will go. -->
-      <div class="section">
+      <div class="section" *ngIf="currComposite !== null">
         <div class="section-heading">
-          Heading
+          {{ currComposite.getName() }}
           <div class="float-right">
             <i class="fas fa-angle-down"></i>
           </div>
         </div>
-        <div class="section-content">blah</div>
+        <div class="section-content">
+          <ng-container *ngTemplateOutlet="modifyComposite;"></ng-container>
+        </div>
       </div>
 
       <!-- The generated stub/documentation display. -->
@@ -97,8 +99,7 @@
 
     <!-- Recursively generates the object's descendants. -->
     <ng-template [ngIf]="component.getDescendents().length > 0">
-      <ng-container
-        *ngTemplateOutlet="
+      <ng-container *ngTemplateOutlet="
           sidebarItem;
           context: {
             components: component.getDescendents(),
@@ -110,6 +111,16 @@
       ></ng-container>
     </ng-template>
   </ng-template>
+</ng-template>
+
+<!-- Angular template for a form that modifies the current Composite object. -->
+<ng-template #modifyComposite >
+  <form [formGroup]="modifyCompositeForm" (ngSubmit)="onModifyCompositeSumbit()">
+    <div class="section-content" *ngIf="currComposite !== null">
+      <!-- INPUT: Description. -->
+      <input type="text" class="form-control" formControlName="description" placeholder="Description" value="{{ currComposite.getDescription() }}" required>
+    </div>
+  </form>
 </ng-template>
 
 <!-- Angular template for a modal form that generates a new Composite object. -->
