@@ -27,7 +27,6 @@ export class CompositeManagerService {
     JavaDocs: 'javadocs',
   };
 
-
   private static LANGUAGE_INFO: any;
   private static DOC_INFO: any;
 

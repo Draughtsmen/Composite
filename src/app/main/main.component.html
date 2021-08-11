@@ -1,5 +1,4 @@
 <div *ngIf="project !== null" id="panels-container">
-
   <!-- Sidebar -->
   <div id="panel-left" class="container">
     <div id="list">
@@ -12,12 +11,17 @@
         <i class="fas fa-bullseye"></i>
       </button>
       <!-- Creates a new "file" for the project to use. -->
-      <button type="button" class="btn btn-link" (click)="openNewComposite(newComposite, null)">
+      <button
+        type="button"
+        class="btn btn-link"
+        (click)="openNewComposite(newComposite, null)"
+      >
         <i class="fas fa-plus"></i>
       </button>
     </div>
     <!-- The various sidebar tabs. -->
-    <ng-container *ngTemplateOutlet="
+    <ng-container
+      *ngTemplateOutlet="
         sidebarItem;
         context: {
           components: this.project.files,
@@ -41,7 +45,7 @@
             <i class="fas fa-angle-down"></i>
           </div>
         </div>
-        <ng-container *ngTemplateOutlet="modifyComposite;"></ng-container>
+        <ng-container *ngTemplateOutlet="modifyComposite"></ng-container>
       </div>
 
       <!-- The generated stub/documentation display. -->
@@ -76,20 +80,37 @@
   let-depth="depth"
 >
   <ng-template ngFor let-component [ngForOf]="components" let-i="index">
-    <div id="{{ sidebarId }}{{ i }}" class="row" [ngClass]="{ targeted: component === currComposite }">
+    <div
+      id="{{ sidebarId }}{{ i }}"
+      class="row"
+      [ngClass]="{ targeted: component === currComposite }"
+    >
       <!-- Clickable name. -->
-      <div class="pointer" (click)="showComponent(component)" [ngStyle]="{ 'margin-left': 'calc(15 * ' + depth + 'px)' }">
+      <div
+        class="pointer"
+        (click)="showComponent(component)"
+        [ngStyle]="{ 'margin-left': 'calc(15 * ' + depth + 'px)' }"
+      >
         {{ component.getName() }}
       </div>
 
       <div class="float-right">
         <!-- Delete component button. -->
-        <button type="button" class="btn btn-link" (click)="deleteComponent(component, parentComponent)">
+        <button
+          type="button"
+          class="btn btn-link"
+          (click)="deleteComponent(component, parentComponent)"
+        >
           <i class="fas fa-minus pr-2"></i>
         </button>
 
         <!-- Add sub-component button. -->
-        <button *ngIf="componentCanMakeDescendents(component)" type="button" class="btn btn-link" (click)="openNewComposite(newComposite, component)">
+        <button
+          *ngIf="componentCanMakeDescendents(component)"
+          type="button"
+          class="btn btn-link"
+          (click)="openNewComposite(newComposite, component)"
+        >
           <i class="fas fa-plus"></i>
         </button>
       </div>
@@ -97,7 +118,8 @@
 
     <!-- Recursively generates the object's descendants. -->
     <ng-template [ngIf]="component.getDescendents().length > 0">
-      <ng-container *ngTemplateOutlet="
+      <ng-container
+        *ngTemplateOutlet="
           sidebarItem;
           context: {
             components: component.getDescendents(),
@@ -112,12 +134,22 @@
 </ng-template>
 
 <!-- Angular template for a form that modifies the current Composite object. -->
-<ng-template #modifyComposite >
-  <form [formGroup]="modifyCompositeForm" (ngSubmit)="onModifyCompositeSumbit()">
+<ng-template #modifyComposite>
+  <form
+    [formGroup]="modifyCompositeForm"
+    (ngSubmit)="onModifyCompositeSumbit()"
+  >
     <div class="section-content" *ngIf="currComposite !== null">
       <!-- INPUT: Description. -->
-      <input type="text" class="form-control" formControlName="description" placeholder="Description" value="{{ currComposite.getDescription() }}" required>
-      <hr/>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="description"
+        placeholder="Description"
+        value="{{ currComposite.getDescription() }}"
+        required
+      />
+      <hr />
       <!-- TODO: Generate additional inputs based on currComposite type. -->
     </div>
   </form>

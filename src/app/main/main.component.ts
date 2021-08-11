@@ -35,7 +35,7 @@ export class MainComponent {
   currTypes: any = [];
   newCompositeForm: FormGroup = new FormGroup({});
   modifyCompositeForm: FormGroup = new FormGroup({
-    description: new FormControl('Description')
+    description: new FormControl('Description'),
   });
   fullProject: any;
 
@@ -179,7 +179,6 @@ export class MainComponent {
     modal.close();
   }
 
-
   /**
    * Called on modify composite sumbit.
    */
@@ -189,7 +188,7 @@ export class MainComponent {
     console.log(description);
 
     // Make changes.
-    if(this.currComposite) {
+    if (this.currComposite) {
       this.currComposite.setDescription(description);
     }
 

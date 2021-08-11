@@ -53,9 +53,9 @@ export class CompositeFunction extends Composite {
     let docStub: string = '';
 
     // Get the documentation openers, prefixes, and closers if able.
-    let opener = (docs.opener) ? docs.opener : '';
-    let prefix = (docs.prefix) ? docs.prefix : '';
-    let closer = (docs.closer) ? docs.closer : '';
+    let opener = docs.opener ? docs.opener : '';
+    let prefix = docs.prefix ? docs.prefix : '';
+    let closer = docs.closer ? docs.closer : '';
 
     // Document the function outline if able.
     let functStub = docs.specs.find((i) => i.name == 'function')?.format;
