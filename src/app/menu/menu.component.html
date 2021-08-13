@@ -63,27 +63,26 @@
           <div class="col-5">
             <div class="row justify-content-space-between">
               <h2>Languages</h2>
-              <div class="ml-auto">
-                <i class="fas fa-plus text-muted"></i>
-              </div>
             </div>
-            <div
-              *ngFor="let language of Manager.SUPPORTED_LANGUAGES | keyvalue"
-              class="row"
-            >
-              <label class="btn btn-light" for="language-{{ language.value }}">
+            <div class="btn-vertical-group">
+              <div *ngFor="let language of Manager.SUPPORTED_LANGUAGES | keyvalue">
                 <input
-                  class="hide-checkbox"
                   type="radio"
                   name="language"
                   id="language-{{ language.value }}"
                   autocomplete="off"
                   value="{{ language.value }}"
                   formControlName="language"
+                  hidden
                   required
-                />
-                {{ language.key }}
-              </label>
+                >
+                <label
+                  class="btn btn-info btn-block"
+                  for="language-{{ language.value }}"
+                >
+                  {{ language.key }}
+                </label>
+              </div>
             </div>
           </div>
           <div class="col-5 offset-2">
