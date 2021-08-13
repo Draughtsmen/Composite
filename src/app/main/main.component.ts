@@ -323,7 +323,27 @@ export class MainComponent {
     let modifyForm = {
       description: new FormControl(this.currComposite?.getDescription()),
     }
+    for(let i = 0; i < this.templates.length; i++) {
+      // Keep going until a template match is found.
+      if(this.currComposite?.getType() !== this.templates[i].id)
+        continue;
+      // For each piece of taken data:
+      for(let j = 0; j < this.templates[i].data.length; j++) {
+        switch(this.templates[i].data[j].type) {
+          case "dropdown":
+            console.log("DROPDOWN"); // DEBUG.
+            break;
+          case "array":
+             console.log("ARRAY"); // DEBUG.
+            break;
+          case "string":
+            console.log("STRING"); // DEBUG.
+            break;
+        }
+      }
 
+      // Build the form in accordance with the data type.
+    }
     this.modifyCompositeForm = new FormGroup(modifyForm);
   }
 
