@@ -277,7 +277,9 @@ export class MainComponent {
   onEditComposite(type: string, data: any) {
     console.log(data);
     this.currComposite?.setEditData(type, data);
-    this.currCompositeData = this.currComposite?.getEditData(this.project?.lang!);
+    this.currCompositeData = this.currComposite?.getEditData(
+      this.project?.lang!
+    );
     this.saveComposite();
   }
 

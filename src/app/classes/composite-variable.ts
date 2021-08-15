@@ -116,15 +116,15 @@ export class CompositeVariable extends Composite {
    * @param lang - language support format
    * @returns the data for the relevant type
    */
-   getEditData(lang: LanguageSupportFormat): any {
+  getEditData(lang: LanguageSupportFormat): any {
     let data = super.getEditData(lang);
-    for(let i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
       switch (data[i].id) {
-        case "type":
-          data[i]["value"] = this.variableType;
+        case 'type':
+          data[i]['value'] = this.variableType;
           break;
-        case "enter":
-          data[i]["value"] = this.value;
+        case 'enter':
+          data[i]['value'] = this.value;
           break;
       }
     }
@@ -138,10 +138,10 @@ export class CompositeVariable extends Composite {
    */
   setEditData(type: string, data: any) {
     switch (type) {
-      case "type":
+      case 'type':
         this.variableType = data;
         break;
-      case "enter":
+      case 'enter':
         this.value = data;
         break;
     }

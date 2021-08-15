@@ -92,8 +92,10 @@ export class CompositeGroup extends Composite {
    * @param data - the data for the type
    */
   setEditData(type: string, data: any) {
-    switch (type) {
+    switch (
+      type
       //No relevant items for a group currently
+    ) {
     }
   }
 }

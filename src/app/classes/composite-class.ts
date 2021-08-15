@@ -289,10 +289,10 @@ export class CompositeClass extends Composite {
    */
   getEditData(lang: LanguageSupportFormat): any {
     let data = super.getEditData(lang);
-    for(let i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
       switch (data[i].id) {
-        case "modifier":
-          data[i]["value"] = this.modifier;
+        case 'modifier':
+          data[i]['value'] = this.modifier;
           break;
       }
     }
@@ -306,7 +306,7 @@ export class CompositeClass extends Composite {
    */
   setEditData(type: string, data: any) {
     switch (type) {
-      case "modifier":
+      case 'modifier':
         this.modifier = data;
         break;
     }

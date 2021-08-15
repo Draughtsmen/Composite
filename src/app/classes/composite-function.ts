@@ -142,15 +142,15 @@ export class CompositeFunction extends Composite {
    * @param lang - language support format
    * @returns the data for the relevant type
    */
-   getEditData(lang: LanguageSupportFormat): any {
+  getEditData(lang: LanguageSupportFormat): any {
     let data = super.getEditData(lang);
-    for(let i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
       switch (data[i].id) {
-        case "type":
-          data[i]["value"] = this.returnType;
+        case 'type':
+          data[i]['value'] = this.returnType;
           break;
-        case "arguments":
-          data[i]["value"] = this.args;
+        case 'arguments':
+          data[i]['value'] = this.args;
           break;
       }
     }
@@ -166,10 +166,10 @@ export class CompositeFunction extends Composite {
     console.log(type);
     console.log(data);
     switch (type) {
-      case "type":
+      case 'type':
         this.returnType = data;
         break;
-      case "arguments":
+      case 'arguments':
         this.args = data;
         break;
     }

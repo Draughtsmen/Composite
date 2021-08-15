@@ -96,114 +96,118 @@
               {{ item.name }}
             </label>
           </div> -->
+          <div class="modal-body container">
             <div
-              class="modal-body container"
+              class="row"
+              *ngFor="let dataItem of currCompositeData; index as x"
+              [ngSwitch]="dataItem.type"
             >
-              <div
-                class="row"
-                *ngFor="let dataItem of currCompositeData; index as x"
-                [ngSwitch]="dataItem.type"
-              >
-                <div class="col" *ngSwitchCase="'array'">
-                  <div class="row px-4">
-                    <h2>{{ dataItem.name }}</h2>
-                    <div>
-                      <button
-                        type="button"
-                        class="btn btn-link pl-2"
-                        (click)="dataItem.value.push(''); onEditComposite(dataItem.id, dataItem.value)"
-                      >
-                        <i class="fas fa-plus"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    *ngFor="
-                      let item of dataItem.value;
-                      index as i
-                    "
-                    class="d-flex"
-                  >
-                    <input
-                      #inputValue
-                      class="form-control"
-                      placeholder="Argument"
-                      name="edit-{{ item.id }}-{{ dataItem.id }}-{{ i }}"
-                      id="edit-{{ item.id }}-{{ dataItem.id }}-{{ i }}"
-                      [value]="item"
-                      required
-                      (change)="dataItem.value[i] = inputValue.value; onEditComposite(dataItem.id, dataItem.value)"
-                    />
+              <div class="col" *ngSwitchCase="'array'">
+                <div class="row px-4">
+                  <h2>{{ dataItem.name }}</h2>
+                  <div>
                     <button
                       type="button"
                       class="btn btn-link pl-2"
-                      (click)="dataItem.value.splice(i, 1); onEditComposite(dataItem.id, dataItem.value);"
+                      (click)="
+                        dataItem.value.push('');
+                        onEditComposite(dataItem.id, dataItem.value)
+                      "
                     >
-                      <i class="fas fa-minus pl-2"></i>
+                      <i class="fas fa-plus"></i>
                     </button>
                   </div>
                 </div>
-                <div class="col" *ngSwitchCase="'string'">
-                  <div class="row px-4">
-                    <h2>{{ dataItem.name }}</h2>
-                  </div>
+                <div
+                  *ngFor="let item of dataItem.value; index as i"
+                  class="d-flex"
+                >
                   <input
                     #inputValue
                     class="form-control"
-                    placeholder="void"
-                    name="edit-{{ dataItem.id }}"
-                    id="edit-{{ dataItem.id }}"
-                    [value]="dataItem.value"
-                    (change)="onEditComposite(dataItem.id, inputValue.value)"
+                    placeholder="Argument"
+                    name="edit-{{ item.id }}-{{ dataItem.id }}-{{ i }}"
+                    id="edit-{{ item.id }}-{{ dataItem.id }}-{{ i }}"
+                    [value]="item"
                     required
+                    (change)="
+                      dataItem.value[i] = inputValue.value;
+                      onEditComposite(dataItem.id, dataItem.value)
+                    "
                   />
-                </div>
-                <div class="col" *ngSwitchCase="'dropdown'">
-                  <div class="row px-4">
-                    <h2>{{ dataItem.name }}</h2>
-                  </div>
-                  <select
-                    #inputValue
-                    *ngIf="dataItem.id === 'type'"
-                    class="form-control"
-                    placeholder="void"
-                    name="edit-{{ dataItem.id }}"
-                    id="edit-{{ dataItem.id }}"
-                    [value]="dataItem.value"
-                    (change)="onEditComposite(dataItem.id, inputValue.value)"
-                    required
+                  <button
+                    type="button"
+                    class="btn btn-link pl-2"
+                    (click)="
+                      dataItem.value.splice(i, 1);
+                      onEditComposite(dataItem.id, dataItem.value)
+                    "
                   >
-                    <option
-                      *ngFor="let t of project?.lang?.types; let i = index"
-                      value="{{ project!.lang!.types[i]!.name }}"
-                    >
-                      {{ project!.lang!.types[i]!.name }}
-                    </option>
-                    >
-                  </select>
-                  <select
-                    #inputValue
-                    *ngIf="dataItem.id === 'modifier'"
-                    class="form-control"
-                    placeholder="void"
-                    name="edit-{{ dataItem.id }}"
-                    id="edit-{{ dataItem.id }}"
-                    [value]="dataItem.value"
-                    (change)="onEditComposite(dataItem.id, inputValue.value)"
-                    required
-                  >
-                    <option
-                      *ngFor="let t of project?.lang?.modifiers; let i = index"
-                      value="{{ project!.lang!.modifiers[i] }}"
-                    >
-                      {{ project!.lang!.modifiers[i] }}
-                    </option>
-                    >
-                  </select>
+                    <i class="fas fa-minus pl-2"></i>
+                  </button>
                 </div>
-                <ng-template *ngSwitchDefault></ng-template>
               </div>
+              <div class="col" *ngSwitchCase="'string'">
+                <div class="row px-4">
+                  <h2>{{ dataItem.name }}</h2>
+                </div>
+                <input
+                  #inputValue
+                  class="form-control"
+                  placeholder="void"
+                  name="edit-{{ dataItem.id }}"
+                  id="edit-{{ dataItem.id }}"
+                  [value]="dataItem.value"
+                  (change)="onEditComposite(dataItem.id, inputValue.value)"
+                  required
+                />
+              </div>
+              <div class="col" *ngSwitchCase="'dropdown'">
+                <div class="row px-4">
+                  <h2>{{ dataItem.name }}</h2>
+                </div>
+                <select
+                  #inputValue
+                  *ngIf="dataItem.id === 'type'"
+                  class="form-control"
+                  placeholder="void"
+                  name="edit-{{ dataItem.id }}"
+                  id="edit-{{ dataItem.id }}"
+                  [value]="dataItem.value"
+                  (change)="onEditComposite(dataItem.id, inputValue.value)"
+                  required
+                >
+                  <option
+                    *ngFor="let t of project?.lang?.types; let i = index"
+                    value="{{ project!.lang!.types[i]!.name }}"
+                  >
+                    {{ project!.lang!.types[i]!.name }}
+                  </option>
+                  >
+                </select>
+                <select
+                  #inputValue
+                  *ngIf="dataItem.id === 'modifier'"
+                  class="form-control"
+                  placeholder="void"
+                  name="edit-{{ dataItem.id }}"
+                  id="edit-{{ dataItem.id }}"
+                  [value]="dataItem.value"
+                  (change)="onEditComposite(dataItem.id, inputValue.value)"
+                  required
+                >
+                  <option
+                    *ngFor="let t of project?.lang?.modifiers; let i = index"
+                    value="{{ project!.lang!.modifiers[i] }}"
+                  >
+                    {{ project!.lang!.modifiers[i] }}
+                  </option>
+                  >
+                </select>
+              </div>
+              <ng-template *ngSwitchDefault></ng-template>
             </div>
+          </div>
         </div>
       </div>
       <div class="section">
