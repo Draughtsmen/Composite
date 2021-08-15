@@ -163,8 +163,6 @@ export class CompositeFunction extends Composite {
    * @param data - the data for the type
    */
   setEditData(type: string, data: any) {
-    console.log(type);
-    console.log(data);
     switch (type) {
       case 'type':
         this.returnType = data;

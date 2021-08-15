@@ -275,7 +275,6 @@ export class MainComponent {
    * @param data - the data
    */
   onEditComposite(type: string, data: any) {
-    console.log(data);
     this.currComposite?.setEditData(type, data);
     this.currCompositeData = this.currComposite?.getEditData(
       this.project?.lang!
@@ -290,7 +289,6 @@ export class MainComponent {
    */
   showComponent(component: Composite | null) {
     this.currCompositeData = component?.getEditData(this.project?.lang!);
-    console.log(this.currCompositeData);
     this.currComposite = component;
   }
 
