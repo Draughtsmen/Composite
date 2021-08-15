@@ -226,8 +226,8 @@
               <input
                 class="form-control"
                 placeholder="Argument"
-                name="{{ item.id }}-{{ dataItem.id }}-{{ i }}"
-                id="{{ item.id }}-{{ dataItem.id }}-{{ i }}"
+                name="{{item.id}}-{{dataItem.id}}-{{i}}"
+                id="{{item.id}}-{{dataItem.id}}-{{i}}"
                 required
                 [(ngModel)]="compositeForm[item.id][dataItem.id][i]"
               />
@@ -247,8 +247,8 @@
             <input
               class="form-control"
               placeholder="void"
-              name="{{ item.id }}-{{ dataItem.id }}"
-              id="{{ item.id }}-{{ dataItem.id }}"
+              name="{{item.id}}-{{dataItem.id}}"
+              id="{{item.id}}-{{dataItem.id}}"
               [(ngModel)]="compositeForm[item.id][dataItem.id]"
               required
             />
@@ -261,8 +261,8 @@
               *ngIf="dataItem.id === 'type'"
               class="form-control"
               placeholder="void"
-              name="{{ item.id }}-{{ dataItem.id }}"
-              id="{{ item.id }}-{{ dataItem.id }}"
+              name="{{item.id}}-{{dataItem.id}}"
+              id="{{item.id}}-{{dataItem.id}}"
               [(ngModel)]="compositeForm[item.id][dataItem.id]"
               required
             >
@@ -278,8 +278,8 @@
               *ngIf="dataItem.id === 'modifier'"
               class="form-control"
               placeholder="void"
-              name="{{ item.id }}-{{ dataItem.id }}"
-              id="{{ item.id }}-{{ dataItem.id }}"
+              name="{{item.id}}-{{dataItem.id}}"
+              id="{{item.id}}-{{dataItem.id}}"
               [(ngModel)]="compositeForm[item.id][dataItem.id]"
               required
             >

@@ -17,7 +17,7 @@ import { CompositeProject } from '../classes/composite-project';
 import { CompositeVariable } from '../classes/composite-variable';
 import { IpcService } from '../ipc.service';
 import { CompositeManagerService } from '../services/composite-export/composite-manager.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'; 
 
 /**
  * This class describes the main component of the frontend.
