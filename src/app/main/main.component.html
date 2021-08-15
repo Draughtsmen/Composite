@@ -67,7 +67,9 @@
                 placeholder="Name"
                 [value]="currComposite.getName()"
                 required
-                (change)="currComposite.setName(nameValue.value); saveComposite()"
+                (change)="
+                  currComposite.setName(nameValue.value); saveComposite()
+                "
               />
             </label>
             <label for="description" class="w-100">
@@ -80,18 +82,23 @@
                 placeholder="Description"
                 [value]="currComposite.getDescription()"
                 required
-                (change)="currComposite.setDescription(descriptionValue.value); saveComposite()"
+                (change)="
+                  currComposite.setDescription(descriptionValue.value);
+                  saveComposite()
+                "
               />
             </label>
           </div>
-          <hr>
+          <hr />
           <!-- Composite-object specific form. -->
           <div class="modal-body container">
+            <!-- Picks elements according to what is specified in the template. -->
             <div
               class="row"
               *ngFor="let dataItem of currCompositeData; index as x"
               [ngSwitch]="dataItem.type"
             >
+              <!-- Case: Input is an array of things. -->
               <div class="col" *ngSwitchCase="'array'">
                 <div class="row px-4">
                   <h2>{{ dataItem.name }}</h2>
@@ -137,6 +144,7 @@
                   </button>
                 </div>
               </div>
+              <!-- Case: Input is a string. -->
               <div class="col" *ngSwitchCase="'string'">
                 <div class="row px-4">
                   <h2>{{ dataItem.name }}</h2>
@@ -152,10 +160,12 @@
                   required
                 />
               </div>
+              <!-- Case: Input is a dropdown. -->
               <div class="col" *ngSwitchCase="'dropdown'">
                 <div class="row px-4">
                   <h2>{{ dataItem.name }}</h2>
                 </div>
+                <!-- Case: Dropdown is for types. -->
                 <select
                   #inputValue
                   *ngIf="dataItem.id === 'type'"
@@ -175,6 +185,7 @@
                   </option>
                   >
                 </select>
+                <!-- Case: Dropdown is for modifiers. -->
                 <select
                   #inputValue
                   *ngIf="dataItem.id === 'modifier'"
@@ -195,11 +206,13 @@
                   >
                 </select>
               </div>
+              <!-- Case: Default, but not implemented. -->
               <ng-template *ngSwitchDefault></ng-template>
             </div>
           </div>
         </div>
       </div>
+      <!-- Section for generated pseudocode and documentation. -->
       <div class="section">
         <div class="section-heading">
           Pseudocode
@@ -224,6 +237,7 @@
   </div>
 </div>
 
+<!-- Angular Template for the Sidebar. -->
 <ng-template
   #sidebarItem
   let-components="components"
@@ -282,6 +296,7 @@
   </ng-template>
 </ng-template>
 
+<!-- Angular Template for the "Create Composite" modal. -->
 <ng-template #newComposite let-modal>
   <form #newCompositeForm="ngForm" (ngSubmit)="onNewCompositeSubmit(modal)">
     <div class="modal-header d-flex">
