@@ -1,19 +1,23 @@
 <div *ngIf="project !== null" id="panels-container">
+  <!-- Left sidebar of the page. -->
   <div id="panel-left" class="container">
     <div id="list">
+      <!-- Option: Go to project menu. -->
       <a class="btn btn-link" routerLink="">
         <i class="fas fa-arrow-left"></i>
       </a>
+
+      <!-- Option: Export project files. -->
       <button type="button" class="btn btn-link" (click)="saveToFiles()">
         <i class="fas fa-file-export"></i>
       </button>
 
+      <!-- Option: Show the entire project. -->
       <button type="button" class="btn btn-link" (click)="showComponent(null)">
         <i class="fas fa-bullseye"></i>
       </button>
 
-      <!-- <div class="float-right"> -->
-      <!-- <i class="fas fa-minus pr-3"></i> -->
+      <!-- Add a new Composite file to the project. -->
       <button
         type="button"
         class="btn btn-link"
@@ -21,8 +25,8 @@
       >
         <i class="fas fa-plus"></i>
       </button>
-      <!-- </div> -->
     </div>
+    <!-- Angular Container for the sidebar. -->
     <ng-container
       *ngTemplateOutlet="
         sidebarItem;
@@ -37,20 +41,25 @@
     </ng-container>
   </div>
   <div id="panel-divider"></div>
+  <!-- Main body of the page. -->
   <div id="panel-right">
     <div id="section-list">
+      <!-- Overview + Editing form for any Composite object. -->
       <div class="section" *ngIf="currComposite !== null">
+        <!-- Heading. -->
         <div class="section-heading">
-          Heading
+          Overview of
+          <span class="text-capitalize">{{ currComposite.getType() }}</span>
           <div class="float-right">
             <i class="fas fa-angle-down"></i>
           </div>
         </div>
+        <!-- "Universal" parts of the form. -->
         <div class="section-content">
-          <div class="modal-header d-flex">
-            <label for="name">
+          <div class="">
+            <label for="name" class="w-100">
               <input
-                #inputValue
+                #nameValue
                 class="form-control"
                 type="text"
                 id="edit-name"
@@ -58,47 +67,25 @@
                 placeholder="Name"
                 [value]="currComposite.getName()"
                 required
-                (change)="currComposite.setName(inputValue.value)"
+                (change)="currComposite.setName(nameValue.value); saveComposite()"
               />
             </label>
-            <!-- <div class="ml-auto">
-              <button
-                type="button"
-                class="btn btn-link pr-2"
-                (click)="modal.dismiss()"
-              >
-                <i class="fas fa-times"></i>
-              </button>
-              <button
-                type="submit"
-                class="btn btn-link"
-                value="Submit"
-                [disabled]="!newCompositeForm.valid"
-              >
-                <i class="fas fa-check"></i>
-              </button>
-            </div> -->
-          </div>
-          <!-- <div class="modal-header d-flex header">
-            <label
-              *ngFor="let item of currTypes"
-              class="btn btn-light mr-3"
-              for="type-{{ item.id }}"
-            >
+            <label for="description" class="w-100">
               <input
-                class="hide-checkbox"
-                type="radio"
-                name="type"
-                [(ngModel)]="compositeForm.type"
-                id="type-{{ item.id }}"
-                autocomplete="off"
-                value="{{ item.id }}"
+                #descriptionValue
+                class="form-control"
+                type="text"
+                id="edit-description"
+                name="edit-description"
+                placeholder="Description"
+                [value]="currComposite.getDescription()"
                 required
-                [attr.disabled]="item.disabled ? true : null"
+                (change)="currComposite.setDescription(descriptionValue.value); saveComposite()"
               />
-              {{ item.name }}
             </label>
-          </div> -->
+          </div>
+          <hr>
+          <!-- Composite-object specific form. -->
           <div class="modal-body container">
             <div
               class="row"
@@ -212,17 +199,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="section">
-        <div class="section-heading">
-          Description
-          <div class="float-right">
-            <i class="fas fa-angle-down"></i>
-          </div>
-        </div>
-        <!-- <div class="section-content">
-                    blah
-                </div> -->
       </div>
       <div class="section">
         <div class="section-heading">
