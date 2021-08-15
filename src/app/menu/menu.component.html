@@ -72,19 +72,18 @@
             </div>
             <div
               *ngFor="let language of Manager.SUPPORTED_LANGUAGES | keyvalue"
-              class="row"
             >
-              <label class="btn btn-light" for="language-{{ language.key }}">
-                <input
-                  class="hide-checkbox"
-                  type="radio"
-                  name="language"
-                  id="language-{{ language.key }}"
-                  autocomplete="off"
-                  value="{{ language.key }}"
-                  formControlName="language"
-                  required
-                />
+              <input
+                type="radio"
+                name="language"
+                id="language-{{ language.key }}"
+                autocomplete="off"
+                value="{{ language.key }}"
+                formControlName="language"
+                hidden
+                required
+              />
+              <label class="btn btn-info" for="language-{{ language.key }}">
                 {{ language.value }}
               </label>
             </div>
@@ -95,21 +94,18 @@
                 <i class="fas fa-plus text-muted"></i>
               </div>
             </div>
-            <div
-              *ngFor="let doc of Manager.SUPPORTED_DOCS | keyvalue"
-              class="row"
-            >
-              <label class="btn btn-light" for="doc-{{ doc.value }}">
-                <input
-                  class="hide-checkbox"
-                  type="radio"
-                  name="doc"
-                  id="doc-{{ doc.value }}"
-                  autocomplete="off"
-                  value="{{ doc.value }}"
-                  formControlName="doc"
-                  required
-                />
+            <div *ngFor="let doc of Manager.SUPPORTED_DOCS | keyvalue">
+              <input
+                type="radio"
+                name="doc"
+                id="doc-{{ doc.value }}"
+                autocomplete="off"
+                value="{{ doc.value }}"
+                formControlName="doc"
+                hidden
+                required
+              />
+              <label class="btn btn-info" for="doc-{{ doc.value }}">
                 {{ doc.key }}
               </label>
             </div>
