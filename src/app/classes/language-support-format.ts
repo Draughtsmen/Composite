@@ -26,4 +26,5 @@ interface template {
   id: string;
   name: string;
   format: string;
+  data: any;
 }

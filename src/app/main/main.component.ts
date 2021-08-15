@@ -33,6 +33,7 @@ export class MainComponent {
   project: CompositeProject | null;
   modalComposite: any = null;
   currComposite: Composite | null = null;
+  currCompositeData: any;
   currTypes: any = [];
   compositeForm: any = {};
   fullProject: any;
@@ -269,11 +270,25 @@ export class MainComponent {
   }
 
   /**
+   * Event when an item in a Composite object is edited.
+   * @param type - type of data
+   * @param data - the data
+   */
+  onEditComposite(type: string, data: any) {
+    this.currComposite?.setEditData(type, data);
+    this.currCompositeData = this.currComposite?.getEditData(
+      this.project?.lang!
+    );
+    this.saveComposite();
+  }
+
+  /**
    * Selects the component as the current Composite object to display.
    *
    * @param {(Composite|null)} component - The component.
    */
   showComponent(component: Composite | null) {
+    this.currCompositeData = component?.getEditData(this.project?.lang!);
     this.currComposite = component;
   }
 
