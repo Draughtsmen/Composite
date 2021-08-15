@@ -85,4 +85,17 @@ export class CompositeGroup extends Composite {
   getDescendents(): Composite[] {
     return this.composite;
   }
+
+  /**
+   * Sets the edit data for the relevant type
+   * @param type - the specified type
+   * @param data - the data for the type
+   */
+  setEditData(type: string, data: any) {
+    switch (
+      type
+      //No relevant items for a group currently
+    ) {
+    }
+  }
 }

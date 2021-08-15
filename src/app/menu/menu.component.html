@@ -11,18 +11,20 @@
   <div id="project-list">
     <div
       *ngFor="let projectKey of objectKeys(this.projects)"
-      class="mt-3 project"
+      class="mt-3 project d-flex justify-content-between"
     >
-      <div class="float-right">
+      <h2>{{ projects[projectKey].name }}</h2>
+      <h2 class="text-muted ml-3 mr-auto">
+        ({{ Manager.SUPPORTED_LANGUAGES[projects[projectKey].language] }})
+      </h2>
+      <div>
         <button class="btn btn-link" (click)="deleteProject(projectKey)">
           <i class="fas fa-minus pr-2"></i>
         </button>
         <button class="btn btn-link" (click)="openProject(projectKey)">
           <i class="fas fa-arrow-right"></i>
         </button>
-        <!-- project.language -->
       </div>
-      <h2>{{ projects[projectKey].name }}</h2>
     </div>
   </div>
 </div>
@@ -63,26 +65,27 @@
           <div class="col-5">
             <div class="row justify-content-space-between">
               <h2>Languages</h2>
+              <div class="ml-auto">
+                <i class="fas fa-plus text-muted"></i>
+              </div>
             </div>
-            <div class="btn-vertical-group">
-              <div *ngFor="let language of Manager.SUPPORTED_LANGUAGES | keyvalue">
+            <div
+              *ngFor="let language of Manager.SUPPORTED_LANGUAGES | keyvalue"
+              class="row"
+            >
+              <label class="btn btn-light" for="language-{{ language.key }}">
                 <input
+                  class="hide-checkbox"
                   type="radio"
                   name="language"
-                  id="language-{{ language.value }}"
+                  id="language-{{ language.key }}"
                   autocomplete="off"
-                  value="{{ language.value }}"
+                  value="{{ language.key }}"
                   formControlName="language"
-                  hidden
                   required
-                >
-                <label
-                  class="btn btn-info btn-block"
-                  for="language-{{ language.value }}"
-                >
-                  {{ language.key }}
-                </label>
-              </div>
+                />
+                {{ language.value }}
+              </label>
             </div>
           </div>
           <div class="col-5 offset-2">

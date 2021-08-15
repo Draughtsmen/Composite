@@ -4,6 +4,9 @@
       <a class="btn btn-link" routerLink="">
         <i class="fas fa-arrow-left"></i>
       </a>
+      <button type="button" class="btn btn-link" (click)="saveToFiles()">
+        <i class="fas fa-file-export"></i>
+      </button>
 
       <button type="button" class="btn btn-link" (click)="showComponent(null)">
         <i class="fas fa-bullseye"></i>
@@ -36,16 +39,179 @@
   <div id="panel-divider"></div>
   <div id="panel-right">
     <div id="section-list">
-      <div class="section">
+      <div class="section" *ngIf="currComposite !== null">
         <div class="section-heading">
           Heading
           <div class="float-right">
             <i class="fas fa-angle-down"></i>
           </div>
         </div>
-        <!-- <div class="section-content">
-                    blah
-                </div> -->
+        <div class="section-content">
+          <div class="modal-header d-flex">
+            <label for="name">
+              <input
+                #inputValue
+                class="form-control"
+                type="text"
+                id="edit-name"
+                name="edit-name"
+                placeholder="Name"
+                [value]="currComposite.getName()"
+                required
+                (change)="currComposite.setName(inputValue.value)"
+              />
+            </label>
+            <!-- <div class="ml-auto">
+              <button
+                type="button"
+                class="btn btn-link pr-2"
+                (click)="modal.dismiss()"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+              <button
+                type="submit"
+                class="btn btn-link"
+                value="Submit"
+                [disabled]="!newCompositeForm.valid"
+              >
+                <i class="fas fa-check"></i>
+              </button>
+            </div> -->
+          </div>
+          <!-- <div class="modal-header d-flex header">
+            <label
+              *ngFor="let item of currTypes"
+              class="btn btn-light mr-3"
+              for="type-{{ item.id }}"
+            >
+              <input
+                class="hide-checkbox"
+                type="radio"
+                name="type"
+                [(ngModel)]="compositeForm.type"
+                id="type-{{ item.id }}"
+                autocomplete="off"
+                value="{{ item.id }}"
+                required
+                [attr.disabled]="item.disabled ? true : null"
+              />
+              {{ item.name }}
+            </label>
+          </div> -->
+          <div class="modal-body container">
+            <div
+              class="row"
+              *ngFor="let dataItem of currCompositeData; index as x"
+              [ngSwitch]="dataItem.type"
+            >
+              <div class="col" *ngSwitchCase="'array'">
+                <div class="row px-4">
+                  <h2>{{ dataItem.name }}</h2>
+                  <div>
+                    <button
+                      type="button"
+                      class="btn btn-link pl-2"
+                      (click)="
+                        dataItem.value.push('');
+                        onEditComposite(dataItem.id, dataItem.value)
+                      "
+                    >
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div
+                  *ngFor="let item of dataItem.value; index as i"
+                  class="d-flex"
+                >
+                  <input
+                    #inputValue
+                    class="form-control"
+                    placeholder="Argument"
+                    name="edit-{{ item.id }}-{{ dataItem.id }}-{{ i }}"
+                    id="edit-{{ item.id }}-{{ dataItem.id }}-{{ i }}"
+                    [value]="item"
+                    required
+                    (change)="
+                      dataItem.value[i] = inputValue.value;
+                      onEditComposite(dataItem.id, dataItem.value)
+                    "
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-link pl-2"
+                    (click)="
+                      dataItem.value.splice(i, 1);
+                      onEditComposite(dataItem.id, dataItem.value)
+                    "
+                  >
+                    <i class="fas fa-minus pl-2"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="col" *ngSwitchCase="'string'">
+                <div class="row px-4">
+                  <h2>{{ dataItem.name }}</h2>
+                </div>
+                <input
+                  #inputValue
+                  class="form-control"
+                  placeholder="void"
+                  name="edit-{{ dataItem.id }}"
+                  id="edit-{{ dataItem.id }}"
+                  [value]="dataItem.value"
+                  (change)="onEditComposite(dataItem.id, inputValue.value)"
+                  required
+                />
+              </div>
+              <div class="col" *ngSwitchCase="'dropdown'">
+                <div class="row px-4">
+                  <h2>{{ dataItem.name }}</h2>
+                </div>
+                <select
+                  #inputValue
+                  *ngIf="dataItem.id === 'type'"
+                  class="form-control"
+                  placeholder="void"
+                  name="edit-{{ dataItem.id }}"
+                  id="edit-{{ dataItem.id }}"
+                  [value]="dataItem.value"
+                  (change)="onEditComposite(dataItem.id, inputValue.value)"
+                  required
+                >
+                  <option
+                    *ngFor="let t of project?.lang?.types; let i = index"
+                    value="{{ project!.lang!.types[i]!.name }}"
+                  >
+                    {{ project!.lang!.types[i]!.name }}
+                  </option>
+                  >
+                </select>
+                <select
+                  #inputValue
+                  *ngIf="dataItem.id === 'modifier'"
+                  class="form-control"
+                  placeholder="void"
+                  name="edit-{{ dataItem.id }}"
+                  id="edit-{{ dataItem.id }}"
+                  [value]="dataItem.value"
+                  (change)="onEditComposite(dataItem.id, inputValue.value)"
+                  required
+                >
+                  <option
+                    *ngFor="let t of project?.lang?.modifiers; let i = index"
+                    value="{{ project!.lang!.modifiers[i] }}"
+                  >
+                    {{ project!.lang!.modifiers[i] }}
+                  </option>
+                  >
+                </select>
+              </div>
+              <ng-template *ngSwitchDefault></ng-template>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="section">
         <div class="section-heading">
@@ -141,15 +307,16 @@
 </ng-template>
 
 <ng-template #newComposite let-modal>
-  <form [formGroup]="newCompositeForm" (ngSubmit)="onNewCompositeSubmit(modal)">
+  <form #newCompositeForm="ngForm" (ngSubmit)="onNewCompositeSubmit(modal)">
     <div class="modal-header d-flex">
       <label for="name">
         <input
           class="form-control"
           type="text"
           id="name"
+          name="name"
           placeholder="Name"
-          formControlName="name"
+          [(ngModel)]="compositeForm.name"
           required
         />
       </label>
@@ -181,7 +348,7 @@
           class="hide-checkbox"
           type="radio"
           name="type"
-          formControlName="type"
+          [(ngModel)]="compositeForm.type"
           id="type-{{ item.id }}"
           autocomplete="off"
           value="{{ item.id }}"
@@ -193,9 +360,9 @@
     </div>
     <ng-template ngFor let-item [ngForOf]="currTypes">
       <div
-        formGroupName="{{ item.id }}"
+        ngModelGroup="{{ item.id }}"
         class="modal-body container"
-        *ngIf="newCompositeForm.get('type')?.value === item.id"
+        *ngIf="compositeForm.type === item.id"
       >
         <div
           class="row"
@@ -225,8 +392,10 @@
               <input
                 class="form-control"
                 placeholder="Argument"
+                name="{{ item.id }}-{{ dataItem.id }}-{{ i }}"
+                id="{{ item.id }}-{{ dataItem.id }}-{{ i }}"
                 required
-                [formControl]="control"
+                [(ngModel)]="compositeForm[item.id][dataItem.id][i]"
               />
               <button
                 type="button"
@@ -244,7 +413,10 @@
             <input
               class="form-control"
               placeholder="void"
-              formControlName="{{ dataItem.id }}"
+              name="{{ item.id }}-{{ dataItem.id }}"
+              id="{{ item.id }}-{{ dataItem.id }}"
+              [(ngModel)]="compositeForm[item.id][dataItem.id]"
+              required
             />
           </div>
           <div class="col" *ngSwitchCase="'dropdown'">
@@ -255,7 +427,10 @@
               *ngIf="dataItem.id === 'type'"
               class="form-control"
               placeholder="void"
-              formControlName="{{ dataItem.id }}"
+              name="{{ item.id }}-{{ dataItem.id }}"
+              id="{{ item.id }}-{{ dataItem.id }}"
+              [(ngModel)]="compositeForm[item.id][dataItem.id]"
+              required
             >
               <option
                 *ngFor="let t of project?.lang?.types; let i = index"
@@ -269,7 +444,10 @@
               *ngIf="dataItem.id === 'modifier'"
               class="form-control"
               placeholder="void"
-              formControlName="{{ dataItem.id }}"
+              name="{{ item.id }}-{{ dataItem.id }}"
+              id="{{ item.id }}-{{ dataItem.id }}"
+              [(ngModel)]="compositeForm[item.id][dataItem.id]"
+              required
             >
               <option
                 *ngFor="let t of project?.lang?.modifiers; let i = index"
