@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { sandboxed } from 'process';
+
 import { Composite } from '../classes/composite';
 import { CompositeClass } from '../classes/composite-class';
 import { CompositeFunction } from '../classes/composite-function';
@@ -292,5 +293,12 @@ export class MainComponent {
       }
     }
     this.saveComposite();
+  }
+  /**
+   * Saves the current project to files
+   */
+  saveToFiles()
+  {
+    
   }
 }
