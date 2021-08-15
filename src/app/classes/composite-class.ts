@@ -281,4 +281,34 @@ export class CompositeClass extends Composite {
       .concat(this.memberFunctions)
       .concat(this.memberVariables);
   }
+
+  /**
+   * Gets the edit data for the relevant type.
+   * @param lang - language support format
+   * @returns the data for the relevant type
+   */
+  getEditData(lang: LanguageSupportFormat): any {
+    let data = super.getEditData(lang);
+    for(let i = 0; i < data.length; i++) {
+      switch (data[i].id) {
+        case "modifier":
+          data[i]["value"] = this.modifier;
+          break;
+      }
+    }
+    return data;
+  }
+
+  /**
+   * Sets the edit data for the relevant type
+   * @param type - the specified type
+   * @param data - the data for the type
+   */
+  setEditData(type: string, data: any) {
+    switch (type) {
+      case "modifier":
+        this.modifier = data;
+        break;
+    }
+  }
 }

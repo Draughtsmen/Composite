@@ -136,4 +136,42 @@ export class CompositeFunction extends Composite {
   setReturnType(newReturnType: string): void {
     this.returnType = newReturnType;
   }
+
+  /**
+   * Gets the edit data for the relevant type.
+   * @param lang - language support format
+   * @returns the data for the relevant type
+   */
+   getEditData(lang: LanguageSupportFormat): any {
+    let data = super.getEditData(lang);
+    for(let i = 0; i < data.length; i++) {
+      switch (data[i].id) {
+        case "type":
+          data[i]["value"] = this.returnType;
+          break;
+        case "arguments":
+          data[i]["value"] = this.args;
+          break;
+      }
+    }
+    return data;
+  }
+
+  /**
+   * Sets the edit data for the relevant type
+   * @param type - the specified type
+   * @param data - the data for the type
+   */
+  setEditData(type: string, data: any) {
+    console.log(type);
+    console.log(data);
+    switch (type) {
+      case "type":
+        this.returnType = data;
+        break;
+      case "arguments":
+        this.args = data;
+        break;
+    }
+  }
 }
