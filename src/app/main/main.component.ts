@@ -6,10 +6,9 @@ import {
   FormGroup,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { dialog } from 'electron';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { sandboxed } from 'process';
-
 import { Composite } from '../classes/composite';
 import { CompositeClass } from '../classes/composite-class';
 import { CompositeFunction } from '../classes/composite-function';
@@ -19,6 +18,7 @@ import { CompositeVariable } from '../classes/composite-variable';
 import { IpcService } from '../ipc.service';
 import { CompositeManagerService } from '../services/composite-export/composite-manager.service';
 import { FormsModule } from '@angular/forms';
+import { fileURLToPath } from 'url';
 
 /**
  * This class describes the main component of the frontend.
@@ -294,11 +294,22 @@ export class MainComponent {
     }
     this.saveComposite();
   }
+
   /**
    * Saves the current project to files
    */
-  saveToFiles()
-  {
-    
+  saveToFiles() {
+    let proj = Array<any>();
+    this.project?.files.forEach((e) => {
+      if (this.project)
+        proj.push({
+          name: e.getName(),
+          data: e.generateStub(this.project.lang, this.project.doc),
+        });
+    });
+    proj.forEach((e) => {
+      console.log('name: ' + e.name);
+    });
+    this.ipcService.send('export-project', proj);
   }
 }

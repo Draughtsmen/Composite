@@ -11,7 +11,7 @@ export interface LanguageSupportFormat {
 
 interface project {
   name: string;
-  type: string;
+  id: string;
   append: string;
 }
 
