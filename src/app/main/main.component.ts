@@ -296,7 +296,7 @@ export class MainComponent {
   }
 
   /**
-   * Saves the current project to files
+   * Saves the current project to files (pass to Electron)
    */
   saveToFiles() {
     let proj = Array<any>();
@@ -306,9 +306,6 @@ export class MainComponent {
           name: e.getName(),
           data: e.generateStub(this.project.lang, this.project.doc),
         });
-    });
-    proj.forEach((e) => {
-      console.log('name: ' + e.name);
     });
     this.ipcService.send('export-project', proj);
   }
