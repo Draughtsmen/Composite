@@ -1,4 +1,10 @@
-const { app, BrowserWindow, ipcMain, IpcMessageEvent } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  ipcMain,
+  IpcMessageEvent,
+  dialog,
+} = require("electron");
 
 const Store = require("electron-store");
 const store = new Store();
@@ -114,4 +120,26 @@ ipcMain.on("new-project", (event, name, language, doc, baseData) => {
   };
   store.set("project-store-" + uuid, project);
   event.sender.send("new-project-reply", project);
+});
+
+ipcMain.on("export-project", (event, project) => {
+  dialog
+    .showOpenDialog({
+      title: "Select Export Folder",
+      buttonLabel: "Export",
+      properties: ["openDirectory", "createDirectory", "promptToCreate"],
+    })
+    .then((file) => {
+      if (!file.canceled) {
+        project.forEach((element) => {
+          let fpath = path.join(file.filePaths.toString(), element.name);
+          fs.writeFile(fpath, element.data, (err) => {
+            if (err) console.log(err);
+          });
+        });
+      }
+    })
+    .catch(function () {
+      console.log("Failed to write!");
+    });
 });
