@@ -141,15 +141,16 @@
 </ng-template>
 
 <ng-template #newComposite let-modal>
-  <form [formGroup]="newCompositeForm" (ngSubmit)="onNewCompositeSubmit(modal)">
+  <form #newCompositeForm="ngForm" (ngSubmit)="onNewCompositeSubmit(modal)">
     <div class="modal-header d-flex">
       <label for="name">
         <input
           class="form-control"
           type="text"
           id="name"
+          name="name"
           placeholder="Name"
-          formControlName="name"
+          [(ngModel)]="compositeForm.name"
           required
         />
       </label>
@@ -181,7 +182,7 @@
           class="hide-checkbox"
           type="radio"
           name="type"
-          formControlName="type"
+          [(ngModel)]="compositeForm.type"
           id="type-{{ item.id }}"
           autocomplete="off"
           value="{{ item.id }}"
@@ -193,9 +194,9 @@
     </div>
     <ng-template ngFor let-item [ngForOf]="currTypes">
       <div
-        formGroupName="{{ item.id }}"
+        ngModelGroup="{{ item.id }}"
         class="modal-body container"
-        *ngIf="newCompositeForm.get('type')?.value === item.id"
+        *ngIf="compositeForm.type === item.id"
       >
         <div
           class="row"
@@ -225,8 +226,10 @@
               <input
                 class="form-control"
                 placeholder="Argument"
+                name="{{ item.id }}-{{ dataItem.id }}-{{ i }}"
+                id="{{ item.id }}-{{ dataItem.id }}-{{ i }}"
                 required
-                [formControl]="control"
+                [(ngModel)]="compositeForm[item.id][dataItem.id][i]"
               />
               <button
                 type="button"
@@ -244,7 +247,10 @@
             <input
               class="form-control"
               placeholder="void"
-              formControlName="{{ dataItem.id }}"
+              name="{{ item.id }}-{{ dataItem.id }}"
+              id="{{ item.id }}-{{ dataItem.id }}"
+              [(ngModel)]="compositeForm[item.id][dataItem.id]"
+              required
             />
           </div>
           <div class="col" *ngSwitchCase="'dropdown'">
@@ -255,7 +261,10 @@
               *ngIf="dataItem.id === 'type'"
               class="form-control"
               placeholder="void"
-              formControlName="{{ dataItem.id }}"
+              name="{{ item.id }}-{{ dataItem.id }}"
+              id="{{ item.id }}-{{ dataItem.id }}"
+              [(ngModel)]="compositeForm[item.id][dataItem.id]"
+              required
             >
               <option
                 *ngFor="let t of project?.lang?.types; let i = index"
@@ -269,7 +278,10 @@
               *ngIf="dataItem.id === 'modifier'"
               class="form-control"
               placeholder="void"
-              formControlName="{{ dataItem.id }}"
+              name="{{ item.id }}-{{ dataItem.id }}"
+              id="{{ item.id }}-{{ dataItem.id }}"
+              [(ngModel)]="compositeForm[item.id][dataItem.id]"
+              required
             >
               <option
                 *ngFor="let t of project?.lang?.modifiers; let i = index"
