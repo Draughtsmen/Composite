@@ -89,6 +89,17 @@ export abstract class Composite {
   }
 
   /**
+   * Gets the edit data for the relevant type.
+   * @param lang - language support format
+   * @returns the data for the relevant type
+   */
+  getEditData(lang: LanguageSupportFormat): any {
+    return lang.templates.find((i) => i.id == this.type)?.data;
+  }
+
+  abstract setEditData(type: string, data: any): void;
+
+  /**
    * Gets the descendents.
    *
    * @return {Array<Composite>} The descendents.

@@ -60,7 +60,6 @@ function mergeJSON(dir) {
     fulljson[json["name"]] = json[json["name"]];
   });
 
-  console.log(fulljson);
   return fulljson;
 }
 
