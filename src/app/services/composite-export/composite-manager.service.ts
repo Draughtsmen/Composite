@@ -19,8 +19,8 @@ import { LanguageSupportFormat } from '../../classes/language-support-format';
 })
 export class CompositeManagerService {
   public static readonly SUPPORTED_LANGUAGES: any = {
-    GML: 'gml',
-    CSharp: 'c#',
+    gml: 'GML',
+    'c#': 'C#',
   };
   public static readonly SUPPORTED_DOCS: any = {
     GMLDocs: 'gmldocs',
@@ -46,8 +46,6 @@ export class CompositeManagerService {
    * @return {CompositeProject} A new Composite Project.
    */
   static createProject(name: string, language: string, doc: string) {
-    console.log(language);
-    console.log(doc);
     return new CompositeProject(
       name,
       CompositeManagerService.LANGUAGE_INFO[language],

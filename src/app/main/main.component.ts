@@ -17,6 +17,7 @@ import { CompositeProject } from '../classes/composite-project';
 import { CompositeVariable } from '../classes/composite-variable';
 import { IpcService } from '../ipc.service';
 import { CompositeManagerService } from '../services/composite-export/composite-manager.service';
+import { FormsModule } from '@angular/forms';
 
 /**
  * This class describes the main component of the frontend.
@@ -32,14 +33,10 @@ export class MainComponent {
   project: CompositeProject | null;
   modalComposite: any = null;
   currComposite: Composite | null = null;
+  currCompositeData: any;
   currTypes: any = [];
-  newCompositeForm: FormGroup = new FormGroup({});
-  modifyCompositeForm: FormGroup = new FormGroup({
-    description: new FormControl('Description'),
-  });
+  compositeForm: any = {};
   fullProject: any;
-
-  templates: any = null;
 
   /**
    * Constructs a new instance of the Main frontend component.
@@ -97,10 +94,10 @@ export class MainComponent {
    * @param {any} modal - The modal to close on completion of the function.
    */
   onNewCompositeSubmit(modal: any) {
-    let name = this.newCompositeForm.get('name')?.value;
-    let description = this.newCompositeForm.get('description')?.value;
+    let name = this.compositeForm.name;
+    let description = this.compositeForm.description;
     description = 'DEFAULT DESCRIPTION';
-    let type = this.newCompositeForm.get('type')?.value;
+    let type = this.compositeForm.type;
     // Iterate through current context
     for (const item of this.currTypes) {
       // Give all files the proper extension
@@ -112,19 +109,13 @@ export class MainComponent {
         this.addComposite(new CompositeGroup(name, description));
         // Expand functions with their arguments and return values
       } else if (item['id'] === 'function' && type == 'function') {
-        let arr = <FormArray>(
-          this.newCompositeForm.get('function')?.get('arguments')
-        );
-        let strArr: string[] = [];
-        for (let i = 0; i < arr.length; i++) {
-          strArr.push(arr.at(i).value);
-        }
+        let strArr: string[] = this.compositeForm.function.arguments;
 
         // Make func from specs
         let newfunc: CompositeFunction = new CompositeFunction(
           name,
           description,
-          this.newCompositeForm.get('function')?.get('type')?.value,
+          this.compositeForm.function.type,
           strArr
         );
 
@@ -136,12 +127,8 @@ export class MainComponent {
         }
         // Expand variables with their types and values
       } else if (item['id'] === 'variable' && type == 'variable') {
-        let strType: string = this.newCompositeForm
-          .get('variable')
-          ?.get('type')?.value;
-        let strVal: string = this.newCompositeForm
-          .get('variable')
-          ?.get('enter')?.value;
+        let strType: string = this.compositeForm.variable.type;
+        let strVal: string = this.compositeForm.variable.enter;
 
         //Make var from specs
         let newvar: CompositeVariable = new CompositeVariable(
@@ -159,9 +146,7 @@ export class MainComponent {
         // Expand classes with their info
       } else if (item['id'] === 'class' && type == 'class') {
         // HAS DEFAULT "PRE" and "POST", will change later
-        let strMod: string = this.newCompositeForm
-          .get('class')
-          ?.get('modifier')?.value;
+        let strMod: string = this.compositeForm.class.modifier;
 
         let newclass: CompositeClass = new CompositeClass(
           strMod,
@@ -182,33 +167,14 @@ export class MainComponent {
   }
 
   /**
-   * Called on modify composite sumbit.
-   */
-  onModifyCompositeSumbit() {
-    // Get values.
-    let description = this.modifyCompositeForm.get('description')?.value;
-    console.log(description);
-
-    // Make changes.
-    if (this.currComposite) {
-      this.currComposite.setDescription(description);
-    }
-
-    // Save changes.
-    this.saveComposite();
-  }
-
-  /**
    * Gets the FormControl array from a doubly-specified Composite Form element.
    *
    * @param {string} id - The identifier.
    * @param {string} subId - The sub identifier.
    * @return {FormControl[]} The array controls.
    */
-  getArrayControls(id: string, subId: string): FormControl[] {
-    return <FormControl[]>(
-      (<FormArray>this.newCompositeForm.get(id)?.get(subId)).controls
-    );
+  getArrayControls(id: string, subId: string): string[] {
+    return this.compositeForm[id][subId];
   }
 
   /**
@@ -218,9 +184,7 @@ export class MainComponent {
    * @param {string} subId - The sub identifier.
    */
   addArrayField(id: string, subId: string) {
-    (<FormArray>this.newCompositeForm.get(id)?.get(subId)).push(
-      new FormControl('')
-    );
+    this.compositeForm[id][subId].push('');
   }
 
   /**
@@ -231,7 +195,7 @@ export class MainComponent {
    * @param {number} index - The index.
    */
   removeArrayField(id: string, subId: string, index: number) {
-    (<FormArray>this.newCompositeForm.get(id)?.get(subId)).removeAt(index);
+    this.compositeForm[id][subId].splice(index, 1);
   }
 
   /**
@@ -252,29 +216,28 @@ export class MainComponent {
     }
     this.modalComposite = currentComposite;
     let typeSet = false;
-    let compositeForm: any = {
-      name: new FormControl(''),
+    this.compositeForm = {
+      name: '',
     };
     for (const item of this.currTypes) {
       if (!typeSet) {
-        compositeForm['type'] = new FormControl(item['id']);
+        this.compositeForm['type'] = item['id'];
       }
       if (item.hasOwnProperty('data')) {
         let group: any = {};
         for (const dataItem of item['data']) {
           if (dataItem['type'] === 'array') {
-            group[dataItem['id']] = new FormArray([]);
+            group[dataItem['id']] = [];
           } else if (
             dataItem['type'] === 'string' ||
             dataItem['type'] === 'dropdown'
           ) {
-            group[dataItem['id']] = new FormControl('');
+            group[dataItem['id']] = '';
           }
         }
-        compositeForm[item['id']] = new FormGroup(group);
+        this.compositeForm[item['id']] = group;
       }
     }
-    this.newCompositeForm = new FormGroup(compositeForm);
 
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
@@ -307,44 +270,26 @@ export class MainComponent {
   }
 
   /**
+   * Event when an item in a Composite object is edited.
+   * @param type - type of data
+   * @param data - the data
+   */
+  onEditComposite(type: string, data: any) {
+    this.currComposite?.setEditData(type, data);
+    this.currCompositeData = this.currComposite?.getEditData(
+      this.project?.lang!
+    );
+    this.saveComposite();
+  }
+
+  /**
    * Selects the component as the current Composite object to display.
    *
    * @param {(Composite|null)} component - The component.
    */
   showComponent(component: Composite | null) {
-    // Select the component.
+    this.currCompositeData = component?.getEditData(this.project?.lang!);
     this.currComposite = component;
-
-    // Update important information for the frontend.
-    this.templates = this.project?.lang.templates;
-    console.log(this.templates);
-
-    // Prepare the modification form if need be.
-    let modifyForm = {
-      description: new FormControl(this.currComposite?.getDescription()),
-    }
-    for(let i = 0; i < this.templates.length; i++) {
-      // Keep going until a template match is found.
-      if(this.currComposite?.getType() !== this.templates[i].id)
-        continue;
-      // For each piece of taken data:
-      for(let j = 0; j < this.templates[i].data.length; j++) {
-        switch(this.templates[i].data[j].type) {
-          case "dropdown":
-            console.log("DROPDOWN"); // DEBUG.
-            break;
-          case "array":
-             console.log("ARRAY"); // DEBUG.
-            break;
-          case "string":
-            console.log("STRING"); // DEBUG.
-            break;
-        }
-      }
-
-      // Build the form in accordance with the data type.
-    }
-    this.modifyCompositeForm = new FormGroup(modifyForm);
   }
 
   /**
