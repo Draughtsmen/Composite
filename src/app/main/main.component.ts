@@ -324,4 +324,8 @@ export class MainComponent {
     });
     this.ipcService.send('export-project', proj);
   }
+
+  trackByArr(index: any, item: any) {
+    return index;
+  }
 }

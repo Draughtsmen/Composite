@@ -48,7 +48,7 @@
         </div>
         <div class="section-content">
           <div class="modal-header d-flex">
-            <label for="name">
+            <label for="edit-name">
               <input
                 #inputValue
                 class="form-control"
@@ -385,7 +385,7 @@
             <div
               *ngFor="
                 let control of getArrayControls(item.id, dataItem.id);
-                index as i
+                index as i; trackBy: trackByArr
               "
               class="d-flex"
             >
