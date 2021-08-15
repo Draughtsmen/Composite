@@ -19,7 +19,7 @@ import { LanguageSupportFormat } from '../../classes/language-support-format';
 })
 export class CompositeManagerService {
   public static readonly SUPPORTED_LANGUAGES: any = {
-    'gml': "GML",
+    gml: 'GML',
     'c#': 'C#',
   };
 

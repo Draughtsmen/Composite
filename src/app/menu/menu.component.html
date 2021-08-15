@@ -13,10 +13,9 @@
       *ngFor="let projectKey of objectKeys(this.projects)"
       class="mt-3 project d-flex justify-content-between"
     >
-      
       <h2>{{ projects[projectKey].name }}</h2>
       <h2 class="text-muted">
-        {{Manager.SUPPORTED_LANGUAGES[projects[projectKey].language]}}
+        {{ Manager.SUPPORTED_LANGUAGES[projects[projectKey].language] }}
       </h2>
       <div>
         <button class="btn btn-link" (click)="deleteProject(projectKey)">
