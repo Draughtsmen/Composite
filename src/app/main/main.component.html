@@ -91,17 +91,17 @@
           </div>
           <hr />
           <!-- Composite-object specific form. -->
-          <div class="modal-body container">
+          <div class="mx-auto">
             <!-- Picks elements according to what is specified in the template. -->
             <div
-              class="row"
+              class="mb-3"
               *ngFor="let dataItem of currCompositeData; index as x"
               [ngSwitch]="dataItem.type"
             >
               <!-- Case: Input is an array of things. -->
               <div class="col" *ngSwitchCase="'array'">
                 <div class="row px-4">
-                  <h2>{{ dataItem.name }}</h2>
+                  <h5>{{ dataItem.name }}</h5>
                   <div>
                     <button
                       type="button"
@@ -147,7 +147,7 @@
               <!-- Case: Input is a string. -->
               <div class="col" *ngSwitchCase="'string'">
                 <div class="row px-4">
-                  <h2>{{ dataItem.name }}</h2>
+                  <h5>{{ dataItem.name }}</h5>
                 </div>
                 <input
                   #inputValue
@@ -163,7 +163,7 @@
               <!-- Case: Input is a dropdown. -->
               <div class="col" *ngSwitchCase="'dropdown'">
                 <div class="row px-4">
-                  <h2>{{ dataItem.name }}</h2>
+                  <h5>{{ dataItem.name }}</h5>
                 </div>
                 <!-- Case: Dropdown is for types. -->
                 <select
@@ -362,7 +362,7 @@
         >
           <div class="col" *ngSwitchCase="'array'">
             <div class="row px-4">
-              <h2>{{ dataItem.name }}</h2>
+              <h5>{{ dataItem.name }}</h5>
               <div>
                 <button
                   type="button"
@@ -399,7 +399,7 @@
           </div>
           <div class="col" *ngSwitchCase="'string'">
             <div class="row px-4">
-              <h2>{{ dataItem.name }}</h2>
+              <h5>{{ dataItem.name }}</h5>
             </div>
             <input
               class="form-control"
@@ -412,7 +412,7 @@
           </div>
           <div class="col" *ngSwitchCase="'dropdown'">
             <div class="row px-4">
-              <h2>{{ dataItem.name }}</h2>
+              <h5>{{ dataItem.name }}</h5>
             </div>
             <select
               *ngIf="dataItem.id === 'type'"
