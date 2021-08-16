@@ -324,4 +324,14 @@ export class MainComponent {
     });
     this.ipcService.send('export-project', proj);
   }
+
+  /**
+   * Helper method to allow Angular to track the array
+   * @param index - index of item
+   * @param item - item
+   * @returns the index
+   */
+  trackByArr(index: any, item: any) {
+    return index;
+  }
 }
