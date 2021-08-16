@@ -57,7 +57,7 @@
         <!-- "Universal" parts of the form. -->
         <div class="section-content">
           <div class="">
-            <label for="name" class="w-100">
+            <label for="edit-name" class="w-100">
               <input
                 #nameValue
                 class="form-control"
@@ -376,7 +376,8 @@
             <div
               *ngFor="
                 let control of getArrayControls(item.id, dataItem.id);
-                index as i
+                index as i;
+                trackBy: trackByArr
               "
               class="d-flex"
             >
