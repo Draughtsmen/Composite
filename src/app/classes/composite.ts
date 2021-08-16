@@ -99,6 +99,8 @@ export abstract class Composite {
 
   abstract setEditData(type: string, data: any): void;
 
+  abstract removeComposite(composite: Composite): void;
+
   /**
    * Gets the descendents.
    *

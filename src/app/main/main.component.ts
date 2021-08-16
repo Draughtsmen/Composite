@@ -121,8 +121,8 @@ export class MainComponent {
         );
 
         // Either add to file or class
-        if (this.currComposite instanceof CompositeClass) {
-          this.currComposite.addMemberFunction(newfunc);
+        if (this.modalComposite instanceof CompositeClass) {
+          this.modalComposite.addMemberFunction(newfunc);
         } else {
           this.addComposite(newfunc);
         }
@@ -139,8 +139,8 @@ export class MainComponent {
           strVal
         );
 
-        if (this.currComposite instanceof CompositeClass) {
-          this.currComposite.addMemberVariable(newvar);
+        if (this.modalComposite instanceof CompositeClass) {
+          this.modalComposite.addMemberVariable(newvar);
         } else {
           this.addComposite(newvar);
         }
@@ -155,9 +155,9 @@ export class MainComponent {
           '',
           description
         );
-        if (this.currComposite instanceof CompositeClass) {
-          newclass.setBaseClass(this.currComposite.getName());
-          this.currComposite.assignSubclass(newclass);
+        if (this.modalComposite instanceof CompositeClass) {
+          newclass.setBaseClass(this.modalComposite.getName());
+          this.modalComposite.assignSubclass(newclass);
         } else {
           this.addComposite(newclass);
         }
@@ -299,13 +299,11 @@ export class MainComponent {
    * @param {Composite} component - The component to delete.
    * @param {any} parentComponent - The parent component if it is a Group.
    */
-  deleteComponent(component: Composite, parentComponent: any) {
+  deleteComponent(component: Composite, parentComponent: Composite | null) {
     if (parentComponent == null) {
       this.project?.removeGroup(component.getName());
     } else {
-      if (parentComponent instanceof CompositeGroup) {
-        parentComponent.removeCompositeObject(component.getName());
-      }
+      parentComponent.removeComposite(component);
     }
     this.saveComposite();
   }

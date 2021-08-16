@@ -112,6 +112,14 @@ export class CompositeVariable extends Composite {
   }
 
   /**
+   * Removes a Composite object from this class.
+   * @param composite - the Composite object to remove.
+   */
+  removeComposite(composite: Composite): void {
+    return; //No Composite objects in this class.
+  }
+
+  /**
    * Gets the edit data for the relevant type.
    * @param lang - language support format
    * @returns the data for the relevant type
