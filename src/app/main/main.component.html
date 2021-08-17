@@ -50,13 +50,10 @@
         <div class="section-heading">
           Overview of
           <span class="text-capitalize">{{ currComposite.getType() }}</span>
-          <div class="float-right">
-            <i class="fas fa-angle-down"></i>
-          </div> -->
         </div>
         <!-- "Universal" parts of the form. -->
         <div class="section-content">
-          <div class="">
+          <div>
             <label for="edit-name" class="w-100">
               <input
                 #nameValue
@@ -216,9 +213,6 @@
       <div class="section">
         <div class="section-heading">
           Pseudocode
-          <div class="float-right">
-            <i class="fas fa-angle-down"></i>
-          </div>
         </div>
         <div class="section-content">
           <div *ngIf="currComposite !== null; else sectionPseudocodeFalse">
