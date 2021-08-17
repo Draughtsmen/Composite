@@ -51,7 +51,7 @@ export class MenuComponent implements OnInit {
     this.ipcService.on('load-samples-reply', (event, res) => {
       this.ipcService.send('load-samples');
     });
-    
+
     // To be run after configuration files have been read.
     this.ipcService.on('load-conf', (event, lang, doc) => {
       CompositeManagerService.storeConf(lang, doc);
