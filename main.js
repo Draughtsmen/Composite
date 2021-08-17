@@ -22,6 +22,7 @@ function createWindow() {
       nodeIntegration: true,
       contextIsolation: false,
     },
+    icon: 'src/assets/Composite-Logo.ico' // sets window icon
   });
 
   if (process.env.ANGULAR_LOAD === "server") {
