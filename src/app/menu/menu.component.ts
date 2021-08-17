@@ -47,6 +47,11 @@ export class MenuComponent implements OnInit {
    * Adds IpcService event-response functionality.
    */
   ngOnInit(): void {
+    // To be run ONCE, populate project list with sample projects
+    this.ipcService.on('load-samples-reply', (event, res) => {
+      this.ipcService.send('load-samples');
+    });
+    
     // To be run after configuration files have been read.
     this.ipcService.on('load-conf', (event, lang, doc) => {
       CompositeManagerService.storeConf(lang, doc);
