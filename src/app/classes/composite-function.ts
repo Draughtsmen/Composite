@@ -173,4 +173,12 @@ export class CompositeFunction extends Composite {
         break;
     }
   }
+
+  /**
+   * Removes a Composite object from this class.
+   * @param composite - the Composite object to remove.
+   */
+  removeComposite(composite: Composite): void {
+    return; //No Composite objects in this class.
+  }
 }

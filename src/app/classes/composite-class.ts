@@ -160,9 +160,8 @@ export class CompositeClass extends Composite {
    * @param {CompositeVariable} variable -  The variable.
    */
   removeMemberVariable(variable: CompositeVariable): void {
-    let memVar = this.memberVariables.find((item) => item == variable);
-    if (memVar)
-      this.memberVariables.splice(this.memberVariables.indexOf(memVar), 1);
+    let memVar = this.memberVariables.indexOf(variable);
+    if (memVar !== -1) this.memberVariables.splice(memVar, 1);
   }
 
   /**
@@ -201,12 +200,11 @@ export class CompositeClass extends Composite {
   /**
    * Removes a member function.
    *
-   * @param {string} name - The name of the member function to remove.
+   * @param {CompositeFunction} composite - The member function to remove.
    */
-  removeMemberFunction(name: string): void {
-    let memFunc = this.memberFunctions.find((item) => item.getName() == name);
-    if (memFunc)
-      this.memberFunctions.splice(this.memberFunctions.indexOf(memFunc), 1);
+  removeMemberFunction(composite: CompositeFunction): void {
+    let memFunc = this.memberFunctions.indexOf(composite);
+    if (memFunc !== -1) this.memberFunctions.splice(memFunc, 1);
   }
 
   /**
@@ -252,11 +250,11 @@ export class CompositeClass extends Composite {
   /**
    * Removes a subclass.
    *
-   * @param {string} name - The name of the subclass to de-register.
+   * @param {CompositeClass} composite - The subclass to de-register.
    */
-  removeSubclass(name: string): void {
-    let subclass = this.subclasses.find((item) => item.getName() == name);
-    if (subclass) this.subclasses.splice(this.subclasses.indexOf(subclass), 1);
+  removeSubclass(composite: CompositeClass): void {
+    let subclass = this.subclasses.indexOf(composite);
+    if (subclass !== -1) this.subclasses.splice(subclass, 1);
   }
 
   /**
@@ -309,6 +307,20 @@ export class CompositeClass extends Composite {
       case 'modifier':
         this.modifier = data;
         break;
+    }
+  }
+
+  /**
+   * Removes a Composite object from this class.
+   * @param composite - the Composite object to remove.
+   */
+  removeComposite(composite: Composite): void {
+    if (composite instanceof CompositeVariable) {
+      this.removeMemberVariable(composite);
+    } else if (composite instanceof CompositeFunction) {
+      this.removeMemberFunction(composite);
+    } else if (composite instanceof CompositeClass) {
+      this.removeSubclass(composite);
     }
   }
 }

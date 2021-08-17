@@ -98,4 +98,12 @@ export class CompositeGroup extends Composite {
     ) {
     }
   }
+
+  /**
+   * Removes a Composite object from this class.
+   * @param composite - the Composite object to remove.
+   */
+  removeComposite(composite: Composite): void {
+    this.removeCompositeObject(composite.getName());
+  }
 }
