@@ -63,6 +63,7 @@
       <div class="container">
         <div class="row">
           <div class="col-5">
+            <!-- Languages Section. -->
             <div class="row justify-content-space-between">
               <h2>Languages</h2>
               <div class="ml-auto">
@@ -71,20 +72,41 @@
             </div>
             <div
               *ngFor="let language of Manager.SUPPORTED_LANGUAGES | keyvalue"
-              class="row"
             >
-              <label class="btn btn-light" for="language-{{ language.key }}">
-                <input
-                  class="hide-checkbox"
-                  type="radio"
-                  name="language"
-                  id="language-{{ language.key }}"
-                  autocomplete="off"
-                  value="{{ language.key }}"
-                  formControlName="language"
-                  required
-                />
+              <input
+                type="radio"
+                name="language"
+                id="language-{{ language.key }}"
+                autocomplete="off"
+                value="{{ language.key }}"
+                formControlName="language"
+                hidden
+                required
+              />
+              <label class="btn btn-info" for="language-{{ language.key }}">
                 {{ language.value }}
+              </label>
+            </div>
+            <!-- Documentation Section. -->
+            <div class="row justify-content-space-between">
+              <h2>Doc Styles</h2>
+              <div class="ml-auto">
+                <i class="fas fa-plus text-muted"></i>
+              </div>
+            </div>
+            <div *ngFor="let doc of Manager.SUPPORTED_DOCS | keyvalue">
+              <input
+                type="radio"
+                name="doc"
+                id="doc-{{ doc.value }}"
+                autocomplete="off"
+                value="{{ doc.value }}"
+                formControlName="doc"
+                hidden
+                required
+              />
+              <label class="btn btn-info" for="doc-{{ doc.value }}">
+                {{ doc.key }}
               </label>
             </div>
           </div>
