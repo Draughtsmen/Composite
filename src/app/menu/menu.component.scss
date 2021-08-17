@@ -16,7 +16,7 @@
   margin: auto;
 }
 
-.hide-checkbox {
-  // position: absolute;
-  // clip: rect(0, 0, 0, 0);
+input[type="radio"]:checked + label {
+  font-weight: bold;
+  box-shadow: inset 0 0 400px 110px rgba(0, 0, 0, 0.3);
 }

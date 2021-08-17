@@ -80,6 +80,15 @@ export abstract class Composite {
   }
 
   /**
+   * Gets the type.
+   *
+   * @return {string} The type.
+   */
+  getType(): string {
+    return this.type;
+  }
+
+  /**
    * Sets the description.
    *
    * @param {string} newDescription - The new description.

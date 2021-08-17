@@ -10,19 +10,5 @@ import { LanguageSupportFormat } from './classes/language-support-format';
 export class AppComponent {
   title = 'composite';
 
-  constructor() {
-    // Test class creation/pseudocode
-    let test: string =
-      '{"types": [ {"type": "ah", "format": "blah"}, {"type": "dah", "format": "flah"}], "templates": [ {"name": "class", "format" : "$1{}"}, {"name": "clasas", "format" : "pogg"}] }';
-    let j: LanguageSupportFormat = JSON.parse(test);
-
-    let finallyaclass: CompositeClass = new CompositeClass(
-      'myClass',
-      'public ',
-      ' : mysuperclass ',
-      'A test class.'
-    );
-
-    // console.log(finallyaclass.generateStub(j, JSON.parse(test)));
-  }
+  constructor() {}
 }

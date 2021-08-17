@@ -52,9 +52,10 @@ export class CompositeFunction extends Composite {
     let docs = this.getDoc(doc);
     let docStub: string = '';
 
-    // Get the documentation prefix if able.
-    let prefix = docs.prefix;
-    if (prefix == undefined) prefix = '';
+    // Get the documentation openers, prefixes, and closers if able.
+    let opener = docs.opener ? docs.opener + '\n' : '';
+    let prefix = docs.prefix ? docs.prefix : '';
+    let closer = docs.closer ? docs.closer : '';
 
     // Document the function outline if able.
     let functStub = docs.specs.find((i) => i.name == 'function')?.format;
@@ -97,7 +98,7 @@ export class CompositeFunction extends Composite {
       stub = stub.replace('[name]', this.name);
       stub = stub.replace('[value]', this.args.join(', '));
 
-      return docStub + '\n' + stub;
+      return opener + docStub + closer + '\n' + stub;
     } else return 'Critical failure: could not find type ' + this.type + '.';
   }
 
