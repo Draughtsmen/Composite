@@ -3,10 +3,14 @@ name: Build Test
 
 on: [push]
 
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  eslint:
-    name: eslint (.js/.ts/.html)
-    runs-on: [windows-latest, ubuntu-latest, macos-latest]
+  build:
+    name: Build Composite
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -25,6 +29,6 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run build
-        run: npm run build
+        run: npm run build -- -mwl
       - name: List directory
         run: ls -la dist/
