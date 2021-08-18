@@ -2,6 +2,10 @@ name: Testing
 
 on: [pull_request]
 
+concurrency:
+  group: testing-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     name: test
@@ -21,8 +25,6 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: Install Angular CLI
-        run: npm install --save-dev @angular/cli
       - name: Install dependencies
         run: npm install
 #      - name: Run tests

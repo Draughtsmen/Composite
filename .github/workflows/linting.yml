@@ -2,6 +2,10 @@ name: Linting
 
 on: [push, pull_request]
 
+concurrency:
+  group: linting-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   eslint:
     name: eslint (.js/.ts/.html)
@@ -21,8 +25,6 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: Install Angular CLI
-        run: npm install --save-dev @angular/cli
       - name: Install dependencies
         run: npm install
       - name: Run eslint (.js/.ts/.html)
@@ -45,8 +47,6 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: Install Angular CLI
-        run: npm install --save-dev @angular/cli
       - name: Install dependencies
         run: npm install
       - name: Run stylelint (.scss)

@@ -1,19 +1,40 @@
 {
   "name": "composite",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "main.js",
+  "description": "A code-templating application.",
+  "author": "Draughtsmen",
+  "build": {
+    "productName": "Composite",
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    },
+    "files": [
+      "conf",
+      "dist/composite",
+      "main.js"
+    ]
+  },
   "scripts": {
-    "start": "npm run start:hot-reload",
+    "build": "ng build --base-href ./ && electron-builder",
+    "start": "yarpm run start:hot-reload",
     "start:hot-reload": "cross-env ANGULAR_LOAD=server concurrently -k \"ng serve --hmr\" \"wait-on http://localhost:4200 && electron .\"",
     "start:live-reload": "cross-env ANGULAR_LOAD=server concurrently -k \"ng serve\" \"wait-on http://localhost:4200 && electron .\"",
     "start:file": "ng build --base-href ./ && electron .",
-    "lint": "npm run lint:eslint && npm run lint:stylelint",
-    "lint:fix": "npm run lint:eslint-fix && npm run lint:stylelint-fix",
+    "lint": "yarpm run lint:eslint && yarpm run lint:stylelint",
+    "lint:fix": "yarpm run lint:eslint-fix && yarpm run lint:stylelint-fix",
     "lint:eslint": "ng lint",
-    "lint:eslint-fix": "npm run lint:eslint -- --fix",
+    "lint:eslint-fix": "yarpm run lint:eslint -- --fix",
     "lint:stylelint": "stylelint \"src/**/*.scss\"",
-    "lint:stylelint-fix": "npm run lint:stylelint -- --fix",
-    "test": "mocha"
+    "lint:stylelint-fix": "yarpm run lint:stylelint -- --fix",
+    "test": "mocha",
+    "tempbuild": "electron-builder"
   },
   "private": true,
   "dependencies": {
@@ -53,6 +74,7 @@
     "concurrently": "^6.2.1",
     "cross-env": "^7.0.3",
     "electron": "^13.1.4",
+    "electron-builder": "^22.11.7",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
@@ -69,6 +91,7 @@
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "typescript": "~4.2.3",
-    "wait-on": "^6.0.0"
+    "wait-on": "^6.0.0",
+    "yarpm": "^1.1.1"
   }
 }

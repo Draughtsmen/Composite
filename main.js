@@ -25,6 +25,8 @@ function createWindow() {
     icon: "src/assets/Composite-Logo.ico", // sets window icon
   });
 
+  win.removeMenu();
+
   if (process.env.ANGULAR_LOAD === "server") {
     win.loadURL("http://localhost:4200");
   } else {
@@ -74,8 +76,8 @@ function mergeJSON(dir) {
 
 ipcMain.on("list-projects", (event) => {
   // load conf files
-  let langjson = mergeJSON("conf/langs/");
-  let docjson = mergeJSON("conf/docs/");
+  let langjson = mergeJSON(path.join(__dirname, "conf/langs/"));
+  let docjson = mergeJSON(path.join(__dirname, "conf/docs/"));
 
   event.sender.send("load-conf", langjson, docjson);
 

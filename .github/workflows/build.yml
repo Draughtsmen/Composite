@@ -1,0 +1,49 @@
+
+name: Build Test
+
+on: [workflow_dispatch]
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build Composite
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - name: Cache Node Modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm install
+      - name: Run build
+        run: npm run build -- -mwl
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Archive Windows executables
+        uses: actions/upload-artifact@v2
+        with:
+          name: Windows installer (NSIS)
+          path: dist/*.exe
+      - name: Archive macOS executables
+        uses: actions/upload-artifact@v2
+        with:
+          name: macOS DMG
+          path: dist/*.dmg
+      - name: Archive Linux executables
+        uses: actions/upload-artifact@v2
+        with:
+          name: Linux AppImage
+          path: dist/*.AppImage
