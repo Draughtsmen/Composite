@@ -1,15 +1,12 @@
-name: Testing
 
-on: [pull_request]
+name: Build Test
 
-concurrency:
-  group: testing-${{ github.ref }}
-  cancel-in-progress: true
+on: [workflow_dispatch]
 
 jobs:
-  test:
-    name: test
-    runs-on: ubuntu-18.04
+  eslint:
+    name: eslint (.js/.ts/.html)
+    runs-on: [windows-latest, ubuntu-latest, macos-latest]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
@@ -27,6 +24,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-#      - name: Run tests
-#        run: npm test
-  
+      - name: Run build
+        run: npm run build
+      - name: List directory
+        run: ls -la dist/
