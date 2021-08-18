@@ -30,5 +30,20 @@ jobs:
         run: npm install
       - name: Run build
         run: npm run build -- -mwl
-      - name: List directory
-        run: ls -la dist/
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Archive Windows executables
+        uses: actions/upload-artifact@v2
+        with:
+          name: Windows installer (NSIS)
+          path: dist/*.exe
+      - name: Archive macOS executables
+        uses: actions/upload-artifact@v2
+        with:
+          name: macOS DMG
+          path: dist/*.dmg
+      - name: Archive Linux executables
+        uses: actions/upload-artifact@v2
+        with:
+          name: Linux AppImage
+          path: dist/*.AppImage
