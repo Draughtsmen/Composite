@@ -24,7 +24,7 @@ function createWindow() {
     },
   });
 
-  // win.removeMenu();
+  win.removeMenu();
 
   if (process.env.ANGULAR_LOAD === "server") {
     win.loadURL("http://localhost:4200");
@@ -33,7 +33,7 @@ function createWindow() {
   }
 
   // Open the DevTools.
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 }
 
 app.whenReady().then(() => {
