@@ -41,8 +41,8 @@
 				"format": "function [name]([value]) {\n\treturn [return];\n}",
 				"data": [
 					{
-					  "id": "return",
-					  "name": "Return Variables",
+					  "id": "type",
+					  "name": "Return Variable",
 					  "type": "string"
 					},
 					{
