@@ -54,213 +54,213 @@ app.on("window-all-closed", () => {
 });
 
 ipcMain.once("load-samples", () => {
-  let samples = JSON.parse(JSON.stringify({
-    "project-list": {
-      "gml-sample": {
-        "name": "GMLSAMPLEPROJECT",
-        "language": "gml",
-        "doc": "gmldocs"
+  let samples = JSON.parse(
+    JSON.stringify({
+      "project-list": {
+        "gml-sample": {
+          name: "GMLSAMPLEPROJECT",
+          language: "gml",
+          doc: "gmldocs",
+        },
+        "cs-sample": {
+          name: "C#SAMPLEPROJECT",
+          language: "c#",
+          doc: "gmldocs",
+        },
       },
-      "cs-sample": {
-        "name": "C#SAMPLEPROJECT",
-        "language": "c#",
-        "doc": "gmldocs"
-      }
-    },
-    "project-store-gml-sample": {
-      "id": "gml-sample",
-      "name": "GMLSAMPLEPROJECT",
-      "language": "gml",
-      "doc": "gmldocs",
-      "data": {
-        "_type": "CompositeProject",
-        "name": "GMLSAMPLEPROJECT",
-        "files": [
-          {
-            "_type": "CompositeGroup",
-            "name": "FILENAME.gml",
-            "description": "DEFAULT DESCRIPTION",
-            "type": "group",
-            "composite": [
-              {
-                "_type": "CompositeFunction",
-                "name": "FUNCTIONNAME",
-                "description": "DEFAULT DESCRIPTION",
-                "type": "function",
-                "args": []
-              },
-              {
-                "_type": "CompositeVariable",
-                "name": "VARIABLENAME",
-                "description": "DEFAULT DESCRIPTION",
-                "type": "variable",
-                "variableType": "boolean",
-                "value": "true"
-              }
-            ]
-          },
-          {
-            "_type": "CompositeGroup",
-            "name": "GIVEMEAFUNCTION.gml",
-            "description": "DEFAULT DESCRIPTION",
-            "type": "group",
-            "composite": []
-          },
-          {
-            "_type": "CompositeGroup",
-            "name": "GIVEMEVARIABLE.gml",
-            "description": "DEFAULT DESCRIPTION",
-            "type": "group",
-            "composite": []
-          },
-          {
-            "_type": "CompositeGroup",
-            "name": "MODIFYME.gml",
-            "description": "DEFAULT DESCRIPTION",
-            "type": "group",
-            "composite": [
-              {
-                "_type": "CompositeFunction",
-                "name": "CHANGEME",
-                "description": "DEFAULT DESCRIPTION",
-                "type": "function",
-                "args": [
-                  "CHANGETHISARGUMENT"
-                ]
-              },
-              {
-                "_type": "CompositeFunction",
-                "name": "DONOTCHANGE",
-                "description": "DEFAULT DESCRIPTION",
-                "type": "function",
-                "args": []
-              }
-            ]
-          }
-        ]
-      }
-    },
-    "project-store-cs-sample": {
-      "id": "cs-sample",
-      "name": "C#SAMPLEPROJECT",
-      "language": "c#",
-      "doc": "gmldocs",
-      "data": {
-        "_type": "CompositeProject",
-        "name": "C#SAMPLEPROJECT",
-        "files": [
-          {
-            "_type": "CompositeGroup",
-            "name": "STARTFILE.cs",
-            "description": "DEFAULT DESCRIPTION",
-            "type": "group",
-            "composite": [
-              {
-                "_type": "CompositeClass",
-                "name": "CLASSNAME",
-                "description": "DEFAULT DESCRIPTION",
-                "type": "class",
-                "prefix": "public",
-                "postfix": "",
-                "memberVariables": [
-                  {
-                    "_type": "CompositeVariable",
-                    "name": "MEMBERVARIABLE",
-                    "description": "DEFAULT DESCRIPTION",
-                    "type": "variable",
-                    "variableType": "int",
-                    "value": "100"
-                  }
-                ],
-                "memberFunctions": [
-                  {
-                    "_type": "CompositeFunction",
-                    "name": "MEMBERFUNCTION",
-                    "description": "DEFAULT DESCRIPTION",
-                    "type": "function",
-                    "returnType": "bool",
-                    "args": []
-                  }
-                ],
-                "subclasses": []
-              }
-            ]
-          },
-          {
-            "_type": "CompositeGroup",
-            "name": "C#FILENAME.cs",
-            "description": "DEFAULT DESCRIPTION",
-            "type": "group",
-            "composite": [
-              {
-                "_type": "CompositeFunction",
-                "name": "C#FUNCTION",
-                "description": "DEFAULT DESCRIPTION",
-                "type": "function",
-                "returnType": "string",
-                "args": []
-              },
-              {
-                "_type": "CompositeVariable",
-                "name": "C#VARIABLE",
-                "description": "DEFAULT DESCRIPTION",
-                "type": "variable",
-                "variableType": "string",
-                "value": "hello"
-              }
-            ]
-          },
-          {
-            "_type": "CompositeGroup",
-            "name": "ANOTHERFILE.cs",
-            "description": "DEFAULT DESCRIPTION",
-            "type": "group",
-            "composite": [
-              {
-                "_type": "CompositeClass",
-                "name": "FORMEMBERFUNCTION",
-                "description": "DEFAULT DESCRIPTION",
-                "type": "class",
-                "prefix": "public",
-                "postfix": "",
-                "memberVariables": [],
-                "memberFunctions": [],
-                "subclasses": []
-              },
-              {
-                "_type": "CompositeClass",
-                "name": "MODIFYME",
-                "description": "DEFAULT DESCRIPTION",
-                "type": "class",
-                "prefix": "private",
-                "postfix": "",
-                "memberVariables": [
-                  {
-                    "_type": "CompositeVariable",
-                    "name": "CHANGEME",
-                    "description": "DEFAULT DESCRIPTION",
-                    "type": "variable",
-                    "variableType": "string",
-                    "value": "Change me!"
-                  },
-                  {
-                    "_type": "CompositeVariable",
-                    "name": "DONOTCHANGE",
-                    "description": "DEFAULT DESCRIPTION",
-                    "type": "variable",
-                    "variableType": "string",
-                    "value": "Don't change me!"
-                  }
-                ],
-                "memberFunctions": [],
-                "subclasses": []
-              }
-            ]
-          }
-        ]
-      }
-    }
-  }));
+      "project-store-gml-sample": {
+        id: "gml-sample",
+        name: "GMLSAMPLEPROJECT",
+        language: "gml",
+        doc: "gmldocs",
+        data: {
+          _type: "CompositeProject",
+          name: "GMLSAMPLEPROJECT",
+          files: [
+            {
+              _type: "CompositeGroup",
+              name: "FILENAME.gml",
+              description: "DEFAULT DESCRIPTION",
+              type: "group",
+              composite: [
+                {
+                  _type: "CompositeFunction",
+                  name: "FUNCTIONNAME",
+                  description: "DEFAULT DESCRIPTION",
+                  type: "function",
+                  args: [],
+                },
+                {
+                  _type: "CompositeVariable",
+                  name: "VARIABLENAME",
+                  description: "DEFAULT DESCRIPTION",
+                  type: "variable",
+                  variableType: "boolean",
+                  value: "true",
+                },
+              ],
+            },
+            {
+              _type: "CompositeGroup",
+              name: "GIVEMEAFUNCTION.gml",
+              description: "DEFAULT DESCRIPTION",
+              type: "group",
+              composite: [],
+            },
+            {
+              _type: "CompositeGroup",
+              name: "GIVEMEVARIABLE.gml",
+              description: "DEFAULT DESCRIPTION",
+              type: "group",
+              composite: [],
+            },
+            {
+              _type: "CompositeGroup",
+              name: "MODIFYME.gml",
+              description: "DEFAULT DESCRIPTION",
+              type: "group",
+              composite: [
+                {
+                  _type: "CompositeFunction",
+                  name: "CHANGEME",
+                  description: "DEFAULT DESCRIPTION",
+                  type: "function",
+                  args: ["CHANGETHISARGUMENT"],
+                },
+                {
+                  _type: "CompositeFunction",
+                  name: "DONOTCHANGE",
+                  description: "DEFAULT DESCRIPTION",
+                  type: "function",
+                  args: [],
+                },
+              ],
+            },
+          ],
+        },
+      },
+      "project-store-cs-sample": {
+        id: "cs-sample",
+        name: "C#SAMPLEPROJECT",
+        language: "c#",
+        doc: "gmldocs",
+        data: {
+          _type: "CompositeProject",
+          name: "C#SAMPLEPROJECT",
+          files: [
+            {
+              _type: "CompositeGroup",
+              name: "STARTFILE.cs",
+              description: "DEFAULT DESCRIPTION",
+              type: "group",
+              composite: [
+                {
+                  _type: "CompositeClass",
+                  name: "CLASSNAME",
+                  description: "DEFAULT DESCRIPTION",
+                  type: "class",
+                  prefix: "public",
+                  postfix: "",
+                  memberVariables: [
+                    {
+                      _type: "CompositeVariable",
+                      name: "MEMBERVARIABLE",
+                      description: "DEFAULT DESCRIPTION",
+                      type: "variable",
+                      variableType: "int",
+                      value: "100",
+                    },
+                  ],
+                  memberFunctions: [
+                    {
+                      _type: "CompositeFunction",
+                      name: "MEMBERFUNCTION",
+                      description: "DEFAULT DESCRIPTION",
+                      type: "function",
+                      returnType: "bool",
+                      args: [],
+                    },
+                  ],
+                  subclasses: [],
+                },
+              ],
+            },
+            {
+              _type: "CompositeGroup",
+              name: "C#FILENAME.cs",
+              description: "DEFAULT DESCRIPTION",
+              type: "group",
+              composite: [
+                {
+                  _type: "CompositeFunction",
+                  name: "C#FUNCTION",
+                  description: "DEFAULT DESCRIPTION",
+                  type: "function",
+                  returnType: "string",
+                  args: [],
+                },
+                {
+                  _type: "CompositeVariable",
+                  name: "C#VARIABLE",
+                  description: "DEFAULT DESCRIPTION",
+                  type: "variable",
+                  variableType: "string",
+                  value: "hello",
+                },
+              ],
+            },
+            {
+              _type: "CompositeGroup",
+              name: "ANOTHERFILE.cs",
+              description: "DEFAULT DESCRIPTION",
+              type: "group",
+              composite: [
+                {
+                  _type: "CompositeClass",
+                  name: "FORMEMBERFUNCTION",
+                  description: "DEFAULT DESCRIPTION",
+                  type: "class",
+                  prefix: "public",
+                  postfix: "",
+                  memberVariables: [],
+                  memberFunctions: [],
+                  subclasses: [],
+                },
+                {
+                  _type: "CompositeClass",
+                  name: "MODIFYME",
+                  description: "DEFAULT DESCRIPTION",
+                  type: "class",
+                  prefix: "private",
+                  postfix: "",
+                  memberVariables: [
+                    {
+                      _type: "CompositeVariable",
+                      name: "CHANGEME",
+                      description: "DEFAULT DESCRIPTION",
+                      type: "variable",
+                      variableType: "string",
+                      value: "Change me!",
+                    },
+                    {
+                      _type: "CompositeVariable",
+                      name: "DONOTCHANGE",
+                      description: "DEFAULT DESCRIPTION",
+                      type: "variable",
+                      variableType: "string",
+                      value: "Don't change me!",
+                    },
+                  ],
+                  memberFunctions: [],
+                  subclasses: [],
+                },
+              ],
+            },
+          ],
+        },
+      },
+    })
+  );
 
   store.set("project-list", samples["project-list"]);
   store.set("project-store-gml-sample", samples["project-store-gml-sample"]);
