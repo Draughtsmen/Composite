@@ -33,8 +33,7 @@
     "lint:eslint-fix": "yarpm run lint:eslint -- --fix",
     "lint:stylelint": "stylelint \"src/**/*.scss\"",
     "lint:stylelint-fix": "yarpm run lint:stylelint -- --fix",
-    "test": "mocha",
-    "tempbuild": "electron-builder"
+    "test": "mocha"
   },
   "private": true,
   "dependencies": {
