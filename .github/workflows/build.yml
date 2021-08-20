@@ -8,8 +8,37 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  build-windows:
     name: Build Composite
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - name: Cache Node Modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: '%AppData%/npm-cache'
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm install
+      - name: Run build
+        run: npm run build -- -w
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Archive Windows executables
+        uses: actions/upload-artifact@v2
+        with:
+          name: Windows installer (NSIS)
+          path: dist/*.exe
+  build-mac-linux:
+    name: Build Composite (macOS/Linux)
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -29,14 +58,9 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run build
-        run: npm run build -- -mwl
+        run: npm run build -- -ml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Archive Windows executables
-        uses: actions/upload-artifact@v2
-        with:
-          name: Windows installer (NSIS)
-          path: dist/*.exe
       - name: Archive macOS executables
         uses: actions/upload-artifact@v2
         with:
