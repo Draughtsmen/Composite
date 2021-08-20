@@ -9,8 +9,8 @@ concurrency:
 
 jobs:
   build-windows:
-    name: Build Composite
-    runs-on: macos-latest
+    name: Build Composite (Windows)
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
