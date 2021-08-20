@@ -2,24 +2,30 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.5.
 
-## First-time setup
+## Installation
 
-### Prerequisites
+Download the associated release for your operating system from the [releases page](https://github.com/Draughtsmen/Composite/releases) and run it. On Windows, it will be an installer, and on macOS and Linux it will be a standalone executable.
+
+## Development
+### First-time setup
+
+#### Prerequisites
 
 Node (LTS, v14.x) - https://nodejs.org/en/download/
+
 Angular CLI - https://angular.io/cli#installing-angular-cli
 
-### Setup
+#### Setup
 
 Clone this repository, and run `npm install` at the root of this repository.
 
-## Running
+### Running
 
 Run `npm start` to build the Angular code and run the Electron app.
 
-## Tools
+### Tools
 
-### Reloading
+#### Reloading
 
 When running through NPM, Composite will run with hot reloading by default. When modifying Composite, hot reloading will only reload parts of the application that were modified. This mode can also be started with the npm script `start:hot-reload`.
 
@@ -29,7 +35,7 @@ To run Composite without reloading, use the npm script `start:file`. This will l
 
 Note that when using reloading, it serves the Angular pages on port 4200.
 
-### Linting
+#### Linting
 
 Linting is done using eslint and Prettier for .js, .ts, and .html files, and .scss files are linted with stylelint.
 
