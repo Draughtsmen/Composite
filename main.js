@@ -53,13 +53,14 @@ app.on("window-all-closed", () => {
   }
 });
 
-ipcMain.once("load-samples", () => {
+function loadDefaultData() {
   let samples = JSON.parse(fs.readFileSync("sample.json"));
 
   store.set("project-list", samples["project-list"]);
   store.set("project-store-gml-sample", samples["project-store-gml-sample"]);
   store.set("project-store-cs-sample", samples["project-store-cs-sample"]);
-});
+  return samples["project-list"];
+}
 
 // reads a directory of JSON conf files and merges them into one object
 function mergeJSON(dir) {
@@ -83,12 +84,7 @@ ipcMain.on("list-projects", (event) => {
 
   let list = store.get("project-list", undefined);
   if (list === undefined) {
-    store.set("project-list", {});
-  }
-
-  // check if project list is empty
-  if (!Object.keys(list).length) {
-    event.sender.send("load-samples-reply");
+    list = loadDefaultData();
   }
 
   event.sender.send("list-projects-reply", store.get("project-list"));

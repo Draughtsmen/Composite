@@ -18,7 +18,8 @@
     "files": [
       "conf",
       "dist/composite",
-      "main.js"
+      "main.js",
+      "sample.json"
     ]
   },
   "scripts": {
