@@ -54,7 +54,9 @@ app.on("window-all-closed", () => {
 });
 
 function loadDefaultData() {
-  let samples = JSON.parse(fs.readFileSync(path.join(__dirname, "sample.json")));
+  let samples = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "sample.json"))
+  );
 
   store.set("project-list", samples["project-list"]);
   store.set("project-store-gml-sample", samples["project-store-gml-sample"]);
